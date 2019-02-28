@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/leveldbutil.dir/db/leveldbutil.cc.o  -o leveldbutil  -L/home/meggie/Documents/mydb/hoard -Wl,-rpath,/home/meggie/Documents/mydb/hoard libleveldb.a -lpthread -lhoard 
