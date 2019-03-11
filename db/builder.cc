@@ -40,6 +40,9 @@ Status BuildTable(const std::string& dbname,
   int hot_num = 0;
   int not_in_num = 0;
   int i = 0;
+  bool has_current_user_key = false;
+  std::string current_user_key;
+  SequenceNumber last_sequence_for_key = kMaxSequenceNumber;
   ///////////////meggie
   std::string fname = TableFileName(dbname, meta->number);
   if (iter->Valid()) {
@@ -50,33 +53,60 @@ Status BuildTable(const std::string& dbname,
     }
 
     TableBuilder* builder = new TableBuilder(options, file);
-    meta->smallest.DecodeFrom(iter->key());
     for (; iter->Valid(); iter->Next()) {
       Slice key = iter->key();
       //////////meggie
+      bool drop = false;
       if(hot_bf && nvmtbl){
           i++;
           Slice user_key(key.data(), key.size() - 8);
-          if(hot_bf->CheckHot(user_key)){
-             //DEBUG_T("user_key:%s is hot\n", user_key.ToString().c_str());
-             hot_num++;
+          /*if(!has_current_user_key ||
+                  nvmtbl->GetComparator()->user_comparator()->Compare(user_key, 
+                      Slice(current_user_key)) != 0){
+              current_user_key.assign(user_key.data(), user_key.size());
+              has_current_user_key = true;
+              last_sequence_for_key = kMaxSequenceNumber;
           }
-          if(!nvmtbl->MaybeContains(user_key)){
-              not_in_num++;
+          if(last_sequence_for_key < kMaxSequenceNumber)
+              drop = true;*/
+          
+          //last_sequence_for_key =  DecodeFixed64(key.data() + key.size() - 8) >> 8;
+
+          if(!drop){ 
+              if(hot_bf->CheckHot(user_key)){
+                 //DEBUG_T("user_key:%s is hot\n", user_key.ToString().c_str());
+                 hot_num++;
+              }
+              if(!nvmtbl->MaybeContains(user_key)){
+                  not_in_num++;
+              }
+              else{
+                 ;//DEBUG_T("user_key:%s is in nvmtable\n", user_key.ToString().c_str());
+              }
+              //DEBUG_T("user_key:%s\n", user_key.ToString().c_str());
+              char* number = const_cast<char*>(user_key.ToString().c_str()) + 3;
+              //DEBUG_T("user_key number:%s\n", number);
+              //if(!hot_bf->CheckHot(user_key) && 
+                //    !nvmtbl->MaybeContains(user_key)){
+              if(atoi(number) % 3 == 0){  
+                if(first_entry){
+                    meta->smallest.DecodeFrom(iter->key());
+                    first_entry = false;
+                }
+                meta->largest.DecodeFrom(key);
+                builder->Add(key, iter->value());
+                //DEBUG_T("after add to sstable\n");
+                sst_num++;
+              }
+              else{
+                //DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
+                nvmtbl->Add(iter->GetNodeKey(), user_key);
+                //DEBUG_T("after add to nvmtable\n");
+                nvm_num++;
+              }
           }
-          else{
-             //DEBUG_T("user_key:%s is in nvmtable\n", user_key.ToString().c_str());
-          }
-          if(!hot_bf->CheckHot(user_key) && 
-                !nvmtbl->MaybeContains(user_key)){
-            meta->largest.DecodeFrom(key);
-            builder->Add(key, iter->value());
-            sst_num++;
-          }
-          else{
-            nvmtbl->Add(iter->GetNodeKey(), user_key);
-            nvm_num++;
-          }
+          else 
+              ;//DEBUG_T("it will be dropped\n");
       }
       else{
           meta->largest.DecodeFrom(key);
@@ -90,13 +120,24 @@ Status BuildTable(const std::string& dbname,
     //if(sst_num == 0){
         nvmtbl->PrintInfo();
         //DEBUG_T("i:%d, not_in_num:%d, hot_num:%d\n", i, not_in_num, hot_num);
-        //DEBUG_T("after buildtable, req_num_of_bf:%lu,nvm_num:%d, sst_num:%d\n", 
-          //  hot_bf->GetReqNum(), nvm_num, sst_num);
+        /*DEBUG_T("after buildtable, req_num_of_bf:%lu,nvm_num:%d, sst_num:%d\n", 
+            hot_bf->GetReqNum(), nvm_num, sst_num);*/
     //}
     /////////////////meggie
     
     
     // Finish and check for builder errors
+    
+    ///////////////meggie
+    if(sst_num <= 0){
+        delete builder; 
+        delete file;
+        env->DeleteFile(fname);
+        meta->file_size = 0;
+        return s;
+    }
+    ///////////////meggie
+    
     s = builder->Finish();
     if (s.ok()) {
       meta->file_size = builder->FileSize();

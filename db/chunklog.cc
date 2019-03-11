@@ -16,22 +16,22 @@
 namespace leveldb{
 chunkLog::chunkLog(std::string* logfile, 
         size_t filesize, bool recovery){
-    DEBUG_T("log_file:%s\n", logfile->c_str());
+    //DEBUG_T("log_file:%s\n", logfile->c_str());
     fd = open(logfile->c_str(), O_RDWR);
     if(fd == -1){
-        perror("open_logfile_failed\n");
+        //perror("open_logfile_failed\n");
         fd = open(logfile->c_str(), O_RDWR | O_CREAT, 0664); 
         if(fd == -1)
             perror("create_logfile_failed\n");
-        else
-            perror("create_logfile_success\n");
+        /*else
+            perror("create_logfile_success\n");*/
     }
-    if(ftruncate(fd, filesize) != 0){
+    if(ftruncate(fd, LOG_THRESH * filesize) != 0){
         perror("ftruncate_failed\n");
     }
-    else{
+    /*else{
         perror("ftruncate_success\n");
-    }
+    }*/
     log_map_start_ = (void*)mmap(NULL, LOG_THRESH * filesize, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
     if(recovery){  
         log_bytes_remaining_ = *((size_t*)log_map_start_);

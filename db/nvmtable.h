@@ -104,6 +104,7 @@ class NVMTable {
         Iterator* NewIterator();
         Iterator* GetMergeIterator(std::vector<chunkTable*>& toCompactionList);
         Iterator* getchunkTableIterator(int index);
+        const InternalKeyComparator* GetComparator(){return comparator_;}
         void PrintInfo(); 
         void Ref(){++refs_;}
         void Unref(){

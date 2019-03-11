@@ -46,10 +46,10 @@ Arena::~Arena() {
         else
             delete[] blocks_[i];
     }
-    DEBUG_T("before close fd\n");
+    //DEBUG_T("before close fd\n");
     if (fd != -1)
         close(fd);
-    DEBUG_T("end\n");
+    //DEBUG_T("end\n");
 }
 
 void* Arena:: operator new(size_t size)
@@ -216,10 +216,10 @@ char* ArenaNVM::AllocateNVMBlock(size_t block_bytes) {
 
     char *result = (char *)mmap(NULL, MEM_THRESH * block_bytes, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
 
-    if(result == NULL)
+    /*if(result == NULL)
         DEBUG_T("after mmap, result is null\n");
     else 
-        DEBUG_T("mmap success\n");
+        DEBUG_T("mmap success\n");*/
     kSize = MEM_THRESH * block_bytes;
 
     allocation = true;

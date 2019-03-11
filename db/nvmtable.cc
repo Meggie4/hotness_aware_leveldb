@@ -116,9 +116,11 @@ namespace leveldb{
         uint64_t tag = DecodeFixed64(key_ptr + key_length - 8);
         //ValueType type = static_cast<ValueType>(tag & 0xff);
         SequenceNumber s = tag >> 8;
+        //DEBUG_T("before add to chunklog\n");
         const char* kv_offset = reinterpret_cast<char*>(cklog_->insert(kvitem, kv_length));
         //DEBUG_T("chunktable,add kvoffset：%p\n", kv_offset);
         table_.Add(kvitem, kv_offset, s); 
+        //DEBUG_T("after add to chunktable\n");
     }
 
     bool chunkTable::Get(const Slice& user_key, std::string* value, Status* s, SequenceNumber sequence){
@@ -267,10 +269,10 @@ namespace leveldb{
                             iter->second.second, false);
             if(cktables_[index]){
                 delete cktables_[index];
-                DEBUG_T("delete chunk%d, and allocate another\n", index);
+                //DEBUG_T("delete chunk%d, and allocate another\n", index);
             }
-            else 
-                DEBUG_T("allocate new chunk%d\n", index);
+            /*else 
+                DEBUG_T("allocate new chunk%d\n", index);*/
             cktables_[index] = cktbl;
         } 
     }

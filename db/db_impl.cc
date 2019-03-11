@@ -96,6 +96,10 @@ struct DBImpl::NVMTableCompactionState{
         uint64_t file_size;
         InternalKey smallest, largest;
     };
+    NVMTableCompactionState()
+        :builder(nullptr),
+        outfile(nullptr),
+        total_bytes(0){}
     std::vector<Output> outputs;
     WritableFile* outfile;
     TableBuilder* builder;
@@ -119,14 +123,17 @@ Options SanitizeOptions(const std::string& dbname,
   result.comparator = icmp;
   result.filter_policy = (src.filter_policy != nullptr) ? ipolicy : nullptr;
   ClipToRange(&result.max_open_files,    64 + kNumNonTableCacheFiles, 50000);
-  ClipToRange(&result.write_buffer_size, 64<<10,                      1<<30);
+  ClipToRange(&result.write_buffer_size, 10<<10,                      1<<30);
   ClipToRange(&result.max_file_size,     1<<20,                       1<<30);
   ClipToRange(&result.block_size,        1<<10,                       4<<20);
   /////////////////////meggie
-  ClipToRange(&result.chunk_index_size, 64<<10, 1<<30);
-  ClipToRange(&result.chunk_log_size, 64<<10, 1<<30);
+  ClipToRange(&result.chunk_index_size, 1<<10, 1<<30);
+  ClipToRange(&result.chunk_log_size, 10<<10, 1<<30);
   /////////////////////meggie
-  if (result.info_log == nullptr) {
+  
+  DEBUG_T("write_buffer_size:%zu, chunk_index_size:%zu, chunk_log_size:%zu\n", 
+          result.write_buffer_size, result.chunk_index_size, result.chunk_log_size);
+  if (result.info_log == nullptr){ 
     // Open a log file in the same directory as the db
     src.env->CreateDir(dbname);  // In case it does not exist
     ////////////meggie
@@ -396,9 +403,9 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
     }
   }
 
-  DEBUG_T("before version recover\n");
+  //DEBUG_T("before version recover\n");
   s = versions_->Recover(save_manifest);
-  DEBUG_T("after version recover\n");
+  //DEBUG_T("after version recover\n");
   if (!s.ok()) {
     DEBUG_T("after vesion->recover !s.ok()\n");
     return s;
@@ -698,6 +705,14 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
   // Note that if file_size is zero, the file has been deleted and
   // should not be added to the manifest.
   int level = 0;
+  
+  //////////////meggie
+  if(s.ok() && meta.file_size == 0){
+    DEBUG_T("all datas in the memtable are hot\n");
+    return s;
+  } 
+  //////////////meggie
+
   if (s.ok() && meta.file_size > 0) {
     const Slice min_user_key = meta.smallest.user_key();
     const Slice max_user_key = meta.largest.user_key();
@@ -1723,7 +1738,7 @@ Status DBImpl::MakeRoomForImmu(bool force){
                 }
             } 
             bg_nvmtable_cv_.Signal(); 
-            Log(options_.info_log, "wait nvmtable compaction finished.....\n");
+            //DEBUG_T("wait nvmtable compaction finished.....\n");
             bg_fg_cv_.Wait();
             exceedThresh = nvmtbl_->CheckAndAddToCompactionList(
                                 to_compaction_list_,
@@ -1790,11 +1805,16 @@ Status DBImpl::WriteNVMTableToLevel0(std::vector<chunkTable*>& to_compaction_lis
 
     mutex_.Unlock();
     
+    //DEBUG_T("before to SeekToFirst\n");
     iter->SeekToFirst();
+    //DEBUG_T("after to SeekToFirst\n");
     for(; iter->Valid(); iter->Next()) {
+        //DEBUG_T("before get key\n");
         Slice key = iter->key();
+        //DEBUG_T("after get key\n");
         if(nvmcompact.builder == NULL){
             mutex_.Lock();
+            //DEBUG_T("before get filenumber\n");
             file_number = versions_->NewFileNumber();
             pending_outputs_.insert(file_number);
             NVMTableCompactionState::Output out;
@@ -1804,19 +1824,23 @@ Status DBImpl::WriteNVMTableToLevel0(std::vector<chunkTable*>& to_compaction_lis
             nvmcompact.outputs.push_back(out);
             mutex_.Unlock();
             
+            //DEBUG_T("before get tablefilename\n");
             std::string fname = TableFileName(dbname_, file_number);
             s = env_->NewWritableFile(fname, &nvmcompact.outfile);
             
             if(s.ok()){
+                //DEBUG_T("before get tablebuilder\n");
                 nvmcompact.builder = new TableBuilder(options_, nvmcompact.outfile);
+                nvmcompact.current_output()->smallest.DecodeFrom(key);
             }
             else{
                 break;
             }
-            nvmcompact.current_output()->smallest.DecodeFrom(key);
         }
+        //DEBUG_T("before current_output\n");
         nvmcompact.current_output()->largest.DecodeFrom(key);
         
+        //DEBUG_T("add kv to sstable\n");
         nvmcompact.builder->Add(key, iter->value());
 
         if(nvmcompact.builder->FileSize() >= kLevel0FileSize){
@@ -1834,6 +1858,7 @@ Status DBImpl::WriteNVMTableToLevel0(std::vector<chunkTable*>& to_compaction_lis
     
     mutex_.Lock();
     
+    DEBUG_T("NVMTable compaction gernerate %d sstables\n", nvmcompact.outputs.size());
     for(int i = 0; i < nvmcompact.outputs.size(); i++){
         const NVMTableCompactionState::Output& out = nvmcompact.outputs[i];
         pending_outputs_.erase(out.number);
@@ -1872,8 +1897,9 @@ void DBImpl::CompactNVMTableThread(){
         VersionEdit edit;
         Version* base = versions_->current();
         base->Ref();
-        
+        //DEBUG_T("before WriteNVMTableToLevel0\n"); 
         Status s = WriteNVMTableToLevel0(to_compaction_list_, &edit, base);
+        //DEBUG_T("after WriteNVMTableToLevel0\n"); 
         base->Unref();
         base = NULL;
 
@@ -1886,6 +1912,7 @@ void DBImpl::CompactNVMTableThread(){
         if(s.ok()){
             std::vector<chunkTable*>().swap(to_compaction_list_);
             std::vector<int>().swap(need_updates_);
+            //DEBUG_T("to wakeup nvmtable wait\n");
             bg_fg_cv_.SignalAll();
             DeleteObsoleteFiles();
         }
@@ -1894,7 +1921,7 @@ void DBImpl::CompactNVMTableThread(){
         }
     }
     num_nvmtable_threads_ -= 1;
-    Log(options_.info_log, "cleanup num_nvmtable_threads_.....\n");
+    //DEBUG_T("cleanup num_nvmtable_threads_.....\n");
     bg_fg_cv_.SignalAll();
 }
   
