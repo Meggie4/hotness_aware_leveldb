@@ -83,6 +83,11 @@ struct LEVELDB_EXPORT Options {
   // Default: 4MB
   size_t write_buffer_size;
 
+  /////////////////meggie
+  size_t chunk_index_size;
+  size_t chunk_log_size;
+  /////////////////meggie
+
   // Number of open files that can be used by the DB.  You may need to
   // increase this if your database has a large working set (budget
   // one open file per 2MB of working set).

@@ -222,6 +222,19 @@ class VersionSet {
   // Return the log file number for the log file that is currently
   // being compacted, or zero if there is no such log file.
   uint64_t PrevLogNumber() const { return prev_log_number_; }
+  
+  ///////////////////meggie
+  void GetChunkFiles(std::vector<uint64_t>& chunkindex_files,
+                        std::vector<uint64_t>& chunklog_files) const {
+      for(int i = 0; i < chunkindex_files_.size(); i++){
+          chunkindex_files[i] = chunkindex_files_[i];
+          chunklog_files[i] = chunklog_files_[i];
+      }
+  }
+
+  void AddChunkFiles(std::vector<uint64_t>* chunkindex_files, 
+        std::vector<uint64_t>* chunklog_files);
+  ///////////////////meggie
 
   // Pick level and inputs for a new compaction.
   // Returns nullptr if there is no compaction to be done.
@@ -303,6 +316,10 @@ class VersionSet {
   uint64_t last_sequence_;
   uint64_t log_number_;
   uint64_t prev_log_number_;  // 0 or backing store for memtable being compacted
+  ///////////meggie
+  std::vector<uint64_t> chunkindex_files_; 
+  std::vector<uint64_t> chunklog_files_; 
+  ///////////meggie
 
   // Opened lazily
   WritableFile* descriptor_file_;

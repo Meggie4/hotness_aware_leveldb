@@ -127,7 +127,16 @@ bool ParseFileName(const std::string& filename,
       *type = kTableFile;
     } else if (suffix == Slice(".dbtmp")) {
       *type = kTempFile;
-    } else {
+    } 
+    //////////////////meggie
+    else if(suffix == Slice(".ckg")){
+      *type = kCkgFile;
+    }
+    else if(suffix == Slice(".idx")){
+      *type = kIdxFile;
+    }
+    //////////////////meggie
+    else {
       return false;
     }
     *number = num;

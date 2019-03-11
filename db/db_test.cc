@@ -18,6 +18,10 @@
 #include "util/mutexlock.h"
 #include "util/testharness.h"
 #include "util/testutil.h"
+////////////meggie
+#include <iostream>
+#include "util/debug.h"
+////////////meggie
 
 namespace leveldb {
 
@@ -241,6 +245,7 @@ class DBTest {
 
  public:
   std::string dbname_;
+  std::string dbname_nvm_;
   SpecialEnv* env_;
   DB* db_;
 
@@ -249,17 +254,28 @@ class DBTest {
   DBTest() : option_config_(kDefault),
              env_(new SpecialEnv(Env::Default())) {
     filter_policy_ = NewBloomFilterPolicy(10);
+    std::cout<<"before dbname"<<std::endl;
     dbname_ = test::TmpDir() + "/db_test";
-    DestroyDB(dbname_, Options());
+    /////////////meggie
+    dbname_nvm_ = test::NvmDir() + "/db_test";
+    /////////////meggie
+    DestroyDB(dbname_, Options(), dbname_nvm_);
+    std::cout<<"before db = nullptr"<<std::endl;
     db_ = nullptr;
+    std::cout<<"before reopen"<<std::endl;
     Reopen();
   }
 
   ~DBTest() {
+    std::cout<<"before delete db_"<<std::endl;
     delete db_;
-    DestroyDB(dbname_, Options());
+    std::cout<<"before destroy db_"<<std::endl;
+    DestroyDB(dbname_, Options(), dbname_nvm_);
+    std::cout<<"before delete env_"<<std::endl;
     delete env_;
+    std::cout<<"before delete filter_policy"<<std::endl;
     delete filter_policy_;
+    std::cout<<"after delete filter_policy"<<std::endl;
   }
 
   // Switch to a fresh database with the next option configuration to
@@ -269,7 +285,9 @@ class DBTest {
     if (option_config_ >= kEnd) {
       return false;
     } else {
+      std::cout<<"before DestroyAndReopen"<<std::endl;
       DestroyAndReopen();
+      std::cout<<"after DestroyAndReopen"<<std::endl;
       return true;
     }
   }
@@ -308,9 +326,12 @@ class DBTest {
   }
 
   void DestroyAndReopen(Options* options = nullptr) {
+    std::cout<<"before delete db_"<<std::endl;
     delete db_;
     db_ = nullptr;
-    DestroyDB(dbname_, Options());
+    std::cout<<"before DestroyDB"<<std::endl;
+    DestroyDB(dbname_, Options(), dbname_nvm_);
+    std::cout<<"after DestroyDB"<<std::endl;
     ASSERT_OK(TryReopen(options));
   }
 
@@ -318,6 +339,7 @@ class DBTest {
     delete db_;
     db_ = nullptr;
     Options opts;
+    std::cout<<"after delete db_"<<std::endl;
     if (options != nullptr) {
       opts = *options;
     } else {
@@ -325,8 +347,10 @@ class DBTest {
       opts.create_if_missing = true;
     }
     last_options_ = opts;
+    std::cout<<"before DB::Open"<<std::endl;
 
-    return DB::Open(opts, dbname_, &db_);
+    return DB::Open(opts, dbname_, &db_, dbname_nvm_);
+    std::cout<<"after DB::Open"<<std::endl;
   }
 
   Status Put(const std::string& k, const std::string& v) {
@@ -546,12 +570,17 @@ class DBTest {
     return files_renamed;
   }
 };
-
+/*
 TEST(DBTest, Empty) {
+  std::cout<<"before start"<<std::endl;
   do {
+    std::cout<<"before db!=nullptr"<<std::endl;
     ASSERT_TRUE(db_ != nullptr);
+    std::cout<<"before not_found"<<std::endl;
     ASSERT_EQ("NOT_FOUND", Get("foo"));
+    std::cout<<"after not_found"<<std::endl;
   } while (ChangeOptions());
+  std::cout<<"before finish"<<std::endl;
 }
 
 TEST(DBTest, ReadWrite) {
@@ -564,7 +593,6 @@ TEST(DBTest, ReadWrite) {
     ASSERT_EQ("v2", Get("bar"));
   } while (ChangeOptions());
 }
-
 TEST(DBTest, PutDeleteGet) {
   do {
     ASSERT_OK(db_->Put(WriteOptions(), "foo", "v1"));
@@ -592,7 +620,10 @@ TEST(DBTest, GetFromImmutableLayer) {
     ASSERT_EQ("v1", Get("foo"));
     env_->delay_data_sync_.Release_Store(nullptr);   // Release sync calls
   } while (ChangeOptions());
+  printf("before finish\n");
 }
+
+
 
 TEST(DBTest, GetFromVersions) {
   do {
@@ -1008,6 +1039,7 @@ TEST(DBTest, RecoverDuringMemtableCompaction) {
     ASSERT_EQ(std::string(1000, 'y'), Get("big2"));
   } while (ChangeOptions());
 }
+*/
 
 static std::string Key(int i) {
   char buf[100];
@@ -1024,12 +1056,20 @@ TEST(DBTest, MinorCompactionsHappen) {
 
   int starting_num_tables = TotalTableFiles();
   for (int i = 0; i < N; i++) {
-    ASSERT_OK(Put(Key(i), Key(i) + std::string(1000, 'v')));
+    if(i % 5 == 0){
+        //DEBUG_T("insert,user_key:%s\n", Key(5).c_str());
+        ASSERT_OK(Put(Key(5), Key(i) + std::string(1000, 'v')));
+    }
+    else{ 
+        //DEBUG_T("insert,user_key:%s\n", Key(i).c_str());
+        ASSERT_OK(Put(Key(i), Key(i) + std::string(1000, 'v')));
+    }
   }
   int ending_num_tables = TotalTableFiles();
+  DEBUG_T("ending_num_tables:%d\n", ending_num_tables);
   ASSERT_GT(ending_num_tables, starting_num_tables);
 
-  for (int i = 0; i < N; i++) {
+  /*for (int i = 0; i < N; i++) {
     ASSERT_EQ(Key(i) + std::string(1000, 'v'), Get(Key(i)));
   }
 
@@ -1037,9 +1077,9 @@ TEST(DBTest, MinorCompactionsHappen) {
 
   for (int i = 0; i < N; i++) {
     ASSERT_EQ(Key(i) + std::string(1000, 'v'), Get(Key(i)));
-  }
+  }*/
 }
-
+/*
 TEST(DBTest, RecoverWithLargeLog) {
   {
     Options options = CurrentOptions();
@@ -1903,7 +1943,7 @@ TEST(DBTest, BloomFilter) {
   delete options.block_cache;
   delete options.filter_policy;
 }
-
+*/
 // Multi-threaded test:
 namespace {
 
@@ -1969,7 +2009,7 @@ static void MTThreadBody(void* arg) {
 }
 
 }  // namespace
-
+/*
 TEST(DBTest, MultiThreaded) {
   do {
     // Initialize state
@@ -2001,7 +2041,7 @@ TEST(DBTest, MultiThreaded) {
     }
   } while (ChangeOptions());
 }
-
+*/
 namespace {
 typedef std::map<std::string, std::string> KVMap;
 }
@@ -2155,7 +2195,7 @@ static bool CompareIterators(int step,
   delete dbiter;
   return ok;
 }
-
+/*
 TEST(DBTest, Randomized) {
   Random rnd(test::RandomSeed());
   do {
@@ -2226,7 +2266,7 @@ TEST(DBTest, Randomized) {
     if (db_snap != nullptr) db_->ReleaseSnapshot(db_snap);
   } while (ChangeOptions());
 }
-
+*/
 std::string MakeKey(unsigned int num) {
   char buf[30];
   snprintf(buf, sizeof(buf), "%016u", num);

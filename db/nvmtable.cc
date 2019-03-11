@@ -4,8 +4,11 @@
 #include "leveldb/env.h"
 #include "leveldb/iterator.h"
 #include "util/coding.h"
-#include "db/chunklog.h"
 #include "util/debug.h"
+#include "util/multi_bloomfilter.h"
+
+#define BIT_BLOOM_SIZE (1 << 10) << 10
+#define BIT_BLOOM_HASH 4
 namespace leveldb{
 
     static Slice GetNVMLengthPrefixedSlice(const char* data) {
@@ -90,9 +93,13 @@ namespace leveldb{
         arena_(arena),
         cklog_(cklog),
         table_(comparator_, arena, cklog_, recovery),
-        refs_(0){
+        refs_(0),
+        bbf_(new BitBloomFilter(BIT_BLOOM_HASH, BIT_BLOOM_SIZE)){
     }
     chunkTable::~chunkTable(){
+        delete bbf_;
+        delete arena_;
+        delete cklog_;
         assert(refs_ == 0);
     }
     void chunkTable::Add(const char* kvitem){
@@ -151,6 +158,14 @@ namespace leveldb{
         }
         return false;
     }
+   
+    void chunkTable::AddPredictIndex(const Slice& user_key){
+        bbf_->Add(user_key);
+    }
+
+    bool chunkTable::CheckPredictIndex(const Slice& user_key){
+        return bbf_->Query(user_key);
+    }
 
     bool chunkTable::Contains(const Slice& user_key, SequenceNumber sequence){
         LookupKey lkey(user_key, sequence);
@@ -172,36 +187,98 @@ namespace leveldb{
                 }
     }
 
+    NVMTable::NVMTable(const InternalKeyComparator& comparator){
+        comparator_ = &comparator;
+        for(int i = 0; i < kNumChunkTable; i++){
+            cktables_[i] = NULL;
+        }
+    } 
+
     NVMTable::~NVMTable(){
-        for(int i = 0; i < kNumChunkTable; i++)
-            delete cktables_[i];
+        for(int i = 0; i < kNumChunkTable; i++){
+            if(cktables_[i])
+                delete cktables_[i];
+        }
     }
 
     void NVMTable::Add(const char* kvitem, const Slice& key){
        const uint32_t hash = chunkTableHash(key);
        //DEBUG_T("add, index:%d\n", chunkTableIndex(hash));
        cktables_[chunkTableIndex(hash)]->Add(kvitem);
+       cktables_[chunkTableIndex(hash)]->AddPredictIndex(key);
     }
 
     bool NVMTable::Get(const Slice& key, std::string* value, Status* s, SequenceNumber sequence){
        const uint32_t hash = chunkTableHash(key);
        //DEBUG_T("get, index:%d\n", chunkTableIndex(hash));
-       cktables_[chunkTableIndex(hash)]->Get(key, value, s, sequence);
+       chunkTable* cktbl = cktables_[chunkTableIndex(hash)];
+       if(!cktbl->CheckPredictIndex(key))
+           return false;
+       else 
+           return cktbl->Get(key, value, s, sequence);
     }
 
     bool NVMTable::Contains(const Slice& user_key, SequenceNumber sequence){
        const uint32_t hash = chunkTableHash(user_key);
-       return cktables_[chunkTableIndex(hash)]->Contains(user_key, sequence);
+       chunkTable* cktbl = cktables_[chunkTableIndex(hash)];
+       if(!cktbl->CheckPredictIndex(user_key))
+           return false;
+       else 
+           return cktbl->Contains(user_key, sequence);
+    }
+    
+    bool NVMTable::MaybeContains(const Slice& user_key){
+       const uint32_t hash = chunkTableHash(user_key);
+       chunkTable* cktbl = cktables_[chunkTableIndex(hash)];
+       if(!cktbl->CheckPredictIndex(user_key))
+           return false;
+       else 
+           return true;
     }
 
-    void NVMTable::CheckAndAddToCompactionList(std::vector<chunkTable*>& toCompactionList, 
-            size_t index_thresh,
-            size_t log_thresh){
+
+    bool NVMTable::CheckAndAddToCompactionList(std::vector<chunkTable*>& toCompactionList,
+                                               std::vector<int>& need_updates,
+                                               size_t index_thresh,
+                                               size_t log_thresh){
         for(int i = 0; i < kNumChunkTable; i++){
-            if(cktables_[i]->ApproximateIndexNVMUsage() >= index_thresh ||
-                    cktables_[i]->ApproximateLogNVMUsage() >= log_thresh)
+            //if(cktables_[i])
+                //DEBUG_T("this chunktable is not null\n");
+            if(cktables_[i] && (cktables_[i]->ApproximateIndexNVMUsage() >= index_thresh ||
+                    cktables_[i]->ApproximateLogNVMUsage() >= log_thresh)){
                 toCompactionList.push_back(cktables_[i]);
+                need_updates.push_back(i);
+            }
         }
+        if(toCompactionList.empty())
+            return false;
+        else 
+            return true;
+    }
+
+    void NVMTable::AllocateForCompactionChunkTable(std::vector<int>& need_updates, 
+            std::map<int, std::pair<ArenaNVM*, chunkLog*>>& allocation){
+        int size = need_updates.size();
+        std::map<int, std::pair<ArenaNVM*, chunkLog*>>::iterator iter;
+        for(int i = 0; i < size; i++){
+            int index = need_updates[i];
+            iter = allocation.find(index);
+            chunkTable* cktbl =  new chunkTable(*comparator_, iter->second.first, 
+                            iter->second.second, false);
+            if(cktables_[index]){
+                delete cktables_[index];
+                DEBUG_T("delete chunk%d, and allocate another\n", index);
+            }
+            else 
+                DEBUG_T("allocate new chunk%d\n", index);
+            cktables_[index] = cktbl;
+        } 
+    }
+
+    void NVMTable::AddAllToCompactionList(std::vector<chunkTable*>& toCompactionList){
+        for(int i = 0; i < kNumChunkTable; i++){
+                toCompactionList.push_back(cktables_[i]);
+        } 
     }
     
     Iterator* NVMTable::NewIterator(){
@@ -212,16 +289,26 @@ namespace leveldb{
         return NewMergingIterator(comparator_, &list[0], list.size());
     }
 
+    Iterator* NVMTable::GetMergeIterator(std::vector<chunkTable*>& toCompactionList){
+        std::vector<Iterator*> list;
+        for(int i = 0; i < toCompactionList.size(); i++){
+            list.push_back(toCompactionList[i]->NewIterator());
+        }
+        return NewMergingIterator(comparator_, &list[0], list.size());
+    }
+
     Iterator* NVMTable::getchunkTableIterator(int index){
         return cktables_[index]->NewIterator();
     } 
 
     void NVMTable::PrintInfo(){
+        DEBUG_T("---------------PRINT_NVMTABLE-------------------\n");
         for(int i = 0; i < kNumChunkTable; i++){
-            DEBUG_T("index:%d, indexUsage:%zu, logUsage:%zu\n", 
+            DEBUG_T("index:%d, indexUsage:%zu, logUsage:%zu, numofEntries:%d\n", 
                     i, cktables_[i]->ApproximateIndexNVMUsage(),
-                    cktables_[i]->ApproximateLogNVMUsage());
+                    cktables_[i]->ApproximateLogNVMUsage(), cktables_[i]->getKeyNum());
         }
+        DEBUG_T("-------------END PRINT_NVMTABLE-----------------\n");
     }
     
 }

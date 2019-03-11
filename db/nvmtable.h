@@ -10,6 +10,7 @@
 #include <string>
 #include <assert.h>
 #include <vector>
+#include <map>
 #include "leveldb/db.h"
 #include "db/dbformat.h"
 #include "db/nvm_skiplist.h"
@@ -19,15 +20,21 @@
 #include "util/hash.h"
 #include "table/merger.h"
 
+#define kNumChunkTableBits 3
+#define kNumChunkTable (1 << kNumChunkTableBits)
+
 namespace leveldb{
 class InternalKeyComparator;
 class chunkTableIterator;
+class BitBloomFilter;
 class chunkTable{
     public:
         chunkTable(const InternalKeyComparator& comparator, 
                 ArenaNVM* arena, chunkLog* cklog, bool recovery = false);
         ~chunkTable();
         void Add(const char* kvitem);
+        void AddPredictIndex(const Slice& user_key);
+        bool CheckPredictIndex(const Slice& user_key);
         bool Get(const Slice& key, std::string* value, Status* s, SequenceNumber sequence);
         bool Contains(const Slice& user_key, SequenceNumber sequence);
         size_t getKeyNum()const {return table_.GetNodeNum();} 
@@ -70,26 +77,32 @@ class chunkTable{
         typedef NVMSkipList<const char*, KeyComparator> Table;
         Table table_;
         int refs_;
+        BitBloomFilter* bbf_;
 
         chunkTable(const chunkTable&);
         void operator=(const chunkTable&);
 };
 
-static const int kNumChunkTableBits = 3;
-static const int kNumChunkTable = 1 << kNumChunkTableBits;
 class NVMTable {
     public:
         NVMTable(const InternalKeyComparator& comparator, 
             std::vector<ArenaNVM*>& arenas,
             std::vector<chunkLog*>& cklogs,  
             bool recovery);
+        NVMTable(const InternalKeyComparator& comparator); 
         void Add(const char* kvitem, const Slice& key);
         bool Get(const Slice& key, std::string* value, Status* s, SequenceNumber sequence);
         bool Contains(const Slice& user_key, SequenceNumber sequence);
-        void CheckAndAddToCompactionList(std::vector<chunkTable*>& toCompactionList, 
+        bool MaybeContains(const Slice& user_key);
+        bool CheckAndAddToCompactionList(std::vector<chunkTable*>& toCompactionList,
+                std::vector<int>& need_updates,
                 size_t index_thresh,
                 size_t log_thresh);
-        Iterator* NewIterator(); 
+        void AddAllToCompactionList(std::vector<chunkTable*>& toCompactionList);
+        void AllocateForCompactionChunkTable(std::vector<int>& need_updates, 
+            std::map<int, std::pair<ArenaNVM*, chunkLog*>>& allocation);
+        Iterator* NewIterator();
+        Iterator* GetMergeIterator(std::vector<chunkTable*>& toCompactionList);
         Iterator* getchunkTableIterator(int index);
         void PrintInfo(); 
         void Ref(){++refs_;}

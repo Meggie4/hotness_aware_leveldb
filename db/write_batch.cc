@@ -20,6 +20,9 @@
 #include "db/memtable.h"
 #include "db/write_batch_internal.h"
 #include "util/coding.h"
+//////////////////meggie
+#include "util/multi_bloomfilter.h"
+//////////////////meggie
 
 namespace leveldb {
 
@@ -121,22 +124,40 @@ class MemTableInserter : public WriteBatch::Handler {
  public:
   SequenceNumber sequence_;
   MemTable* mem_;
+  ////////////////meggie
+  MultiHotBloomFilter* hot_bf_;
+  ////////////////meggie
 
   virtual void Put(const Slice& key, const Slice& value) {
     mem_->Add(sequence_, kTypeValue, key, value);
+    //////////meggie
+    if(hot_bf_ != NULL)
+        hot_bf_->AddKey(key);
+    //////////meggie
     sequence_++;
   }
   virtual void Delete(const Slice& key) {
     mem_->Add(sequence_, kTypeDeletion, key, Slice());
+    //////////meggie
+    if(hot_bf_ != NULL)
+        hot_bf_->AddKey(key);
+    //////////meggie
     sequence_++;
   }
 };
 }  // namespace
 
+////////////////meggie
 Status WriteBatchInternal::InsertInto(const WriteBatch* b,
-                                      MemTable* memtable) {
+                                      MemTable* memtable,
+                                      MultiHotBloomFilter* hot_bf){
+////////////////meggie
+  
   MemTableInserter inserter;
   inserter.sequence_ = WriteBatchInternal::Sequence(b);
+  /////////////meggie
+  inserter.hot_bf_ = hot_bf;
+  /////////////meggie
   inserter.mem_ = memtable;
   return b->Iterate(&inserter);
 }

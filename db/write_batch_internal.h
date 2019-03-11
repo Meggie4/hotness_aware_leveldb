@@ -11,6 +11,9 @@
 namespace leveldb {
 
 class MemTable;
+/////////////meggie
+class MultiHotBloomFilter;
+/////////////meggie
 
 // WriteBatchInternal provides static methods for manipulating a
 // WriteBatch that we don't want in the public WriteBatch interface.
@@ -38,8 +41,12 @@ class WriteBatchInternal {
   }
 
   static void SetContents(WriteBatch* batch, const Slice& contents);
-
-  static Status InsertInto(const WriteBatch* batch, MemTable* memtable);
+ 
+  ////////////////meggie
+  static Status InsertInto(const WriteBatch* batch, 
+          MemTable* memtable,
+          MultiHotBloomFilter* hot_bf = NULL); 
+  ////////////////meggie
 
   static void Append(WriteBatch* dst, const WriteBatch* src);
 };

@@ -51,7 +51,7 @@ static const char* EncodeKey(std::string* scratch, const Slice& target) {
 class MemTableIterator: public Iterator {
  public:
   explicit MemTableIterator(MemTable::Table* table) : iter_(table) { }
-
+  
   virtual bool Valid() const { return iter_.Valid(); }
   virtual void Seek(const Slice& k) { iter_.Seek(EncodeKey(&tmp_, k)); }
   virtual void SeekToFirst() { iter_.SeekToFirst(); }

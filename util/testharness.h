@@ -32,6 +32,10 @@ int RunAllTests();
 // Return the directory to use for temporary storage.
 std::string TmpDir();
 
+///////////////meggie
+std::string NvmDir();
+///////////////meggie
+
 // Return a randomization seed for this run.  Typically returns the
 // same number on repeated invocations of this binary, but automated
 // runs may be able to vary the seed.

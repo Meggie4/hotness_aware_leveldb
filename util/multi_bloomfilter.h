@@ -37,6 +37,7 @@ namespace leveldb{
             ~MultiHotBloomFilter();
             void AddKey(const Slice& user_key);
             bool CheckHot(const Slice& user_key);
+            size_t GetReqNum(){return req_num_;}
             
         private:
             void DecayBF();

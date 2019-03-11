@@ -283,7 +283,9 @@ TEST(NVMTableTest, Simple) {
     std::vector<chunkTable*> toCompactionList;
     size_t index_thresh = 350;
     size_t log_thresh = 400;
-    nvmTbl->CheckAndAddToCompactionList(toCompactionList, index_thresh, log_thresh);
+    std::vector<int> need_updates;
+    nvmTbl->CheckAndAddToCompactionList(toCompactionList, need_updates,
+            index_thresh, log_thresh);
     std::cout<<"the size of toCompactionList is "<<toCompactionList.size()<<std::endl;
 
     Iterator* iter = nvmTbl->NewIterator();

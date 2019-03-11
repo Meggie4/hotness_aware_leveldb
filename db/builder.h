@@ -16,6 +16,11 @@ class Env;
 class Iterator;
 class TableCache;
 class VersionEdit;
+//////////meggie
+class NVMTable;
+class MultiHotBloomFilter;
+//////////meggie
+
 
 // Build a Table file from the contents of *iter.  The generated file
 // will be named according to meta->number.  On success, the rest of
@@ -27,7 +32,12 @@ Status BuildTable(const std::string& dbname,
                   const Options& options,
                   TableCache* table_cache,
                   Iterator* iter,
-                  FileMetaData* meta);
+                  FileMetaData* meta,
+                  ///////////////meggie
+                  NVMTable* nvmtbl = NULL,
+                  MultiHotBloomFilter* hot_bf = NULL
+                  ///////////////meggie
+                  );
 
 }  // namespace leveldb
 

@@ -6,6 +6,9 @@
 
 #include "db/version_set.h"
 #include "util/coding.h"
+///////////meggie 
+#include "db/nvmtable.h"
+///////////meggie
 
 namespace leveldb {
 
@@ -20,13 +23,25 @@ enum Tag {
   kDeletedFile          = 6,
   kNewFile              = 7,
   // 8 was used for large value refs
-  kPrevLogNumber        = 9
+  kPrevLogNumber        = 9,
+  /////////////////meggie
+  kUpdatedChunkNumber    = 10
+  /////////////////meggie
 };
 
 void VersionEdit::Clear() {
   comparator_.clear();
   log_number_ = 0;
   prev_log_number_ = 0;
+  //////////////////meggie
+  chunkindex_files_.resize(kNumChunkTable);
+  chunklog_files_.resize(kNumChunkTable);
+  for(int i = 0; i < kNumChunkTable; i++){
+      chunkindex_files_[i] = 0;
+      chunklog_files_[i] = 0;
+  } 
+  has_updated_chunk_ = false;
+  //////////////////meggie
   last_sequence_ = 0;
   next_file_number_ = 0;
   has_comparator_ = false;
@@ -83,6 +98,15 @@ void VersionEdit::EncodeTo(std::string* dst) const {
     PutLengthPrefixedSlice(dst, f.smallest.Encode());
     PutLengthPrefixedSlice(dst, f.largest.Encode());
   }
+  ///////////////////meggie
+  if(has_updated_chunk_){
+      PutVarint32(dst, kUpdatedChunkNumber);
+      for(int i = 0; i < kNumChunkTable; i++){
+        PutVarint64(dst, chunkindex_files_[i]);
+        PutVarint64(dst, chunkindex_files_[i]);
+      }
+  }
+  ///////////////////meggie
 }
 
 static bool GetInternalKey(Slice* input, InternalKey* dst) {
@@ -118,6 +142,10 @@ Status VersionEdit::DecodeFrom(const Slice& src) {
   FileMetaData f;
   Slice str;
   InternalKey key;
+  ////////////meggie
+  uint64_t index_number, log_number;
+  int count = 0;
+  ////////////meggie
 
   while (msg == nullptr && GetVarint32(&input, &tag)) {
     switch (tag) {
@@ -191,7 +219,25 @@ Status VersionEdit::DecodeFrom(const Slice& src) {
           msg = "new-file entry";
         }
         break;
-
+      ///////////////////////meggie
+      case kUpdatedChunkNumber:
+        has_updated_chunk_ = true;
+        for(int i = 0; i < kNumChunkTable; i++){
+            if(GetVarint64(&input, &index_number) && 
+                    GetVarint64(&input, &log_number)){
+                chunkindex_files_[i] = index_number;
+                chunklog_files_[i] = log_number;
+                count++;
+            }
+        }
+        if(!input.empty()){
+            DEBUG_T("after update chunk number, input is not empty\n");
+        }
+        if(!count){
+            msg = "update chunk entry";
+        }
+        break;
+      ///////////////////////meggie
       default:
         msg = "unknown tag";
         break;
@@ -259,6 +305,17 @@ std::string VersionEdit::DebugString() const {
     r.append(" .. ");
     r.append(f.largest.DebugString());
   }
+  /////////////////meggie
+  if(has_updated_chunk_){
+      for(int i = 0; i < kNumChunkTable; i++){
+          r.append("\n chunk files: ");
+          r.append("%d, ", i);
+          AppendNumberTo(&r, chunkindex_files_[i]);
+          r.append(" ");
+          AppendNumberTo(&r, chunklog_files_[i]);
+      }
+  }
+  /////////////////meggie
   r.append("\n}\n");
   return r;
 }

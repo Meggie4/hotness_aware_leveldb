@@ -17,6 +17,10 @@ Options::Options()
       env(Env::Default()),
       info_log(nullptr),
       write_buffer_size(4<<20),
+      /////////////meggie
+      chunk_index_size(8<<20),
+      chunk_log_size(4<<20),
+      /////////////meggie
       max_open_files(1000),
       block_cache(nullptr),
       block_size(4096),

@@ -11,6 +11,9 @@
 #include "db/log_writer.h"
 #include "db/memtable.h"
 #include "db/table_cache.h"
+//////////////////meggie
+#include "db/nvmtable.h"
+//////////////////meggie
 #include "leveldb/env.h"
 #include "leveldb/table_builder.h"
 #include "table/merger.h"
@@ -792,6 +795,10 @@ VersionSet::VersionSet(const std::string& dbname,
       dummy_versions_(this),
       current_(nullptr) {
   AppendVersion(new Version(this));
+  ///////////////meggie
+  chunkindex_files_.resize(kNumChunkTable);
+  chunklog_files_.resize(kNumChunkTable);
+  ///////////////meggie
 }
 
 VersionSet::~VersionSet() {
@@ -889,6 +896,14 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu) {
     AppendVersion(v);
     log_number_ = edit->log_number_;
     prev_log_number_ = edit->prev_log_number_;
+    ///////////////meggie
+    if(edit->has_updated_chunk_){
+       chunkindex_files_.assign(edit->chunkindex_files_.begin(), 
+                                edit->chunkindex_files_.end()); 
+       chunklog_files_.assign(edit->chunklog_files_.begin(), 
+                                edit->chunklog_files_.end()); 
+    }
+    ///////////////meggie
   } else {
     delete v;
     if (!new_manifest_file.empty()) {
@@ -915,6 +930,7 @@ Status VersionSet::Recover(bool *save_manifest) {
   std::string current;
   Status s = ReadFileToString(env_, CurrentFileName(dbname_), &current);
   if (!s.ok()) {
+    DEBUG_T("after ReadFileToString !s.ok()\n");
     return s;
   }
   if (current.empty() || current[current.size()-1] != '\n') {
@@ -926,6 +942,7 @@ Status VersionSet::Recover(bool *save_manifest) {
   SequentialFile* file;
   s = env_->NewSequentialFile(dscname, &file);
   if (!s.ok()) {
+    DEBUG_T("after NewSequentialFile !s.ok()\n");
     if (s.IsNotFound()) {
       return Status::Corruption(
             "CURRENT points to a non-existent file", s.ToString());
@@ -937,6 +954,11 @@ Status VersionSet::Recover(bool *save_manifest) {
   bool have_prev_log_number = false;
   bool have_next_file = false;
   bool have_last_sequence = false;
+  /////////////meggie
+  bool have_updated_chunk = false;
+  std::vector<uint64_t> chunkindex_files;
+  std::vector<uint64_t> chunklog_files;
+  /////////////meggie
   uint64_t next_file = 0;
   uint64_t last_sequence = 0;
   uint64_t log_number = 0;
@@ -950,8 +972,14 @@ Status VersionSet::Recover(bool *save_manifest) {
     Slice record;
     std::string scratch;
     while (reader.ReadRecord(&record, &scratch) && s.ok()) {
+      if(!s.ok()){
+        DEBUG_T("after ReadRecord, !s.ok()\n");
+      }
       VersionEdit edit;
       s = edit.DecodeFrom(record);
+      if(!s.ok()){
+        DEBUG_T("after eidt.DecodeFrom, !s.ok()\n");
+      }
       if (s.ok()) {
         if (edit.has_comparator_ &&
             edit.comparator_ != icmp_.user_comparator()->Name()) {
@@ -963,6 +991,9 @@ Status VersionSet::Recover(bool *save_manifest) {
 
       if (s.ok()) {
         builder.Apply(&edit);
+      }
+      if(!s.ok()){
+        DEBUG_T("after builder.Apply, !s.ok()\n");
       }
 
       if (edit.has_log_number_) {
@@ -984,12 +1015,25 @@ Status VersionSet::Recover(bool *save_manifest) {
         last_sequence = edit.last_sequence_;
         have_last_sequence = true;
       }
+      /////////////meggie
+      if(edit.has_updated_chunk_){
+          chunkindex_files.assign(edit.chunkindex_files_.begin(), 
+                  edit.chunkindex_files_.end());           
+          chunklog_files.assign(edit.chunklog_files_.begin(), 
+                  edit.chunklog_files_.end());           
+          have_updated_chunk = true;
+      }
+      /////////////meggie
     }
   }
   delete file;
   file = nullptr;
 
+  if(!s.ok()){
+    DEBUG_T("after recover from current MANIFEST, !s.ok()\n");
+  }
   if (s.ok()) {
+    DEBUG_T("after recover from current MANIFEST, s.ok()\n");
     if (!have_next_file) {
       s = Status::Corruption("no meta-nextfile entry in descriptor");
     } else if (!have_log_number) {
@@ -1007,6 +1051,7 @@ Status VersionSet::Recover(bool *save_manifest) {
   }
 
   if (s.ok()) {
+    DEBUG_T("after MarkFileNumberUsed, s.ok()\n");
     Version* v = new Version(this);
     builder.SaveTo(v);
     // Install recovered version
@@ -1017,6 +1062,10 @@ Status VersionSet::Recover(bool *save_manifest) {
     last_sequence_ = last_sequence;
     log_number_ = log_number;
     prev_log_number_ = prev_log_number;
+    ////////////////////meggie
+    chunkindex_files_.assign(chunkindex_files.begin(), chunkindex_files.end());
+    chunklog_files_.assign(chunklog_files.begin(), chunklog_files.end());
+    ////////////////////meggie
 
     // See if we can reuse the existing MANIFEST file.
     if (ReuseManifest(dscname, current)) {
@@ -1025,7 +1074,6 @@ Status VersionSet::Recover(bool *save_manifest) {
       *save_manifest = true;
     }
   }
-
   return s;
 }
 
@@ -1199,6 +1247,15 @@ void VersionSet::AddLiveFiles(std::set<uint64_t>* live) {
     }
   }
 }
+
+////////////////////meggie
+void VersionSet::AddChunkFiles(std::vector<uint64_t>* chunkindex_files, 
+        std::vector<uint64_t>* chunklog_files){
+    chunkindex_files->assign(chunkindex_files_.begin(), chunkindex_files_.end());
+    chunklog_files->assign(chunklog_files_.begin(), chunklog_files_.end());
+}
+////////////////////meggie
+
 
 int64_t VersionSet::NumLevelBytes(int level) const {
   assert(level >= 0);

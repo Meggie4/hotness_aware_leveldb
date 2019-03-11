@@ -68,6 +68,15 @@ std::string TmpDir() {
   return dir;
 }
 
+/////////////meggie
+std::string NvmDir(){
+    std::string dir;
+    Status s =Env::Default()->GetMEMDirectory(&dir);
+    ASSERT_TRUE(s.ok()) << s.ToString();
+    return dir;
+}
+/////////////meggie
+
 int RandomSeed() {
   const char* env = getenv("TEST_RANDOM_SEED");
   int result = (env != nullptr ? atoi(env) : 301);

@@ -6,6 +6,7 @@
 #define STORAGE_LEVELDB_DB_DB_IMPL_H_
 
 #include <deque>
+#include <vector>
 #include <set>
 #include "db/dbformat.h"
 #include "db/log_writer.h"
@@ -22,10 +23,17 @@ class TableCache;
 class Version;
 class VersionEdit;
 class VersionSet;
+///////////////meggie
+class NVMTable;
+class chunkTable;
+class MultiHotBloomFilter;
+///////////////meggie
 
 class DBImpl : public DB {
  public:
-  DBImpl(const Options& options, const std::string& dbname);
+  ///////////////meggie
+  DBImpl(const Options& options, const std::string& dbname, const std::string& dbname_nvm);
+  ///////////////meggie
   virtual ~DBImpl();
 
   // Implementations of the DB interface
@@ -126,7 +134,11 @@ class DBImpl : public DB {
   const Options options_;  // options_.comparator == &internal_comparator_
   const bool owns_info_log_;
   const bool owns_cache_;
+  //////////////////meggie
   const std::string dbname_;
+  const std::string dbname_nvm_;
+  //////////////////meggie
+  
 
   // table_cache_ provides its own synchronization
   TableCache* const table_cache_;
@@ -190,6 +202,47 @@ class DBImpl : public DB {
     }
   };
   CompactionStats stats_[config::kNumLevels] GUARDED_BY(mutex_);
+  ////////////////////////meggie
+  struct NVMTableCompactionState;
+  Status MakeRoomForImmu(bool force)
+      EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+
+  Status WriteNVMTableToLevel0(std::vector<chunkTable*>& to_compaction_list_, 
+          VersionEdit* edit, Version* base)
+      EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+
+  Status RecoverChunkFile(std::vector<uint64_t>& chunkindex_files, 
+                        std::vector<uint64_t>& chunklog_files)
+      EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  
+  NVMTable* nvmtbl_;
+
+  std::vector<chunkTable*> to_compaction_list_;
+  std::vector<int> need_updates_;
+
+  port::CondVar bg_nvmtable_cv_ GUARDED_BY(mutex_);
+  port::CondVar bg_fg_cv_ GUARDED_BY(mutex_);
+
+  static void CompactNVMTableWrapper(void* db){
+      reinterpret_cast<DBImpl*>(db)->CompactNVMTableThread();
+  }
+  void CompactNVMTableThread();
+
+  Status UpdateNVMTable(std::vector<int>& need_updates);
+
+  int num_nvmtable_threads_;
+  bool allow_nvmtable_compaction_;
+ 
+  std::vector<uint64_t> chunk_index_files_;
+  std::vector<uint64_t> chunk_log_files_;
+
+  bool chunk_been_allocated_;
+  
+  MultiHotBloomFilter *hot_bf_;
+  Status FinishNVMTableCompaction(NVMTableCompactionState* compact);
+  
+  Status TEST_CompactNVMTable();
+  ////////////////////////meggie
 
   // No copying allowed
   DBImpl(const DBImpl&);
@@ -205,7 +258,9 @@ class DBImpl : public DB {
 Options SanitizeOptions(const std::string& db,
                         const InternalKeyComparator* icmp,
                         const InternalFilterPolicy* ipolicy,
-                        const Options& src);
+                        const Options& src,
+                        const std::string& db_nvm = "/mnt/pmemdir"
+                        );
 
 }  // namespace leveldb
 

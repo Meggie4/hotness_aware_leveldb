@@ -1,5 +1,5 @@
-#ifndef STORAGE_LEVELDB_DB_SKIPLIST_H_
-#define STORAGE_LEVELDB_DB_SKIPLIST_H_
+#ifndef STORAGE_LEVELDB_DB_NVMSKIPLIST_H_
+#define STORAGE_LEVELDB_DB_NVMSKIPLIST_H_
 
 // Copyright (c) 2011 The LevelDB Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -318,7 +318,19 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
         if(n == NULL)
             return false;
         Key lkey = reinterpret_cast<Key>(cklog_->getKV(n->key_offset));
-        return (n != NULL) && (compare_(lkey, key) < 0);
+        /*if(compare_.user_compare(lkey, key) ==0){
+            DEBUG_T("KeyIsAfterNode, equal\n");
+            if(compare_(lkey, key) < 0){
+                DEBUG_T("compare_, <\n");
+            }
+            else
+                DEBUG_T("compare_, >\n");
+        }
+        else 
+            DEBUG_T("KeyIsAfterNode, not equal\n");*/
+        //////////////meggie
+        return (n != NULL) && (compare_.user_compare(lkey, key) < 0);
+        //////////////meggie
     }
 
     template<typename Key, class Comparator>
@@ -331,10 +343,10 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
             Node* next = x->Next(level);
             if (KeyIsAfterNode(key, next)) {
                 // Keep searching in this list
-                //DEBUG_T("KeyIsAfterNode\n");
+                ;//DEBUG_T("KeyIsAfterNode\n");
                 x = next;
             } else {
-                //DEBUG_T("KeyIs not AfterNode\n");
+                ;//DEBUG_T("KeyIs not AfterNode\n");
                 if (prev != NULL) prev[level] = x;
                 if (level == 0) {
                     return next;
@@ -493,10 +505,11 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
                 Node* x = NULL;
                 Node* prev[kMaxHeight]; 
                 if(Contains(nvmkey, &x, prev)){
-                    DEBUG_T("it's update\n");
+                    ;//DEBUG_T("it's update\n");
                     x->key_offset = key_offset;
                 }
                 else{
+                    //DEBUG_T("it's insert\n");
                     Insert(nvmkey, s, key_offset, x, prev); 
                 }
             }
@@ -511,6 +524,7 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
             }
             template<typename Key, class Comparator>
             bool NVMSkipList<Key,Comparator>::Contains(const Key& key, Node** node, Node** prev) const {
+                //DEBUG_T("nodenum:%d\n", node_num_);
                 Node* x = FindGreaterOrEqual(key, prev);
                 if (x != NULL && Equal(key, reinterpret_cast<Key>(cklog_->getKV(x->key_offset)))) {
                         *node = x;

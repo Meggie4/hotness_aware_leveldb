@@ -3,27 +3,44 @@
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
 #include "db/builder.h"
-
 #include "db/filename.h"
 #include "db/dbformat.h"
 #include "db/table_cache.h"
 #include "db/version_edit.h"
+////////////////////meggie
+#include "db/version_set.h"
+#include "db/nvmtable.h"
+#include "util/multi_bloomfilter.h"
+////////////////////meggie
 #include "leveldb/db.h"
 #include "leveldb/env.h"
 #include "leveldb/iterator.h"
 
 namespace leveldb {
 
+
 Status BuildTable(const std::string& dbname,
                   Env* env,
                   const Options& options,
                   TableCache* table_cache,
                   Iterator* iter,
-                  FileMetaData* meta) {
+                  FileMetaData* meta, 
+                  ////////////meggie
+                  NVMTable* nvmtbl,
+                  MultiHotBloomFilter* hot_bf
+                  ////////////meggie
+                  ) {
   Status s;
   meta->file_size = 0;
   iter->SeekToFirst();
-
+  
+  ///////////////meggie
+  int nvm_num = 0, sst_num = 0;
+  bool first_entry = true;
+  int hot_num = 0;
+  int not_in_num = 0;
+  int i = 0;
+  ///////////////meggie
   std::string fname = TableFileName(dbname, meta->number);
   if (iter->Valid()) {
     WritableFile* file;
@@ -36,10 +53,49 @@ Status BuildTable(const std::string& dbname,
     meta->smallest.DecodeFrom(iter->key());
     for (; iter->Valid(); iter->Next()) {
       Slice key = iter->key();
-      meta->largest.DecodeFrom(key);
-      builder->Add(key, iter->value());
+      //////////meggie
+      if(hot_bf && nvmtbl){
+          i++;
+          Slice user_key(key.data(), key.size() - 8);
+          if(hot_bf->CheckHot(user_key)){
+             //DEBUG_T("user_key:%s is hot\n", user_key.ToString().c_str());
+             hot_num++;
+          }
+          if(!nvmtbl->MaybeContains(user_key)){
+              not_in_num++;
+          }
+          else{
+             //DEBUG_T("user_key:%s is in nvmtable\n", user_key.ToString().c_str());
+          }
+          if(!hot_bf->CheckHot(user_key) && 
+                !nvmtbl->MaybeContains(user_key)){
+            meta->largest.DecodeFrom(key);
+            builder->Add(key, iter->value());
+            sst_num++;
+          }
+          else{
+            nvmtbl->Add(iter->GetNodeKey(), user_key);
+            nvm_num++;
+          }
+      }
+      else{
+          meta->largest.DecodeFrom(key);
+          builder->Add(key, iter->value());
+          sst_num++;
+      }
+      //////////meggie
     }
 
+    /////////////////meggie
+    //if(sst_num == 0){
+        nvmtbl->PrintInfo();
+        //DEBUG_T("i:%d, not_in_num:%d, hot_num:%d\n", i, not_in_num, hot_num);
+        //DEBUG_T("after buildtable, req_num_of_bf:%lu,nvm_num:%d, sst_num:%d\n", 
+          //  hot_bf->GetReqNum(), nvm_num, sst_num);
+    //}
+    /////////////////meggie
+    
+    
     // Finish and check for builder errors
     s = builder->Finish();
     if (s.ok()) {
@@ -66,6 +122,7 @@ Status BuildTable(const std::string& dbname,
       s = it->status();
       delete it;
     }
+    //DEBUG_T("finish build table\n");
   }
 
   // Check for input iterator errors
@@ -80,5 +137,4 @@ Status BuildTable(const std::string& dbname,
   }
   return s;
 }
-
 }  // namespace leveldb
