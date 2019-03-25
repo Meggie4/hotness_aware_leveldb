@@ -120,11 +120,11 @@ namespace leveldb{
         uint64_t tag = DecodeFixed64(key_ptr + key_length - 8);
         //ValueType type = static_cast<ValueType>(tag & 0xff);
         SequenceNumber s = tag >> 8;
-        //DEBUG_T("before add to chunklog\n");
+        DEBUG_T("before add to chunklog\n");
         const char* kv_offset = reinterpret_cast<char*>(cklog_->insert(kvitem, kv_length));
-        //DEBUG_T("chunktable,add kvoffset：%p\n", kv_offset);
+        DEBUG_T("chunktable,add kvoffset：%p\n", kv_offset);
         table_.Add(kvitem, kv_offset, s); 
-        //DEBUG_T("after add to chunktable\n");
+        DEBUG_T("after add to chunktable\n");
         bbf_->Add(Slice(key_ptr1, key_length1 - 8));
     }
 

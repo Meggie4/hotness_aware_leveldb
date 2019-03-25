@@ -75,6 +75,7 @@ void* Arena::getMapStart() {
 }
 
 void* ArenaNVM::CalculateOffset(void* ptr) {
+    DEBUG_T("ptr:%lu, map_start_%lu\n", ptr, map_start_);
     return reinterpret_cast<void*>(reinterpret_cast<intptr_t>(ptr) - reinterpret_cast<intptr_t>(map_start_));
 }
 
