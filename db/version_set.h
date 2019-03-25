@@ -234,6 +234,8 @@ class VersionSet {
 
   void AddChunkFiles(std::vector<uint64_t>* chunkindex_files, 
         std::vector<uint64_t>* chunklog_files);
+  
+  void PrintChunkFiles();
   ///////////////////meggie
 
   // Pick level and inputs for a new compaction.

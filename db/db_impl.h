@@ -15,6 +15,9 @@
 #include "leveldb/env.h"
 #include "port/port.h"
 #include "port/thread_annotations.h"
+//////////////////meggie
+#include <map>
+//////////////////meggie
 
 namespace leveldb {
 
@@ -27,6 +30,8 @@ class VersionSet;
 class NVMTable;
 class chunkTable;
 class MultiHotBloomFilter;
+struct FileMetaData;
+class ThreadPool;
 ///////////////meggie
 
 class DBImpl : public DB {
@@ -76,11 +81,15 @@ class DBImpl : public DB {
   friend class DB;
   struct CompactionState;
   struct Writer;
+  /////////////meggie
+  struct nvmcompact_struct;
+  /////////////meggie
 
   Iterator* NewInternalIterator(const ReadOptions&,
                                 SequenceNumber* latest_snapshot,
                                 uint32_t* seed);
 
+   
   Status NewDB();
 
   // Recover the descriptor from persistent storage.  May do a significant
@@ -207,8 +216,7 @@ class DBImpl : public DB {
   Status MakeRoomForImmu(bool force)
       EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
-  Status WriteNVMTableToLevel0(std::vector<chunkTable*>& to_compaction_list_, 
-          VersionEdit* edit, Version* base)
+  Status WriteNVMTableToLevel0(chunkTable* cktbl, chunkTable* new_cktbl, FileMetaData* meta);
       EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   Status RecoverChunkFile(std::vector<uint64_t>& chunkindex_files, 
@@ -217,21 +225,12 @@ class DBImpl : public DB {
   
   NVMTable* nvmtbl_;
 
-  std::vector<chunkTable*> to_compaction_list_;
-  std::vector<int> need_updates_;
+  std::map<int, chunkTable*> to_compaction_list_;
 
-  port::CondVar bg_nvmtable_cv_ GUARDED_BY(mutex_);
-  port::CondVar bg_fg_cv_ GUARDED_BY(mutex_);
-
-  static void CompactNVMTableWrapper(void* db){
-      reinterpret_cast<DBImpl*>(db)->CompactNVMTableThread();
-  }
-  void CompactNVMTableThread();
-
-  Status UpdateNVMTable(std::vector<int>& need_updates);
-
-  int num_nvmtable_threads_;
-  bool allow_nvmtable_compaction_;
+  //port::CondVar bg_nvmtable_cv_ GUARDED_BY(mutex_);
+  //port::CondVar bg_fg_cv_ GUARDED_BY(mutex_);
+  //int num_nvmtable_threads_;
+  //bool allow_nvmtable_compaction_;
  
   std::vector<uint64_t> chunk_index_files_;
   std::vector<uint64_t> chunk_log_files_;
@@ -239,9 +238,21 @@ class DBImpl : public DB {
   bool chunk_been_allocated_;
   
   MultiHotBloomFilter *hot_bf_;
-  Status FinishNVMTableCompaction(NVMTableCompactionState* compact);
+  Status FinishNVMTableCompaction(nvmcompact_struct* nvmcompact, 
+                                int size,
+                                Version* base);
   
   Status TEST_CompactNVMTable();
+
+  ThreadPool* thpool_;
+
+  Status UpdateNVMTable(std::map<int, chunkTable*>& update_chunks, bool recovery);
+  chunkTable* CreateNewchunkTable();
+  void InitNVMCompact(std::map<int, chunkTable*>& need_updates, 
+                nvmcompact_struct* nvmcompact);
+
+  static void CompactNVMTable(void* args);
+  void printChunkFileNumbers();
   ////////////////////////meggie
 
   // No copying allowed

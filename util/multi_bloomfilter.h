@@ -4,6 +4,9 @@
 	> Mail: 1224642332@qq.com 
 	> Created Time: Wed 27 Feb 2019 05:31:44 PM CST
  ************************************************************************/
+#ifndef LEVELDB_MULTI_BLOOMFILTER_H
+#define LEVELDB_MULTI_BLOOMFILTER_H
+
 #include "util/hash.h"
 #include "leveldb/slice.h"
 #include <array>
@@ -53,3 +56,5 @@ namespace leveldb{
             size_t req_num_;
     };
 }//namespace leveldb
+
+#endif

@@ -1070,17 +1070,20 @@ TEST(DBTest, MinorCompactionsHappen) {
   }
   int ending_num_tables = TotalTableFiles();
   DEBUG_T("ending_num_tables:%d\n", ending_num_tables);
+  FILE *m_file = fopen("/home/meggie/Documents/mydb/mylog.txt", "a+b");
+  fprintf(m_file, "testdebug\n");
+
   //ASSERT_GT(ending_num_tables, starting_num_tables);
-
-  /*for (int i = 0; i < N; i++) {
-    ASSERT_EQ(Key(i) + std::string(1000, 'v'), Get(Key(i)));
-  }
-
-  Reopen();
 
   for (int i = 0; i < N; i++) {
     ASSERT_EQ(Key(i) + std::string(1000, 'v'), Get(Key(i)));
-  }*/
+  }
+
+  Reopen(&options);
+  fprintf(stderr, "after reopen\n");
+  for (int i = 0; i < N; i++) {
+    ASSERT_EQ(Key(i) + std::string(1000, 'v'), Get(Key(i)));
+  }
 }
 /*
 TEST(DBTest, RecoverWithLargeLog) {

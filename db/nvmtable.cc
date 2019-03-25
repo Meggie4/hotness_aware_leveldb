@@ -46,15 +46,19 @@ namespace leveldb{
 
     class chunkTableIterator: public Iterator{
         public:
-            explicit chunkTableIterator(chunkTable::Table* table, chunkLog* cklog) : 
+            chunkTableIterator(chunkTable::Table* table, chunkLog* cklog) : 
                 iter_(table, cklog), cklog_(cklog){  }
     
-            virtual bool Valid() const { return iter_.Valid(); }
+            virtual bool Valid() const { 
+                //DEBUG_T("test chunktable if valid\n"); 
+                return iter_.Valid(); 
+            }
             virtual void Seek(const Slice& k) { iter_.Seek(EncodeNVMKey(&tmp_, k)); }
             virtual void SeekToFirst() { iter_.SeekToFirst(); }
             virtual void SeekToLast() { iter_.SeekToLast(); }
             virtual void Next() { iter_.Next(); }
             virtual void Prev() { iter_.Prev(); }
+            virtual const char* GetNodeKey(){return cklog_->getKV(iter_.key_offset());}
             virtual Slice key() const { return GetNVMLengthPrefixedSlice(cklog_->getKV(iter_.key_offset())); }
             virtual Slice value() const {
                 Slice key_slice = GetNVMLengthPrefixedSlice(cklog_->getKV(iter_.key_offset()));
@@ -108,8 +112,8 @@ namespace leveldb{
         size_t kv_length;
         uint32_t key_length1;
         const char* key_ptr1 = GetVarint32Ptr(kvitem, kvitem + 5, &key_length1);
-        //DEBUG_T("before Add, user_key:%s, len:%d\n", Slice(key_ptr1, key_length1 - 8).ToString().c_str(), 
-         //       key_length1 - 8);
+        DEBUG_T("chuntable Add, user_key:%s, len:%d\n", Slice(key_ptr1, key_length1 - 8).ToString().c_str(), 
+               key_length1 - 8);
         key_ptr = GetKVLength(kvitem, &key_length, &kv_length);
         //Slice nvmkey = Slice(key_ptr, key_length); 
         
@@ -121,6 +125,7 @@ namespace leveldb{
         //DEBUG_T("chunktable,add kvoffset：%p\n", kv_offset);
         table_.Add(kvitem, kv_offset, s); 
         //DEBUG_T("after add to chunktable\n");
+        bbf_->Add(Slice(key_ptr1, key_length1 - 8));
     }
 
     bool chunkTable::Get(const Slice& user_key, std::string* value, Status* s, SequenceNumber sequence){
@@ -189,7 +194,8 @@ namespace leveldb{
                 }
     }
 
-    NVMTable::NVMTable(const InternalKeyComparator& comparator){
+    NVMTable::NVMTable(const InternalKeyComparator& comparator)
+        :refs_(0){
         comparator_ = &comparator;
         for(int i = 0; i < kNumChunkTable; i++){
             cktables_[i] = NULL;
@@ -207,15 +213,17 @@ namespace leveldb{
        const uint32_t hash = chunkTableHash(key);
        //DEBUG_T("add, index:%d\n", chunkTableIndex(hash));
        cktables_[chunkTableIndex(hash)]->Add(kvitem);
-       cktables_[chunkTableIndex(hash)]->AddPredictIndex(key);
     }
 
     bool NVMTable::Get(const Slice& key, std::string* value, Status* s, SequenceNumber sequence){
        const uint32_t hash = chunkTableHash(key);
-       //DEBUG_T("get, index:%d\n", chunkTableIndex(hash));
+       DEBUG_T("nvmtable get user_key:%s, index:%d\n", key.ToString().c_str(), 
+               chunkTableIndex(hash));
        chunkTable* cktbl = cktables_[chunkTableIndex(hash)];
-       if(!cktbl->CheckPredictIndex(key))
+       if(!cktbl->CheckPredictIndex(key)){
+           DEBUG_T("not in nvmtable\n");
            return false;
+       }
        else 
            return cktbl->Get(key, value, s, sequence);
     }
@@ -239,17 +247,13 @@ namespace leveldb{
     }
 
 
-    bool NVMTable::CheckAndAddToCompactionList(std::vector<chunkTable*>& toCompactionList,
-                                               std::vector<int>& need_updates,
+    bool NVMTable::CheckAndAddToCompactionList(std::map<int, chunkTable*>& toCompactionList,
                                                size_t index_thresh,
                                                size_t log_thresh){
         for(int i = 0; i < kNumChunkTable; i++){
-            //if(cktables_[i])
-                //DEBUG_T("this chunktable is not null\n");
             if(cktables_[i] && (cktables_[i]->ApproximateIndexNVMUsage() >= index_thresh ||
                     cktables_[i]->ApproximateLogNVMUsage() >= log_thresh)){
-                toCompactionList.push_back(cktables_[i]);
-                need_updates.push_back(i);
+                toCompactionList.insert(std::make_pair(i, cktables_[i]));
             }
         }
         if(toCompactionList.empty())
@@ -258,28 +262,19 @@ namespace leveldb{
             return true;
     }
 
-    void NVMTable::AllocateForCompactionChunkTable(std::vector<int>& need_updates, 
-            std::map<int, std::pair<ArenaNVM*, chunkLog*>>& allocation){
-        int size = need_updates.size();
-        std::map<int, std::pair<ArenaNVM*, chunkLog*>>::iterator iter;
-        for(int i = 0; i < size; i++){
-            int index = need_updates[i];
-            iter = allocation.find(index);
-            chunkTable* cktbl =  new chunkTable(*comparator_, iter->second.first, 
-                            iter->second.second, false);
-            if(cktables_[index]){
+    void NVMTable::UpdateChunkTables(std::map<int, chunkTable*>& update_chunks){
+        std::map<int, chunkTable*>::iterator iter;
+        for(iter = update_chunks.begin(); iter != update_chunks.end(); iter++){
+            int index = iter->first;
+            if(cktables_[index])
                 delete cktables_[index];
-                //DEBUG_T("delete chunk%d, and allocate another\n", index);
-            }
-            /*else 
-                DEBUG_T("allocate new chunk%d\n", index);*/
-            cktables_[index] = cktbl;
-        } 
+            cktables_[index] = iter->second;
+        }
     }
-
-    void NVMTable::AddAllToCompactionList(std::vector<chunkTable*>& toCompactionList){
+    
+    void NVMTable::AddAllToCompactionList(std::map<int, chunkTable*>& toCompactionList){
         for(int i = 0; i < kNumChunkTable; i++){
-                toCompactionList.push_back(cktables_[i]);
+                toCompactionList.insert(std::make_pair(i, cktables_[i]));
         } 
     }
     

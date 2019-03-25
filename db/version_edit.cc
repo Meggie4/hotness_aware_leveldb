@@ -103,7 +103,7 @@ void VersionEdit::EncodeTo(std::string* dst) const {
       PutVarint32(dst, kUpdatedChunkNumber);
       for(int i = 0; i < kNumChunkTable; i++){
         PutVarint64(dst, chunkindex_files_[i]);
-        PutVarint64(dst, chunkindex_files_[i]);
+        PutVarint64(dst, chunklog_files_[i]);
       }
   }
   ///////////////////meggie
@@ -222,6 +222,7 @@ Status VersionEdit::DecodeFrom(const Slice& src) {
       ///////////////////////meggie
       case kUpdatedChunkNumber:
         has_updated_chunk_ = true;
+        //DEBUG_T("in decodefrom\n ");
         for(int i = 0; i < kNumChunkTable; i++){
             if(GetVarint64(&input, &index_number) && 
                     GetVarint64(&input, &log_number)){
@@ -229,6 +230,8 @@ Status VersionEdit::DecodeFrom(const Slice& src) {
                 chunklog_files_[i] = log_number;
                 count++;
             }
+            //DEBUG_T("versionset, chunkindex_filenumber:%lu, chunkLogFilenumber:%lu\n",
+              //  chunkindex_files_[i], chunklog_files_[i]);
         }
         if(!input.empty()){
             DEBUG_T("after update chunk number, input is not empty\n");

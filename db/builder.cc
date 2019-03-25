@@ -68,9 +68,9 @@ Status BuildTable(const std::string& dbname,
               last_sequence_for_key = kMaxSequenceNumber;
           }
           if(last_sequence_for_key < kMaxSequenceNumber)
-              drop = true;*/
+              drop = true;
           
-          //last_sequence_for_key =  DecodeFixed64(key.data() + key.size() - 8) >> 8;
+          last_sequence_for_key =  DecodeFixed64(key.data() + key.size() - 8) >> 8;*/
 
           if(!drop){ 
               if(hot_bf->CheckHot(user_key)){
@@ -95,13 +95,17 @@ Status BuildTable(const std::string& dbname,
                 }
                 meta->largest.DecodeFrom(key);
                 builder->Add(key, iter->value());
-                //DEBUG_T("after add to sstable\n");
+                DEBUG_T("after add to sstable\n");
+                if(atoi(number) == 259)
+                    DEBUG_T("259 has been added from memtable to sstable\n");
                 sst_num++;
               }
               else{
-                //DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
+                DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
                 nvmtbl->Add(iter->GetNodeKey(), user_key);
-                //DEBUG_T("after add to nvmtable\n");
+                DEBUG_T("after add to nvmtable\n");
+                if(atoi(number) == 259)
+                    DEBUG_T("259 has been added from memtable to nvmtable\n");
                 nvm_num++;
               }
           }
@@ -109,6 +113,10 @@ Status BuildTable(const std::string& dbname,
               ;//DEBUG_T("it will be dropped\n");
       }
       else{
+          if(first_entry){
+            meta->smallest.DecodeFrom(iter->key());
+            first_entry = false;
+          }
           meta->largest.DecodeFrom(key);
           builder->Add(key, iter->value());
           sst_num++;

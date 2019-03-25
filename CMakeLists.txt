@@ -23,6 +23,7 @@ option(LEVELDB_INSTALL "Install LevelDB's header and library" ON)
 #if(USE_ARENA2_ALLOC)
 #  ADD_DEFINITIONS(-D_USE_ARENA2_ALLOC)
 #endif(USE_ARENA2_ALLOC)
+ADD_DEFINITIONS(-std=c++11)
 ##############meggie
 
 include(TestBigEndian)
@@ -190,6 +191,15 @@ target_sources(leveldb
     "${PROJECT_SOURCE_DIR}/util/multi_bloomfilter.h"
     "${PROJECT_SOURCE_DIR}/util/MurmurHash3.cc"
     "${PROJECT_SOURCE_DIR}/util/MurmurHash3.h"
+    "${PROJECT_SOURCE_DIR}/util/thpool.cc"
+    "${PROJECT_SOURCE_DIR}/util/thpool.h"
+    "${PROJECT_SOURCE_DIR}/util/affinity.h"
+    "${PROJECT_SOURCE_DIR}/util/lsm_mutex.h"
+    "${PROJECT_SOURCE_DIR}/util/cpumap.cc"
+    "${PROJECT_SOURCE_DIR}/util/cpumap.h"
+    "${PROJECT_SOURCE_DIR}/util/defs.h"
+    "${PROJECT_SOURCE_DIR}/util/bitops.h"
+    "${PROJECT_SOURCE_DIR}/util/threadpool.h"
     ######################meggie
 
   # Only CMake 3.3+ supports PUBLIC sources in targets exported by "install".
@@ -282,6 +292,8 @@ target_link_libraries(leveldbutil leveldb)
 
 #############meggie
 target_link_libraries(leveldb -lhoard)
+target_link_libraries(leveldb -lnuma)
+target_link_libraries(leveldb -lpthread)
 #############meggie
 
 if(LEVELDB_BUILD_TESTS)

@@ -141,7 +141,7 @@ ArenaNVM::ArenaNVM(std::string *filename,
         alloc_ptr_ = (char *)map_start_ + (kSize - alloc_bytes_remaining_);
         map_end_ = 0;
         memory_usage_.NoBarrier_Store(
-                reinterpret_cast<void *>(kSize - alloc_bytes_remaining_));
+                reinterpret_cast<void *>(kNVMBlockSize - alloc_bytes_remaining_));
     }
     else {
         //memory_usage_=0;

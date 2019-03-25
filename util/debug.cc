@@ -20,10 +20,12 @@
 //some specific functions
 void DEBUG_T(const char* format, ... ) {
 #ifdef DEBUG
-		FILE *fp;
         va_list args;
         va_start( args, format );
-        vfprintf( stdout, format, args );
+		FILE *m_file = fopen("/home/meggie/Documents/mydb/mylog.txt", "a+b");
+        vfprintf(m_file, format, args );
+        fclose(m_file);
+        //vfprintf(stderr, format, args );
         va_end( args );
 #endif
 }

@@ -280,12 +280,11 @@ TEST(NVMTableTest, Simple) {
     std::cout<<"----------------------"<<std::endl;
     nvmTbl->PrintInfo();
 
-    std::vector<chunkTable*> toCompactionList;
+    std::map<int, chunkTable*> toCompactionList;
     size_t index_thresh = 350;
     size_t log_thresh = 400;
-    std::vector<int> need_updates;
-    nvmTbl->CheckAndAddToCompactionList(toCompactionList, need_updates,
-            index_thresh, log_thresh);
+    nvmTbl->CheckAndAddToCompactionList(toCompactionList,
+                            index_thresh, log_thresh);
     std::cout<<"the size of toCompactionList is "<<toCompactionList.size()<<std::endl;
 
     Iterator* iter = nvmTbl->NewIterator();

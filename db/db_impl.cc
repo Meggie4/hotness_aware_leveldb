@@ -36,6 +36,7 @@
 #include "util/mutexlock.h"
 //////////////////meggie
 #include "util/multi_bloomfilter.h"
+#include "util/threadpool.h"
 #include "db/nvmtable.h"
 #include "util/debug.h"
 //////////////////meggie
@@ -106,6 +107,13 @@ struct DBImpl::NVMTableCompactionState{
     uint64_t total_bytes;
     Output* current_output() {return &outputs[outputs.size() - 1];}
 };
+struct DBImpl::nvmcompact_struct{
+    int index;
+    chunkTable* cktbl;
+    chunkTable* new_cktbl;
+    DBImpl *db; 
+    FileMetaData meta; 
+};
 ////////////////////meggie
 
 // Fix user-supplied options to be reasonable
@@ -123,11 +131,14 @@ Options SanitizeOptions(const std::string& dbname,
   result.comparator = icmp;
   result.filter_policy = (src.filter_policy != nullptr) ? ipolicy : nullptr;
   ClipToRange(&result.max_open_files,    64 + kNumNonTableCacheFiles, 50000);
+  ///memtable size限定在10KB~1GB之间 
   ClipToRange(&result.write_buffer_size, 10<<10,                      1<<30);
   ClipToRange(&result.max_file_size,     1<<20,                       1<<30);
   ClipToRange(&result.block_size,        1<<10,                       4<<20);
   /////////////////////meggie
+  //限定在1KB~1GB之间
   ClipToRange(&result.chunk_index_size, 1<<10, 1<<30);
+  //限定在10KB~1GB之间
   ClipToRange(&result.chunk_log_size, 10<<10, 1<<30);
   /////////////////////meggie
   
@@ -187,10 +198,10 @@ DBImpl::DBImpl(const Options& raw_options, const std::string& dbname, const std:
       manual_compaction_(nullptr),
       ///////////////////////meggie
       nvmtbl_(new NVMTable(internal_comparator_)),
-      bg_nvmtable_cv_(&mutex_),
-      bg_fg_cv_(&mutex_),
-      num_nvmtable_threads_(0),
-      allow_nvmtable_compaction_(false),
+      //bg_nvmtable_cv_(&mutex_),
+      //bg_fg_cv_(&mutex_),
+      //num_nvmtable_threads_(0),
+      //allow_nvmtable_compaction_(false),
       chunk_been_allocated_(false),
       hot_bf_(new MultiHotBloomFilter()),
       ///////////////////////meggie
@@ -199,9 +210,9 @@ DBImpl::DBImpl(const Options& raw_options, const std::string& dbname, const std:
   has_imm_.Release_Store(nullptr);
   //////////////////meggie
   nvmtbl_->Ref();
-  env_->StartThread(&DBImpl::CompactNVMTableWrapper, this);
-  num_nvmtable_threads_ = 1;
+  //num_nvmtable_threads_ = 1;
 
+  thpool_ = new ThreadPool(4);
   chunk_index_files_.resize(kNumChunkTable);
   chunk_log_files_.resize(kNumChunkTable);
   //////////////////meggie
@@ -216,10 +227,10 @@ DBImpl::~DBImpl() {
   }
   ///////////////////////meggie
   //DEBUG_T("before nvm wait\n");
-  bg_nvmtable_cv_.SignalAll();
-  while(num_nvmtable_threads_){
-    bg_fg_cv_.Wait();
-  } 
+  //bg_nvmtable_cv_.SignalAll();
+  //while(num_nvmtable_threads_){
+  //  bg_fg_cv_.Wait();
+  //} 
   //DEBUG_T("after nvm wait\n");
   ///////////////////////meggie
   mutex_.Unlock();
@@ -227,7 +238,10 @@ DBImpl::~DBImpl() {
   if (db_lock_ != nullptr) {
     env_->UnlockFile(db_lock_);
   }
-
+  ////////////////meggie
+  //DEBUG_T("before close database\n");
+  //versions_->PrintChunkFiles();
+  ///////////////meggie
   delete versions_;
   if (mem_ != nullptr) mem_->Unref();
   if (imm_ != nullptr) imm_->Unref();
@@ -237,9 +251,12 @@ DBImpl::~DBImpl() {
   delete table_cache_;
 
   ///////////////meggie
-  //DEBUG_T("before delete nvmtbl_\n");
+  DEBUG_T("before delete nvmtbl_\n");
+  nvmtbl_->PrintInfo();
   nvmtbl_->Unref();
   delete hot_bf_;
+  delete thpool_;
+  //printChunkFileNumbers(); 
   //DEBUG_T("after delete hot_bf_\n");
   ///////////////meggie
 
@@ -403,9 +420,9 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
     }
   }
 
-  //DEBUG_T("before version recover\n");
+  DEBUG_T("before version recover\n");
   s = versions_->Recover(save_manifest);
-  //DEBUG_T("after version recover\n");
+  DEBUG_T("after version recover\n");
   if (!s.ok()) {
     DEBUG_T("after vesion->recover !s.ok()\n");
     return s;
@@ -456,9 +473,7 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
 
   //DEBUG_T("before index file assign\n");
   ///////////////////meggie
-  chunk_index_files_.assign(chunkindex_files.begin(), chunkindex_files.end());
-  chunk_log_files_.assign(chunklog_files.begin(), chunklog_files.end());
-  //DEBUG_T("before RecoverChunkFile\n");
+  DEBUG_T("before RecoverChunkFile\n");
   s = RecoverChunkFile(chunkindex_files, chunklog_files);
   if(!s.ok()){
       DEBUG_T("after RecoverChunkFile !s.ok()\n");
@@ -492,16 +507,14 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
 ///////////////////meggie
 Status DBImpl::RecoverChunkFile(std::vector<uint64_t>& chunkindex_files, 
                                 std::vector<uint64_t>& chunklog_files){
-    std::map<int, std::pair<ArenaNVM*, chunkLog*>> allocation;
-    std::vector<int> need_updates;
+    std::map<int, chunkTable*> update_chunks;
     for(int i = 0; i < kNumChunkTable; i++){
         if(chunkindex_files[i] != 0 &&
                 chunklog_files[i] != 0){
             chunk_been_allocated_ = true;
             versions_->MarkFileNumberUsed(chunkindex_files[i]);
             versions_->MarkFileNumberUsed(chunklog_files[i]);
-            
-            need_updates.push_back(i); 
+           
             chunk_index_files_[i] = chunkindex_files[i];
             chunk_log_files_[i] = chunklog_files[i];
             
@@ -509,26 +522,27 @@ Status DBImpl::RecoverChunkFile(std::vector<uint64_t>& chunkindex_files,
             std::string logfilename = chunkLogFileName(dbname_nvm_, chunklog_files[i]);
             ArenaNVM* arena = new ArenaNVM(&indexfilename, options_.chunk_index_size, true);
             chunkLog* ckg =new chunkLog(&logfilename, options_.chunk_log_size, true);
-            allocation.insert(std::pair<int, std::pair<ArenaNVM*, chunkLog*>>(i, 
-                              std::pair<ArenaNVM*, chunkLog*>(arena, ckg)));
-             
+            chunkTable* cktbl = nvmtbl_->GetNewChunkTable(arena, ckg, true);
+            cktbl->SetChunklogNumber(chunklog_files[i]);
+            cktbl->SetChunkindexNumber(chunkindex_files[i]);
+            //DEBUG_T("version chunkindex_filenumber:%lu, chunkLogFilenumber:%lu\n",
+              //      chunkindex_files[i], chunklog_files[i]);
+            update_chunks.insert(std::make_pair(i, cktbl));
         }
     } 
-    //DEBUG_T("before AllocateForCompactionChunkTable, need_updates:%d\n", 
-     //       need_updates.size());
-    nvmtbl_->AllocateForCompactionChunkTable(need_updates, allocation); 
-    //DEBUG_T("after AllocateForCompactionChunkTable\n");
-    
+    DEBUG_T("after recovery\n"); 
+    UpdateNVMTable(update_chunks, true);
+    printChunkFileNumbers();
+
     bool exceedThresh = nvmtbl_->CheckAndAddToCompactionList(
                     to_compaction_list_,
-                    need_updates_,
                     options_.chunk_index_size, 
                     options_.chunk_log_size);
     //DEBUG_T("before exceedThresh\n");
     if(exceedThresh){
-        bg_nvmtable_cv_.Signal(); 
-        Log(options_.info_log, "wait nvmtable compaction finished.....\n");
-        bg_fg_cv_.Wait();
+        //bg_nvmtable_cv_.Signal(); 
+        //Log(options_.info_log, "wait nvmtable compaction finished.....\n");
+        //bg_fg_cv_.Wait();
     } 
     return Status::OK();
 }
@@ -553,18 +567,6 @@ Status DBImpl::RecoverLogFile(uint64_t log_number, bool last_log,
   mutex_.AssertHeld();
   // Open the log file
   Status status;
-  ///////////////meggie
-  if(!chunk_been_allocated_){
-      std::vector<int> need_updates;
-      for(int i = 0; i < kNumChunkTable; i++){
-          need_updates.push_back(i);
-      }
-      status = UpdateNVMTable(need_updates);
-      chunk_been_allocated_ = true;
-      if(!status.ok())
-          return status;
-  }
-  //////////////meggie
   std::string fname = LogFileName(dbname_, log_number);
   SequentialFile* file;
   status = env_->NewSequentialFile(fname, &file);
@@ -700,8 +702,6 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
   delete iter;
   pending_outputs_.erase(meta.number);
 
-
-  //DEBUG_T("finish erase\n");
   // Note that if file_size is zero, the file has been deleted and
   // should not be added to the manifest.
   int level = 0;
@@ -723,7 +723,7 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
                   meta.smallest, meta.largest);
   }
 
-  //DEBUG_T("finish addfile\n");
+  DEBUG_T("finish addfile\n");
   CompactionStats stats;
   stats.micros = env_->NowMicros() - start_micros;
   stats.bytes_written = meta.file_size;
@@ -759,7 +759,7 @@ void DBImpl::CompactMemTable() {
     s = versions_->LogAndApply(&edit, &mutex_);
   }
 
-  //DEBUG_T("after logandapply\n");
+  DEBUG_T("after logandapply\n");
   if (s.ok()) {
     // Commit to the new state
     imm_->Unref();
@@ -769,7 +769,7 @@ void DBImpl::CompactMemTable() {
   } else {
     RecordBackgroundError(s);
   }
-  //DEBUG_T("finish CompactMemTable\n");
+  DEBUG_T("finish CompactMemTable\n");
 }
 
 void DBImpl::CompactRange(const Slice* begin, const Slice* end) {
@@ -1337,6 +1337,9 @@ Status DBImpl::Get(const ReadOptions& options,
   Version* current = versions_->current();
   mem->Ref();
   if (imm != nullptr) imm->Ref();
+  /////////meggie
+  nvmtbl_->Ref();
+  /////////meggie
   current->Ref();
 
   bool have_stat_update = false;
@@ -1351,7 +1354,14 @@ Status DBImpl::Get(const ReadOptions& options,
       // Done
     } else if (imm != nullptr && imm->Get(lkey, value, &s)) {
       // Done
-    } else {
+    } 
+    ///////////////////meggie
+    else if(nvmtbl_->Get(key, value, &s, snapshot)){
+    // Done
+    }
+    ///////////////////meggie
+    else {
+      DEBUG_T("to find in sstables\n");
       s = current->Get(options, lkey, value, &stats);
       have_stat_update = true;
     }
@@ -1363,6 +1373,9 @@ Status DBImpl::Get(const ReadOptions& options,
   }
   mem->Unref();
   if (imm != nullptr) imm->Unref();
+  /////////meggie
+  nvmtbl_->Unref();
+  /////////meggie
   current->Unref();
   return s;
 }
@@ -1686,44 +1699,95 @@ void DBImpl::GetApproximateSizes(
   }
 }
 ////////////////////////meggie
-Status DBImpl::UpdateNVMTable(std::vector<int>& need_updates){
-    int size = need_updates.size();
-    std::map<int, std::pair<ArenaNVM*, chunkLog*>> allocation;
-
-    //DEBUG_T("before update ,size:%d\n", size);
-    for(int i = 0; i < size; i++){
-        int update_index = need_updates[i];
-        uint64_t new_chunkindex_number = versions_->NewFileNumber();
-        uint64_t new_chunklog_number = versions_->NewFileNumber();
-        chunk_index_files_[update_index] = new_chunkindex_number;
-        chunk_log_files_[update_index] = new_chunklog_number;
-        
-        std::string indexfilename = chunkIndexFileName(dbname_nvm_, new_chunkindex_number);
-        std::string logfilename = chunkLogFileName(dbname_nvm_, new_chunklog_number);
-        
-        //DEBUG_T("chunk_index_size:%lu, chunk_log_size:%lu\n", options_.chunk_index_size, 
-          //      options_.chunk_log_size);
-        ArenaNVM* arena = new ArenaNVM(&indexfilename, options_.chunk_index_size, false);
-        chunkLog* ckg =new chunkLog(&logfilename, options_.chunk_log_size, false);
-        allocation.insert(std::pair<int, std::pair<ArenaNVM*, chunkLog*>>(update_index, 
-                          std::pair<ArenaNVM*, chunkLog*>(arena, ckg)));
+void DBImpl::printChunkFileNumbers(){
+    DEBUG_T("---------printChunkFileNumbers--------\n");
+    for(int i = 0; i < chunk_index_files_.size(); i++){
+        DEBUG_T("chunk%d: index number:%lu, log number:%lu\n", 
+                i, chunk_index_files_[i], chunk_log_files_[i]);
     }
-    //DEBUG_T("before AllocateForCompactionChunkTable\n");
-    nvmtbl_->AllocateForCompactionChunkTable(need_updates, allocation);
+    DEBUG_T("---------printChunkFileNumbers--------\n");
+}
+
+
+Status DBImpl::UpdateNVMTable(std::map<int, chunkTable*>& update_chunks, bool recovery){
+    if(!recovery){
+        std::map<int, chunkTable*>::iterator iter;
+        for(iter = update_chunks.begin(); iter != update_chunks.end(); iter++){
+            chunk_index_files_[iter->first] = iter->second->GetChunkindexNumber();
+            chunk_log_files_[iter->first] = iter->second->GetChunklogNumber();
+        }
+    }
+    nvmtbl_->UpdateChunkTables(update_chunks);
     return Status::OK();
+}
+
+chunkTable* DBImpl::CreateNewchunkTable(){
+    uint64_t new_chunkindex_number = versions_->NewFileNumber();
+    uint64_t new_chunklog_number = versions_->NewFileNumber();
+    std::string indexfilename = chunkIndexFileName(dbname_nvm_, new_chunkindex_number);
+    std::string logfilename = chunkLogFileName(dbname_nvm_, new_chunklog_number);
+    ArenaNVM* arena = new ArenaNVM(&indexfilename, options_.chunk_index_size, false);
+    chunkLog* ckg =new chunkLog(&logfilename, options_.chunk_log_size, false);
+    chunkTable* cktbl = nvmtbl_->GetNewChunkTable(arena, ckg, false);
+    cktbl->SetChunklogNumber(new_chunklog_number);
+    cktbl->SetChunkindexNumber(new_chunkindex_number);
+    return cktbl;
+}
+
+void DBImpl::InitNVMCompact(std::map<int, chunkTable*>& to_compaction_list, 
+        nvmcompact_struct* nvmcompact){
+    std::map<int, chunkTable*>::iterator iter = to_compaction_list.begin();
+    int i = 0;
+    for(; iter != to_compaction_list.end(); iter++, i++){
+        nvmcompact[i].index = iter->first;
+        nvmcompact[i].cktbl = iter->second;
+        nvmcompact[i].new_cktbl = CreateNewchunkTable();
+        nvmcompact[i].db = this;
+        nvmcompact[i].meta.number = versions_->NewFileNumber();
+        pending_outputs_.insert(nvmcompact[i].meta.number);
+    }
+}
+
+Status DBImpl::FinishNVMTableCompaction(nvmcompact_struct* nvmcompact, 
+                                    int size,
+                                    Version* base){
+    Status s;
+    VersionEdit edit;
+    std::map<int, chunkTable*> update_chunks;
+    for(int i = 0; i < size; i++){
+       pending_outputs_.erase(nvmcompact[i].meta.number);
+       if(nvmcompact[i].meta.file_size > 0){
+           const Slice min_user_key = nvmcompact[i].meta.smallest.user_key();
+           const Slice max_user_key = nvmcompact[i].meta.largest.user_key();
+           int level = 0;
+           if(base != nullptr)
+               level = base->PickLevelForMemTableOutput(min_user_key, max_user_key);
+           edit.AddFile(level, nvmcompact[i].meta.number, 
+                   nvmcompact[i].meta.file_size, nvmcompact[i].meta.smallest,
+                   nvmcompact[i].meta.largest);
+       } 
+       update_chunks.insert(std::make_pair(nvmcompact[i].index, nvmcompact[i].new_cktbl));
+    }
+    UpdateNVMTable(update_chunks, false);
+    edit.update_chunkfiles(chunk_index_files_, chunk_log_files_);
+    s = versions_->LogAndApply(&edit, &mutex_);
+    if(s.ok()){
+        DeleteObsoleteFiles();
+        std::map<int, chunkTable*>().swap(to_compaction_list_);
+    }
+    return s;
 }
 
 Status DBImpl::MakeRoomForImmu(bool force){
    mutex_.AssertHeld();
    Status s;
    bool exceedThresh;
-   //DEBUG_T("in MakeRoomForImmu, check\n");
+   DEBUG_T("in MakeRoomForImmu, check\n");
    exceedThresh = nvmtbl_->CheckAndAddToCompactionList(
                         to_compaction_list_,
-                        need_updates_,
                         options_.chunk_index_size, 
                         options_.chunk_log_size);
-   //DEBUG_T("after check\n");
+   DEBUG_T("after check\n");
    while(true){
        if(!bg_error_.ok()){
             s = bg_error_;
@@ -1733,16 +1797,26 @@ Status DBImpl::MakeRoomForImmu(bool force){
        }else{
             if(!exceedThresh){
                 nvmtbl_->AddAllToCompactionList(to_compaction_list_);
-                for(int i = 0; i < kNumChunkTable; i++){
-                    need_updates_.push_back(i);
-                }
             } 
-            bg_nvmtable_cv_.Signal(); 
-            //DEBUG_T("wait nvmtable compaction finished.....\n");
-            bg_fg_cv_.Wait();
+            int sz = to_compaction_list_.size();
+            nvmcompact_struct nvmcompact[sz];
+            InitNVMCompact(to_compaction_list_, nvmcompact);
+            DEBUG_T("before add job, sz:%d\n", sz);
+            for(int i = 0; i < sz; i++){
+                DEBUG_T("have add job\n");
+                thpool_->AddJob(CompactNVMTable, &nvmcompact[i]);
+            }
+            DEBUG_T("before wait\n");
+            thpool_->WaitAll();
+            DEBUG_T("after wait\n");
+           
+            Version* base = versions_->current();
+            base->Ref();
+            FinishNVMTableCompaction(nvmcompact, sz, base);
+            base->Unref();
+            
             exceedThresh = nvmtbl_->CheckAndAddToCompactionList(
                                 to_compaction_list_,
-                                need_updates_,
                                 options_.chunk_index_size, 
                                 options_.chunk_log_size);
             force = false;
@@ -1752,183 +1826,103 @@ Status DBImpl::MakeRoomForImmu(bool force){
    return s;
 }
 
-Status DBImpl::FinishNVMTableCompaction(NVMTableCompactionState* compact){
-    assert(compact != NULL);
-    assert(compact->builder != NULL);
-    assert(compact->outfile != NULL);
-
-    Status s;
-    s= compact->builder->Finish();
-    
-    const uint64_t file_size = compact->builder->FileSize();
-    compact->current_output()->file_size = file_size;
-    compact->total_bytes += file_size;
-
-    const uint64_t num_entries = compact->builder->NumEntries();
-    const uint64_t file_number = compact->current_output()->number;
-    
-    delete compact->builder;
-    compact->builder = NULL;
-
-    if(s.ok()){
-        compact->outfile->Sync();
-    }
-    if(s.ok()){
-        compact->outfile->Close();
-    }
-
-    delete compact->outfile;
-    compact->outfile = NULL;
-
-    Iterator* iter = table_cache_->NewIterator(ReadOptions(), 
-            file_number, file_size);
-    s = iter->status();
-    delete iter;
-    if(s.ok()){
-        Log(options_.info_log, "Generated table #%lu, %lu keys, %lu bytes\n",
-                file_number, num_entries, file_size);
-    }
-    return s;
-
-}
-
 static const int kLevel0FileSize = (2 << 10) << 10;
 
-Status DBImpl::WriteNVMTableToLevel0(std::vector<chunkTable*>& to_compaction_list_, 
-        VersionEdit* edit, Version* base){
-    mutex_.AssertHeld();
+Status DBImpl::WriteNVMTableToLevel0(chunkTable* cktbl, 
+                        chunkTable* new_cktbl, 
+                        FileMetaData* meta){
     const uint64_t start_micros = env_->NowMicros();
-    NVMTableCompactionState nvmcompact;
-    Iterator* iter = nvmtbl_->GetMergeIterator(to_compaction_list_);
     Status s;
-    uint64_t file_number;
+    TableBuilder* builder = NULL;
+    WritableFile* file;
+    int sst_num = 0;
 
-    mutex_.Unlock();
-    
-    //DEBUG_T("before to SeekToFirst\n");
+    Iterator* iter = cktbl->NewIterator();
     iter->SeekToFirst();
-    //DEBUG_T("after to SeekToFirst\n");
-    for(; iter->Valid(); iter->Next()) {
-        //DEBUG_T("before get key\n");
-        Slice key = iter->key();
-        //DEBUG_T("after get key\n");
-        if(nvmcompact.builder == NULL){
-            mutex_.Lock();
-            //DEBUG_T("before get filenumber\n");
-            file_number = versions_->NewFileNumber();
-            pending_outputs_.insert(file_number);
-            NVMTableCompactionState::Output out;
-            out.number = file_number;
-            out.smallest.Clear();
-            out.largest.Clear();
-            nvmcompact.outputs.push_back(out);
-            mutex_.Unlock();
-            
-            //DEBUG_T("before get tablefilename\n");
-            std::string fname = TableFileName(dbname_, file_number);
-            s = env_->NewWritableFile(fname, &nvmcompact.outfile);
-            
-            if(s.ok()){
-                //DEBUG_T("before get tablebuilder\n");
-                nvmcompact.builder = new TableBuilder(options_, nvmcompact.outfile);
-                nvmcompact.current_output()->smallest.DecodeFrom(key);
+    //DEBUG_T("test valid\n");
+    if(iter->Valid()){
+        //DEBUG_T("is valid\n");
+        std::string fname = TableFileName(dbname_, meta->number);
+        s = env_->NewWritableFile(fname, &file);               
+        if(!s.ok()){
+            return s;
+        }
+        builder = new TableBuilder(options_, file);
+        bool first_entry = true;
+        for(; iter->Valid(); iter->Next()) {
+            Slice key = iter->key();
+            Slice user_key(key.data(), key.size() - 8);
+            char* number = const_cast<char*>(user_key.ToString().c_str()) + 3;
+            if(hot_bf_->CheckHot(user_key)){
+                DEBUG_T("in WriteNVMTableToLevel0, user_key:%s is check hot\n",
+                        user_key.ToString().c_str());
+                new_cktbl->Add(iter->GetNodeKey());
+                if(atoi(number) == 259)
+                    DEBUG_T("259 has been added from nvmtable to new_nvmtable\n");
             }
             else{
-                break;
+                sst_num++;
+                if(first_entry){
+                    meta->smallest.DecodeFrom(iter->key());
+                    first_entry = false;
+                }
+                meta->largest.DecodeFrom(key);
+                builder->Add(key, iter->value());
+                if(atoi(number) == 259)
+                    DEBUG_T("259 has been added from nvmtable to sstable\n");
             }
         }
-        //DEBUG_T("before current_output\n");
-        nvmcompact.current_output()->largest.DecodeFrom(key);
-        
-        //DEBUG_T("add kv to sstable\n");
-        nvmcompact.builder->Add(key, iter->value());
 
-        if(nvmcompact.builder->FileSize() >= kLevel0FileSize){
-            FinishNVMTableCompaction(&nvmcompact);
+        if(!sst_num)
+            meta->file_size = 0;
+        else{
+            s = builder->Finish();
+            meta->file_size = builder->FileSize();
+            if(s.ok()){
+                file->Sync();
+            }
+            if(s.ok()){
+                file->Close();
+            }
+        }
+        delete builder;
+        builder = NULL;
+        delete file;
+        file = NULL;
+       
+        if(sst_num){
+            Iterator* iterator = table_cache_->NewIterator(ReadOptions(), 
+                    meta->number, meta->file_size);
+            s = iterator->status();
+            delete iterator;
+        }
+        if(s.ok()){
+            DEBUG_T("NVMTable compaction Generated table #%lu, %lu bytes\n",
+                    meta->number, meta->file_size);
         }
     }
 
     if(s.ok() && shutting_down_.Acquire_Load()){
         s = Status::IOError("Deleting DB during Compactnvmtable.....\n");
     }
-    if(s.ok() && nvmcompact.builder != NULL){
-        FinishNVMTableCompaction(&nvmcompact);
-    }
     delete iter;
     
-    mutex_.Lock();
-    
-    DEBUG_T("NVMTable compaction gernerate %d sstables\n", nvmcompact.outputs.size());
-    for(int i = 0; i < nvmcompact.outputs.size(); i++){
-        const NVMTableCompactionState::Output& out = nvmcompact.outputs[i];
-        pending_outputs_.erase(out.number);
-        int level = 0;
-        if (s.ok() && out.file_size > 0) {
-            const Slice min_user_key = out.smallest.user_key();
-            const Slice max_user_key = out.largest.user_key();
-            if (base != nullptr) {
-              level = base->PickLevelForMemTableOutput(min_user_key, max_user_key);
-            }
-            edit->AddFile(level, out.number, out.file_size,
-                          out.smallest, out.largest);
-        }
-        CompactionStats stats;
-        stats.micros = env_->NowMicros() - start_micros;
-        stats.bytes_written = out.file_size;
-        stats_[level].Add(stats);
-    }
-  
     return s;
 }
 
-void DBImpl::CompactNVMTableThread(){
-    MutexLock l(&mutex_);
-    
-    while(!shutting_down_.Acquire_Load() && !allow_nvmtable_compaction_){
-        bg_nvmtable_cv_.Wait();
-    }
-    while(!shutting_down_.Acquire_Load()){
-        while(!shutting_down_.Acquire_Load() && to_compaction_list_.empty()){
-            bg_nvmtable_cv_.Wait();
-        }
-        if(shutting_down_.Acquire_Load())
-            break;
-        
-        VersionEdit edit;
-        Version* base = versions_->current();
-        base->Ref();
-        //DEBUG_T("before WriteNVMTableToLevel0\n"); 
-        Status s = WriteNVMTableToLevel0(to_compaction_list_, &edit, base);
-        //DEBUG_T("after WriteNVMTableToLevel0\n"); 
-        base->Unref();
-        base = NULL;
-
-        if(s.ok()){
-            UpdateNVMTable(need_updates_);
-            edit.update_chunkfiles(chunk_index_files_, chunk_log_files_);
-            s = versions_->LogAndApply(&edit, &mutex_);
-        }
-
-        if(s.ok()){
-            std::vector<chunkTable*>().swap(to_compaction_list_);
-            std::vector<int>().swap(need_updates_);
-            //DEBUG_T("to wakeup nvmtable wait\n");
-            bg_fg_cv_.SignalAll();
-            DeleteObsoleteFiles();
-        }
-        else{
-            RecordBackgroundError(s);
-        }
-    }
-    num_nvmtable_threads_ -= 1;
-    //DEBUG_T("cleanup num_nvmtable_threads_.....\n");
-    bg_fg_cv_.SignalAll();
+void DBImpl::CompactNVMTable(void* args){
+    nvmcompact_struct* nvmcompact = reinterpret_cast<nvmcompact_struct*>(args);
+    DBImpl* db = nvmcompact->db;
+    DEBUG_T("before WriteNVMTableToLevel0\n");
+    db->WriteNVMTableToLevel0(nvmcompact->cktbl, nvmcompact->new_cktbl, &nvmcompact->meta);
+    DEBUG_T("finish WriteNVMTableToLevel0\n");
 }
-  
+
 Status DBImpl::TEST_CompactNVMTable(){
    
     return Status::OK();
 }
+
 ////////////////////////meggie
 
 
@@ -1996,13 +1990,12 @@ Status DB::Open(const Options& options, const std::string& dbname,
   ///////////////meggie
   //DEBUG_T("before chunk_been_allocated_\n");
   if(!impl->chunk_been_allocated_){
-      std::vector<int> need_updates;
+      std::map<int, chunkTable*> update_chunks;
       for(int i = 0; i < kNumChunkTable; i++){
-          need_updates.push_back(i);
+          chunkTable* cktbl = impl->CreateNewchunkTable();
+          update_chunks.insert(std::make_pair(i, cktbl));
       }
-      //DEBUG_T("before UpdateNVMTable\n");
-      s = impl->UpdateNVMTable(need_updates);
-      //DEBUG_T("after UpdateNVMTable\n");
+      impl->UpdateNVMTable(update_chunks, false);
       edit.update_chunkfiles(impl->chunk_index_files_, impl->chunk_log_files_);
       if(!s.ok())
           return s;
@@ -2018,8 +2011,8 @@ Status DB::Open(const Options& options, const std::string& dbname,
   if (s.ok()) {
     impl->DeleteObsoleteFiles();
     ///////////////meggie
-    impl->allow_nvmtable_compaction_ = true;
-    impl->bg_nvmtable_cv_.SignalAll();
+    //impl->allow_nvmtable_compaction_ = true;
+    //impl->bg_nvmtable_cv_.SignalAll();
     ///////////////meggie
     impl->MaybeScheduleCompaction();
   }
@@ -2081,6 +2074,9 @@ Status DestroyDB(const std::string& dbname, const Options& options,
     env->UnlockFile(lock);  // Ignore error since state is already gone
     env->DeleteFile(lockname);
     env->DeleteDir(dbname);  // Ignore error in case dir contains other files
+    ///////////////meggie
+    env->DeleteDir(dbname_nvm);
+    ///////////////meggie
   }
   return result;
 }

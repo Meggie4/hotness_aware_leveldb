@@ -1,0 +1,6057 @@
+write_buffer_size:4194304, chunk_index_size:4194304, chunk_log_size:8388608
+ref, refs:1
+to handle job
+to handle job
+to handle job
+to handle job
+before version recover
+after recover from current MANIFEST, s.ok()
+after MarkFileNumberUsed, s.ok()
+after version recover
+before RecoverChunkFile
+after recovery
+---------printChunkFileNumbers--------
+chunk0: index number:0, log number:0
+chunk1: index number:0, log number:0
+chunk2: index number:0, log number:0
+chunk3: index number:0, log number:0
+chunk4: index number:0, log number:0
+chunk5: index number:0, log number:0
+chunk6: index number:0, log number:0
+chunk7: index number:0, log number:0
+---------printChunkFileNumbers--------
+logandapply, chunkindex_filenumber:4, chunkLogFilenumber:5
+logandapply, chunkindex_filenumber:6, chunkLogFilenumber:7
+logandapply, chunkindex_filenumber:8, chunkLogFilenumber:9
+logandapply, chunkindex_filenumber:10, chunkLogFilenumber:11
+logandapply, chunkindex_filenumber:12, chunkLogFilenumber:13
+logandapply, chunkindex_filenumber:14, chunkLogFilenumber:15
+logandapply, chunkindex_filenumber:16, chunkLogFilenumber:17
+logandapply, chunkindex_filenumber:18, chunkLogFilenumber:19
+before delete nvmtbl_
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:124, logUsage:0, numofEntries:0
+index:1, indexUsage:124, logUsage:0, numofEntries:0
+index:2, indexUsage:124, logUsage:0, numofEntries:0
+index:3, indexUsage:124, logUsage:0, numofEntries:0
+index:4, indexUsage:124, logUsage:0, numofEntries:0
+index:5, indexUsage:124, logUsage:0, numofEntries:0
+index:6, indexUsage:124, logUsage:0, numofEntries:0
+index:7, indexUsage:124, logUsage:0, numofEntries:0
+-------------END PRINT_NVMTABLE-----------------
+unref, refs:0
+after handle job
+after handle job
+after handle job
+after handle job
+write_buffer_size:10240, chunk_index_size:1024, chunk_log_size:20000
+ref, refs:1
+to handle job
+to handle job
+to handle job
+to handle job
+before version recover
+after recover from current MANIFEST, s.ok()
+after MarkFileNumberUsed, s.ok()
+after version recover
+before RecoverChunkFile
+after recovery
+---------printChunkFileNumbers--------
+chunk0: index number:4, log number:5
+chunk1: index number:6, log number:7
+chunk2: index number:8, log number:9
+chunk3: index number:10, log number:11
+chunk4: index number:12, log number:13
+chunk5: index number:14, log number:15
+chunk6: index number:16, log number:17
+chunk7: index number:18, log number:19
+---------printChunkFileNumbers--------
+in MakeRoomForImmu, check
+after check
+before add job, sz:8
+have add job
+have add job
+have add job
+have add job
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+finish WriteNVMTableToLevel0
+have add job
+have add job
+after handle job
+to handle job
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+finish WriteNVMTableToLevel0
+before WriteNVMTableToLevel0
+node_ is nullptr
+after handle job
+finish WriteNVMTableToLevel0
+have add job
+to handle job
+after handle job
+to handle job
+before WriteNVMTableToLevel0
+have add job
+node_ is nullptr
+have add job
+finish WriteNVMTableToLevel0
+before WriteNVMTableToLevel0
+after handle job
+to handle job
+node_ is nullptr
+finish WriteNVMTableToLevel0
+have add job
+have add job
+after handle job
+to handle job
+before WriteNVMTableToLevel0
+node_ is nullptr
+finish WriteNVMTableToLevel0
+have add job
+have add job
+after handle job
+to handle job
+before WriteNVMTableToLevel0
+before wait
+node_ is nullptr
+have add job
+finish WriteNVMTableToLevel0
+before WriteNVMTableToLevel0
+after handle job
+node_ is nullptr
+to handle job
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:23, chunkLogFilenumber:24
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:29, chunkLogFilenumber:30
+logandapply, chunkindex_filenumber:32, chunkLogFilenumber:33
+logandapply, chunkindex_filenumber:35, chunkLogFilenumber:36
+logandapply, chunkindex_filenumber:38, chunkLogFilenumber:39
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:44, chunkLogFilenumber:45
+after add to sstable
+add to nvmtable, user_key:key000001
+chuntable Add, user_key:key000001, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000002
+chuntable Add, user_key:key000002, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000004
+chuntable Add, user_key:key000004, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000005
+chuntable Add, user_key:key000005, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000007
+chuntable Add, user_key:key000007, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000008
+chuntable Add, user_key:key000008, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:152, logUsage:1037, numofEntries:1
+index:1, indexUsage:124, logUsage:0, numofEntries:0
+index:2, indexUsage:152, logUsage:1037, numofEntries:1
+index:3, indexUsage:152, logUsage:1037, numofEntries:1
+index:4, indexUsage:124, logUsage:0, numofEntries:0
+index:5, indexUsage:152, logUsage:1037, numofEntries:1
+index:6, indexUsage:152, logUsage:1037, numofEntries:1
+index:7, indexUsage:152, logUsage:1037, numofEntries:1
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000010
+chuntable Add, user_key:key000010, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000011
+chuntable Add, user_key:key000011, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000013
+chuntable Add, user_key:key000013, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000014
+chuntable Add, user_key:key000014, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000016
+chuntable Add, user_key:key000016, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000017
+chuntable Add, user_key:key000017, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:152, logUsage:1037, numofEntries:1
+index:1, indexUsage:168, logUsage:2066, numofEntries:2
+index:2, indexUsage:152, logUsage:1037, numofEntries:1
+index:3, indexUsage:168, logUsage:2066, numofEntries:2
+index:4, indexUsage:152, logUsage:1037, numofEntries:1
+index:5, indexUsage:152, logUsage:1037, numofEntries:1
+index:6, indexUsage:168, logUsage:2066, numofEntries:2
+index:7, indexUsage:168, logUsage:2066, numofEntries:2
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000019
+chuntable Add, user_key:key000019, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000020
+chuntable Add, user_key:key000020, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000022
+chuntable Add, user_key:key000022, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000023
+chuntable Add, user_key:key000023, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000025
+chuntable Add, user_key:key000025, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000026
+chuntable Add, user_key:key000026, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:168, logUsage:2066, numofEntries:2
+index:1, indexUsage:168, logUsage:2066, numofEntries:2
+index:2, indexUsage:168, logUsage:2066, numofEntries:2
+index:3, indexUsage:184, logUsage:3095, numofEntries:3
+index:4, indexUsage:168, logUsage:2066, numofEntries:2
+index:5, indexUsage:152, logUsage:1037, numofEntries:1
+index:6, indexUsage:184, logUsage:3095, numofEntries:3
+index:7, indexUsage:184, logUsage:3095, numofEntries:3
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000028
+chuntable Add, user_key:key000028, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000029
+chuntable Add, user_key:key000029, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000031
+chuntable Add, user_key:key000031, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000032
+chuntable Add, user_key:key000032, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000034
+chuntable Add, user_key:key000034, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000035
+chuntable Add, user_key:key000035, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:184, logUsage:3095, numofEntries:3
+index:1, indexUsage:184, logUsage:3095, numofEntries:3
+index:2, indexUsage:168, logUsage:2066, numofEntries:2
+index:3, indexUsage:200, logUsage:4124, numofEntries:4
+index:4, indexUsage:168, logUsage:2066, numofEntries:2
+index:5, indexUsage:168, logUsage:2066, numofEntries:2
+index:6, indexUsage:200, logUsage:4124, numofEntries:4
+index:7, indexUsage:200, logUsage:4124, numofEntries:4
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000037
+chuntable Add, user_key:key000037, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000038
+chuntable Add, user_key:key000038, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000040
+chuntable Add, user_key:key000040, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000041
+chuntable Add, user_key:key000041, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000043
+chuntable Add, user_key:key000043, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000044
+chuntable Add, user_key:key000044, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:200, logUsage:4124, numofEntries:4
+index:1, indexUsage:216, logUsage:5153, numofEntries:5
+index:2, indexUsage:184, logUsage:3095, numofEntries:3
+index:3, indexUsage:200, logUsage:4124, numofEntries:4
+index:4, indexUsage:168, logUsage:2066, numofEntries:2
+index:5, indexUsage:184, logUsage:3095, numofEntries:3
+index:6, indexUsage:200, logUsage:4124, numofEntries:4
+index:7, indexUsage:216, logUsage:5153, numofEntries:5
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000046
+chuntable Add, user_key:key000046, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000047
+chuntable Add, user_key:key000047, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000049
+chuntable Add, user_key:key000049, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000050
+chuntable Add, user_key:key000050, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000052
+chuntable Add, user_key:key000052, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000053
+chuntable Add, user_key:key000053, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:200, logUsage:4124, numofEntries:4
+index:1, indexUsage:232, logUsage:6182, numofEntries:6
+index:2, indexUsage:200, logUsage:4124, numofEntries:4
+index:3, indexUsage:216, logUsage:5153, numofEntries:5
+index:4, indexUsage:184, logUsage:3095, numofEntries:3
+index:5, indexUsage:184, logUsage:3095, numofEntries:3
+index:6, indexUsage:200, logUsage:4124, numofEntries:4
+index:7, indexUsage:248, logUsage:7211, numofEntries:7
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000055
+chuntable Add, user_key:key000055, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000056
+chuntable Add, user_key:key000056, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000058
+chuntable Add, user_key:key000058, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000059
+chuntable Add, user_key:key000059, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000061
+chuntable Add, user_key:key000061, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000062
+chuntable Add, user_key:key000062, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:216, logUsage:5153, numofEntries:5
+index:1, indexUsage:232, logUsage:6182, numofEntries:6
+index:2, indexUsage:200, logUsage:4124, numofEntries:4
+index:3, indexUsage:216, logUsage:5153, numofEntries:5
+index:4, indexUsage:200, logUsage:4124, numofEntries:4
+index:5, indexUsage:200, logUsage:4124, numofEntries:4
+index:6, indexUsage:216, logUsage:5153, numofEntries:5
+index:7, indexUsage:288, logUsage:9269, numofEntries:9
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000064
+chuntable Add, user_key:key000064, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000065
+chuntable Add, user_key:key000065, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000067
+chuntable Add, user_key:key000067, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000068
+chuntable Add, user_key:key000068, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000070
+chuntable Add, user_key:key000070, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000071
+chuntable Add, user_key:key000071, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:232, logUsage:6182, numofEntries:6
+index:1, indexUsage:248, logUsage:7211, numofEntries:7
+index:2, indexUsage:216, logUsage:5153, numofEntries:5
+index:3, indexUsage:216, logUsage:5153, numofEntries:5
+index:4, indexUsage:216, logUsage:5153, numofEntries:5
+index:5, indexUsage:216, logUsage:5153, numofEntries:5
+index:6, indexUsage:216, logUsage:5153, numofEntries:5
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000073
+chuntable Add, user_key:key000073, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000074
+chuntable Add, user_key:key000074, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000076
+chuntable Add, user_key:key000076, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000077
+chuntable Add, user_key:key000077, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000079
+chuntable Add, user_key:key000079, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000080
+chuntable Add, user_key:key000080, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:264, logUsage:8240, numofEntries:8
+index:1, indexUsage:248, logUsage:7211, numofEntries:7
+index:2, indexUsage:248, logUsage:7211, numofEntries:7
+index:3, indexUsage:216, logUsage:5153, numofEntries:5
+index:4, indexUsage:232, logUsage:6182, numofEntries:6
+index:5, indexUsage:216, logUsage:5153, numofEntries:5
+index:6, indexUsage:216, logUsage:5153, numofEntries:5
+index:7, indexUsage:320, logUsage:11327, numofEntries:11
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000082
+chuntable Add, user_key:key000082, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000083
+chuntable Add, user_key:key000083, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000085
+chuntable Add, user_key:key000085, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000086
+chuntable Add, user_key:key000086, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000088
+chuntable Add, user_key:key000088, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000089
+chuntable Add, user_key:key000089, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:288, logUsage:9269, numofEntries:9
+index:1, indexUsage:248, logUsage:7211, numofEntries:7
+index:2, indexUsage:264, logUsage:8240, numofEntries:8
+index:3, indexUsage:232, logUsage:6182, numofEntries:6
+index:4, indexUsage:232, logUsage:6182, numofEntries:6
+index:5, indexUsage:248, logUsage:7211, numofEntries:7
+index:6, indexUsage:216, logUsage:5153, numofEntries:5
+index:7, indexUsage:336, logUsage:12356, numofEntries:12
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000091
+chuntable Add, user_key:key000091, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000092
+chuntable Add, user_key:key000092, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000094
+chuntable Add, user_key:key000094, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000095
+chuntable Add, user_key:key000095, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000097
+chuntable Add, user_key:key000097, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000098
+chuntable Add, user_key:key000098, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:304, logUsage:10298, numofEntries:10
+index:1, indexUsage:248, logUsage:7211, numofEntries:7
+index:2, indexUsage:288, logUsage:9269, numofEntries:9
+index:3, indexUsage:248, logUsage:7211, numofEntries:7
+index:4, indexUsage:232, logUsage:6182, numofEntries:6
+index:5, indexUsage:264, logUsage:8240, numofEntries:8
+index:6, indexUsage:232, logUsage:6182, numofEntries:6
+index:7, indexUsage:352, logUsage:13385, numofEntries:13
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000100
+chuntable Add, user_key:key000100, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000101
+chuntable Add, user_key:key000101, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000103
+chuntable Add, user_key:key000103, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000104
+chuntable Add, user_key:key000104, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000106
+chuntable Add, user_key:key000106, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000107
+chuntable Add, user_key:key000107, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:304, logUsage:10298, numofEntries:10
+index:1, indexUsage:264, logUsage:8240, numofEntries:8
+index:2, indexUsage:304, logUsage:10298, numofEntries:10
+index:3, indexUsage:248, logUsage:7211, numofEntries:7
+index:4, indexUsage:248, logUsage:7211, numofEntries:7
+index:5, indexUsage:288, logUsage:9269, numofEntries:9
+index:6, indexUsage:248, logUsage:7211, numofEntries:7
+index:7, indexUsage:368, logUsage:14414, numofEntries:14
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000109
+chuntable Add, user_key:key000109, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000110
+chuntable Add, user_key:key000110, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000112
+chuntable Add, user_key:key000112, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000113
+chuntable Add, user_key:key000113, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000115
+chuntable Add, user_key:key000115, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000116
+chuntable Add, user_key:key000116, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:320, logUsage:11327, numofEntries:11
+index:1, indexUsage:288, logUsage:9269, numofEntries:9
+index:2, indexUsage:304, logUsage:10298, numofEntries:10
+index:3, indexUsage:264, logUsage:8240, numofEntries:8
+index:4, indexUsage:264, logUsage:8240, numofEntries:8
+index:5, indexUsage:304, logUsage:10298, numofEntries:10
+index:6, indexUsage:264, logUsage:8240, numofEntries:8
+index:7, indexUsage:368, logUsage:14414, numofEntries:14
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000118
+chuntable Add, user_key:key000118, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000119
+chuntable Add, user_key:key000119, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000121
+chuntable Add, user_key:key000121, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000122
+chuntable Add, user_key:key000122, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000124
+chuntable Add, user_key:key000124, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000125
+chuntable Add, user_key:key000125, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:336, logUsage:12356, numofEntries:12
+index:1, indexUsage:320, logUsage:11327, numofEntries:11
+index:2, indexUsage:304, logUsage:10298, numofEntries:10
+index:3, indexUsage:304, logUsage:10298, numofEntries:10
+index:4, indexUsage:264, logUsage:8240, numofEntries:8
+index:5, indexUsage:304, logUsage:10298, numofEntries:10
+index:6, indexUsage:264, logUsage:8240, numofEntries:8
+index:7, indexUsage:392, logUsage:15443, numofEntries:15
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000127
+chuntable Add, user_key:key000127, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000128
+chuntable Add, user_key:key000128, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000130
+chuntable Add, user_key:key000130, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000131
+chuntable Add, user_key:key000131, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000133
+chuntable Add, user_key:key000133, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000134
+chuntable Add, user_key:key000134, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:352, logUsage:13385, numofEntries:13
+index:1, indexUsage:336, logUsage:12356, numofEntries:12
+index:2, indexUsage:304, logUsage:10298, numofEntries:10
+index:3, indexUsage:320, logUsage:11327, numofEntries:11
+index:4, indexUsage:288, logUsage:9269, numofEntries:9
+index:5, indexUsage:304, logUsage:10298, numofEntries:10
+index:6, indexUsage:288, logUsage:9269, numofEntries:9
+index:7, indexUsage:408, logUsage:16472, numofEntries:16
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000136
+chuntable Add, user_key:key000136, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000137
+chuntable Add, user_key:key000137, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000139
+chuntable Add, user_key:key000139, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000140
+chuntable Add, user_key:key000140, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000142
+chuntable Add, user_key:key000142, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000143
+chuntable Add, user_key:key000143, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:368, logUsage:14414, numofEntries:14
+index:1, indexUsage:336, logUsage:12356, numofEntries:12
+index:2, indexUsage:320, logUsage:11327, numofEntries:11
+index:3, indexUsage:320, logUsage:11327, numofEntries:11
+index:4, indexUsage:304, logUsage:10298, numofEntries:10
+index:5, indexUsage:320, logUsage:11327, numofEntries:11
+index:6, indexUsage:304, logUsage:10298, numofEntries:10
+index:7, indexUsage:440, logUsage:17501, numofEntries:17
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000145
+chuntable Add, user_key:key000145, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000146
+chuntable Add, user_key:key000146, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000148
+chuntable Add, user_key:key000148, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000149
+chuntable Add, user_key:key000149, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000151
+chuntable Add, user_key:key000151, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000152
+chuntable Add, user_key:key000152, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:408, logUsage:16472, numofEntries:16
+index:1, indexUsage:352, logUsage:13385, numofEntries:13
+index:2, indexUsage:352, logUsage:13385, numofEntries:13
+index:3, indexUsage:320, logUsage:11327, numofEntries:11
+index:4, indexUsage:320, logUsage:11327, numofEntries:11
+index:5, indexUsage:320, logUsage:11327, numofEntries:11
+index:6, indexUsage:304, logUsage:10298, numofEntries:10
+index:7, indexUsage:440, logUsage:17501, numofEntries:17
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000154
+chuntable Add, user_key:key000154, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000155
+chuntable Add, user_key:key000155, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000157
+chuntable Add, user_key:key000157, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000158
+chuntable Add, user_key:key000158, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000160
+chuntable Add, user_key:key000160, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000161
+chuntable Add, user_key:key000161, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:408, logUsage:16472, numofEntries:16
+index:1, indexUsage:368, logUsage:14414, numofEntries:14
+index:2, indexUsage:352, logUsage:13385, numofEntries:13
+index:3, indexUsage:336, logUsage:12356, numofEntries:12
+index:4, indexUsage:336, logUsage:12356, numofEntries:12
+index:5, indexUsage:336, logUsage:12356, numofEntries:12
+index:6, indexUsage:304, logUsage:10298, numofEntries:10
+index:7, indexUsage:472, logUsage:19559, numofEntries:19
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000163
+chuntable Add, user_key:key000163, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000164
+chuntable Add, user_key:key000164, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000166
+chuntable Add, user_key:key000166, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000167
+chuntable Add, user_key:key000167, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000169
+chuntable Add, user_key:key000169, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000170
+chuntable Add, user_key:key000170, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:408, logUsage:16472, numofEntries:16
+index:1, indexUsage:392, logUsage:15443, numofEntries:15
+index:2, indexUsage:368, logUsage:14414, numofEntries:14
+index:3, indexUsage:368, logUsage:14414, numofEntries:14
+index:4, indexUsage:352, logUsage:13385, numofEntries:13
+index:5, indexUsage:336, logUsage:12356, numofEntries:12
+index:6, indexUsage:320, logUsage:11327, numofEntries:11
+index:7, indexUsage:472, logUsage:19559, numofEntries:19
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000172
+chuntable Add, user_key:key000172, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000173
+chuntable Add, user_key:key000173, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000175
+chuntable Add, user_key:key000175, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000176
+chuntable Add, user_key:key000176, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000178
+chuntable Add, user_key:key000178, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000179
+chuntable Add, user_key:key000179, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:456, logUsage:18530, numofEntries:18
+index:1, indexUsage:392, logUsage:15443, numofEntries:15
+index:2, indexUsage:392, logUsage:15443, numofEntries:15
+index:3, indexUsage:392, logUsage:15443, numofEntries:15
+index:4, indexUsage:352, logUsage:13385, numofEntries:13
+index:5, indexUsage:352, logUsage:13385, numofEntries:13
+index:6, indexUsage:336, logUsage:12356, numofEntries:12
+index:7, indexUsage:472, logUsage:19559, numofEntries:19
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000181
+chuntable Add, user_key:key000181, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000182
+chuntable Add, user_key:key000182, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000184
+chuntable Add, user_key:key000184, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000185
+chuntable Add, user_key:key000185, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000187
+chuntable Add, user_key:key000187, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000188
+chuntable Add, user_key:key000188, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:456, logUsage:18530, numofEntries:18
+index:1, indexUsage:408, logUsage:16472, numofEntries:16
+index:2, indexUsage:408, logUsage:16472, numofEntries:16
+index:3, indexUsage:392, logUsage:15443, numofEntries:15
+index:4, indexUsage:368, logUsage:14414, numofEntries:14
+index:5, indexUsage:368, logUsage:14414, numofEntries:14
+index:6, indexUsage:336, logUsage:12356, numofEntries:12
+index:7, indexUsage:504, logUsage:21617, numofEntries:21
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #91, 21830 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:23, chunkLogFilenumber:24
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:29, chunkLogFilenumber:30
+logandapply, chunkindex_filenumber:32, chunkLogFilenumber:33
+logandapply, chunkindex_filenumber:35, chunkLogFilenumber:36
+logandapply, chunkindex_filenumber:38, chunkLogFilenumber:39
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000190
+chuntable Add, user_key:key000190, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000191
+chuntable Add, user_key:key000191, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000193
+chuntable Add, user_key:key000193, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000194
+chuntable Add, user_key:key000194, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000196
+chuntable Add, user_key:key000196, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000197
+chuntable Add, user_key:key000197, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:488, logUsage:20588, numofEntries:20
+index:1, indexUsage:408, logUsage:16472, numofEntries:16
+index:2, indexUsage:440, logUsage:17501, numofEntries:17
+index:3, indexUsage:408, logUsage:16472, numofEntries:16
+index:4, indexUsage:368, logUsage:14414, numofEntries:14
+index:5, indexUsage:392, logUsage:15443, numofEntries:15
+index:6, indexUsage:352, logUsage:13385, numofEntries:13
+index:7, indexUsage:124, logUsage:0, numofEntries:0
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #96, 20759 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:29, chunkLogFilenumber:30
+logandapply, chunkindex_filenumber:32, chunkLogFilenumber:33
+logandapply, chunkindex_filenumber:35, chunkLogFilenumber:36
+logandapply, chunkindex_filenumber:38, chunkLogFilenumber:39
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000199
+chuntable Add, user_key:key000199, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000200
+chuntable Add, user_key:key000200, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000202
+chuntable Add, user_key:key000202, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000203
+chuntable Add, user_key:key000203, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000205
+chuntable Add, user_key:key000205, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000206
+chuntable Add, user_key:key000206, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:124, logUsage:0, numofEntries:0
+index:1, indexUsage:440, logUsage:17501, numofEntries:17
+index:2, indexUsage:456, logUsage:18530, numofEntries:18
+index:3, indexUsage:408, logUsage:16472, numofEntries:16
+index:4, indexUsage:368, logUsage:14414, numofEntries:14
+index:5, indexUsage:440, logUsage:17501, numofEntries:17
+index:6, indexUsage:352, logUsage:13385, numofEntries:13
+index:7, indexUsage:168, logUsage:2066, numofEntries:2
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000208
+chuntable Add, user_key:key000208, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000209
+chuntable Add, user_key:key000209, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000211
+chuntable Add, user_key:key000211, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000212
+chuntable Add, user_key:key000212, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000214
+chuntable Add, user_key:key000214, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000215
+chuntable Add, user_key:key000215, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:152, logUsage:1037, numofEntries:1
+index:1, indexUsage:440, logUsage:17501, numofEntries:17
+index:2, indexUsage:472, logUsage:19559, numofEntries:19
+index:3, indexUsage:440, logUsage:17501, numofEntries:17
+index:4, indexUsage:392, logUsage:15443, numofEntries:15
+index:5, indexUsage:456, logUsage:18530, numofEntries:18
+index:6, indexUsage:368, logUsage:14414, numofEntries:14
+index:7, indexUsage:168, logUsage:2066, numofEntries:2
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000217
+chuntable Add, user_key:key000217, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000218
+chuntable Add, user_key:key000218, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000220
+chuntable Add, user_key:key000220, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000221
+chuntable Add, user_key:key000221, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000223
+chuntable Add, user_key:key000223, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000224
+chuntable Add, user_key:key000224, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:168, logUsage:2066, numofEntries:2
+index:1, indexUsage:440, logUsage:17501, numofEntries:17
+index:2, indexUsage:504, logUsage:21617, numofEntries:21
+index:3, indexUsage:440, logUsage:17501, numofEntries:17
+index:4, indexUsage:408, logUsage:16472, numofEntries:16
+index:5, indexUsage:472, logUsage:19559, numofEntries:19
+index:6, indexUsage:368, logUsage:14414, numofEntries:14
+index:7, indexUsage:184, logUsage:3095, numofEntries:3
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #105, 21832 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:32, chunkLogFilenumber:33
+logandapply, chunkindex_filenumber:35, chunkLogFilenumber:36
+logandapply, chunkindex_filenumber:38, chunkLogFilenumber:39
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000226
+chuntable Add, user_key:key000226, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000227
+chuntable Add, user_key:key000227, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000229
+chuntable Add, user_key:key000229, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000230
+chuntable Add, user_key:key000230, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000232
+chuntable Add, user_key:key000232, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000233
+chuntable Add, user_key:key000233, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:184, logUsage:3095, numofEntries:3
+index:1, indexUsage:456, logUsage:18530, numofEntries:18
+index:2, indexUsage:124, logUsage:0, numofEntries:0
+index:3, indexUsage:440, logUsage:17501, numofEntries:17
+index:4, indexUsage:456, logUsage:18530, numofEntries:18
+index:5, indexUsage:472, logUsage:19559, numofEntries:19
+index:6, indexUsage:392, logUsage:15443, numofEntries:15
+index:7, indexUsage:200, logUsage:4124, numofEntries:4
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000235
+chuntable Add, user_key:key000235, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000236
+chuntable Add, user_key:key000236, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000238
+chuntable Add, user_key:key000238, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000239
+chuntable Add, user_key:key000239, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000241
+chuntable Add, user_key:key000241, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000242
+chuntable Add, user_key:key000242, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:200, logUsage:4124, numofEntries:4
+index:1, indexUsage:472, logUsage:19559, numofEntries:19
+index:2, indexUsage:152, logUsage:1037, numofEntries:1
+index:3, indexUsage:456, logUsage:18530, numofEntries:18
+index:4, indexUsage:472, logUsage:19559, numofEntries:19
+index:5, indexUsage:488, logUsage:20588, numofEntries:20
+index:6, indexUsage:392, logUsage:15443, numofEntries:15
+index:7, indexUsage:200, logUsage:4124, numofEntries:4
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #112, 20759 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:32, chunkLogFilenumber:33
+logandapply, chunkindex_filenumber:35, chunkLogFilenumber:36
+logandapply, chunkindex_filenumber:110, chunkLogFilenumber:111
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000244
+chuntable Add, user_key:key000244, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000245
+chuntable Add, user_key:key000245, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000247
+chuntable Add, user_key:key000247, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000248
+chuntable Add, user_key:key000248, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000250
+chuntable Add, user_key:key000250, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000251
+chuntable Add, user_key:key000251, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:216, logUsage:5153, numofEntries:5
+index:1, indexUsage:472, logUsage:19559, numofEntries:19
+index:2, indexUsage:168, logUsage:2066, numofEntries:2
+index:3, indexUsage:472, logUsage:19559, numofEntries:19
+index:4, indexUsage:488, logUsage:20588, numofEntries:20
+index:5, indexUsage:152, logUsage:1037, numofEntries:1
+index:6, indexUsage:392, logUsage:15443, numofEntries:15
+index:7, indexUsage:216, logUsage:5153, numofEntries:5
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #117, 20761 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:32, chunkLogFilenumber:33
+logandapply, chunkindex_filenumber:115, chunkLogFilenumber:116
+logandapply, chunkindex_filenumber:110, chunkLogFilenumber:111
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000253
+chuntable Add, user_key:key000253, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000254
+chuntable Add, user_key:key000254, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000256
+chuntable Add, user_key:key000256, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000257
+chuntable Add, user_key:key000257, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000259
+chuntable Add, user_key:key000259, len:9
+after add to nvmtable
+259 has been added from memtable to nvmtable
+add to nvmtable, user_key:key000260
+chuntable Add, user_key:key000260, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:216, logUsage:5153, numofEntries:5
+index:1, indexUsage:472, logUsage:19559, numofEntries:19
+index:2, indexUsage:184, logUsage:3095, numofEntries:3
+index:3, indexUsage:488, logUsage:20588, numofEntries:20
+index:4, indexUsage:124, logUsage:0, numofEntries:0
+index:5, indexUsage:168, logUsage:2066, numofEntries:2
+index:6, indexUsage:408, logUsage:16472, numofEntries:16
+index:7, indexUsage:248, logUsage:7211, numofEntries:7
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #123, 20761 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:26, chunkLogFilenumber:27
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:121, chunkLogFilenumber:122
+logandapply, chunkindex_filenumber:115, chunkLogFilenumber:116
+logandapply, chunkindex_filenumber:110, chunkLogFilenumber:111
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000262
+chuntable Add, user_key:key000262, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000263
+chuntable Add, user_key:key000263, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000265
+chuntable Add, user_key:key000265, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000266
+chuntable Add, user_key:key000266, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000268
+chuntable Add, user_key:key000268, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000269
+chuntable Add, user_key:key000269, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:232, logUsage:6182, numofEntries:6
+index:1, indexUsage:488, logUsage:20588, numofEntries:20
+index:2, indexUsage:184, logUsage:3095, numofEntries:3
+index:3, indexUsage:152, logUsage:1037, numofEntries:1
+index:4, indexUsage:152, logUsage:1037, numofEntries:1
+index:5, indexUsage:168, logUsage:2066, numofEntries:2
+index:6, indexUsage:440, logUsage:17501, numofEntries:17
+index:7, indexUsage:264, logUsage:8240, numofEntries:8
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #128, 20760 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:126, chunkLogFilenumber:127
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:121, chunkLogFilenumber:122
+logandapply, chunkindex_filenumber:115, chunkLogFilenumber:116
+logandapply, chunkindex_filenumber:110, chunkLogFilenumber:111
+logandapply, chunkindex_filenumber:41, chunkLogFilenumber:42
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000271
+chuntable Add, user_key:key000271, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000272
+chuntable Add, user_key:key000272, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000274
+chuntable Add, user_key:key000274, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000275
+chuntable Add, user_key:key000275, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000277
+chuntable Add, user_key:key000277, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000278
+chuntable Add, user_key:key000278, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:232, logUsage:6182, numofEntries:6
+index:1, indexUsage:152, logUsage:1037, numofEntries:1
+index:2, indexUsage:200, logUsage:4124, numofEntries:4
+index:3, indexUsage:168, logUsage:2066, numofEntries:2
+index:4, indexUsage:168, logUsage:2066, numofEntries:2
+index:5, indexUsage:168, logUsage:2066, numofEntries:2
+index:6, indexUsage:456, logUsage:18530, numofEntries:18
+index:7, indexUsage:288, logUsage:9269, numofEntries:9
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000280
+chuntable Add, user_key:key000280, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000281
+chuntable Add, user_key:key000281, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000283
+chuntable Add, user_key:key000283, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000284
+chuntable Add, user_key:key000284, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000286
+chuntable Add, user_key:key000286, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000287
+chuntable Add, user_key:key000287, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:232, logUsage:6182, numofEntries:6
+index:1, indexUsage:168, logUsage:2066, numofEntries:2
+index:2, indexUsage:216, logUsage:5153, numofEntries:5
+index:3, indexUsage:168, logUsage:2066, numofEntries:2
+index:4, indexUsage:184, logUsage:3095, numofEntries:3
+index:5, indexUsage:184, logUsage:3095, numofEntries:3
+index:6, indexUsage:472, logUsage:19559, numofEntries:19
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000289
+chuntable Add, user_key:key000289, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000290
+chuntable Add, user_key:key000290, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000292
+chuntable Add, user_key:key000292, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000293
+chuntable Add, user_key:key000293, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000295
+chuntable Add, user_key:key000295, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000296
+chuntable Add, user_key:key000296, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:248, logUsage:7211, numofEntries:7
+index:1, indexUsage:184, logUsage:3095, numofEntries:3
+index:2, indexUsage:216, logUsage:5153, numofEntries:5
+index:3, indexUsage:184, logUsage:3095, numofEntries:3
+index:4, indexUsage:200, logUsage:4124, numofEntries:4
+index:5, indexUsage:184, logUsage:3095, numofEntries:3
+index:6, indexUsage:504, logUsage:21617, numofEntries:21
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #137, 21833 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:126, chunkLogFilenumber:127
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:121, chunkLogFilenumber:122
+logandapply, chunkindex_filenumber:115, chunkLogFilenumber:116
+logandapply, chunkindex_filenumber:110, chunkLogFilenumber:111
+logandapply, chunkindex_filenumber:135, chunkLogFilenumber:136
+logandapply, chunkindex_filenumber:89, chunkLogFilenumber:90
+after add to sstable
+add to nvmtable, user_key:key000298
+chuntable Add, user_key:key000298, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000299
+chuntable Add, user_key:key000299, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000301
+chuntable Add, user_key:key000301, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000302
+chuntable Add, user_key:key000302, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000304
+chuntable Add, user_key:key000304, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000305
+chuntable Add, user_key:key000305, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:248, logUsage:7211, numofEntries:7
+index:1, indexUsage:200, logUsage:4124, numofEntries:4
+index:2, indexUsage:232, logUsage:6182, numofEntries:6
+index:3, indexUsage:216, logUsage:5153, numofEntries:5
+index:4, indexUsage:200, logUsage:4124, numofEntries:4
+index:5, indexUsage:216, logUsage:5153, numofEntries:5
+index:6, indexUsage:124, logUsage:0, numofEntries:0
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000307
+chuntable Add, user_key:key000307, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000308
+chuntable Add, user_key:key000308, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000310
+chuntable Add, user_key:key000310, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000311
+chuntable Add, user_key:key000311, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000313
+chuntable Add, user_key:key000313, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000314
+chuntable Add, user_key:key000314, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:288, logUsage:9269, numofEntries:9
+index:1, indexUsage:200, logUsage:4124, numofEntries:4
+index:2, indexUsage:232, logUsage:6182, numofEntries:6
+index:3, indexUsage:216, logUsage:5153, numofEntries:5
+index:4, indexUsage:216, logUsage:5153, numofEntries:5
+index:5, indexUsage:232, logUsage:6182, numofEntries:6
+index:6, indexUsage:168, logUsage:2066, numofEntries:2
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000316
+chuntable Add, user_key:key000316, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000317
+chuntable Add, user_key:key000317, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000319
+chuntable Add, user_key:key000319, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000320
+chuntable Add, user_key:key000320, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000322
+chuntable Add, user_key:key000322, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000323
+chuntable Add, user_key:key000323, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:304, logUsage:10298, numofEntries:10
+index:1, indexUsage:216, logUsage:5153, numofEntries:5
+index:2, indexUsage:232, logUsage:6182, numofEntries:6
+index:3, indexUsage:232, logUsage:6182, numofEntries:6
+index:4, indexUsage:232, logUsage:6182, numofEntries:6
+index:5, indexUsage:248, logUsage:7211, numofEntries:7
+index:6, indexUsage:184, logUsage:3095, numofEntries:3
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000325
+chuntable Add, user_key:key000325, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000326
+chuntable Add, user_key:key000326, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000328
+chuntable Add, user_key:key000328, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000329
+chuntable Add, user_key:key000329, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000331
+chuntable Add, user_key:key000331, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000332
+chuntable Add, user_key:key000332, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:304, logUsage:10298, numofEntries:10
+index:1, indexUsage:248, logUsage:7211, numofEntries:7
+index:2, indexUsage:232, logUsage:6182, numofEntries:6
+index:3, indexUsage:264, logUsage:8240, numofEntries:8
+index:4, indexUsage:248, logUsage:7211, numofEntries:7
+index:5, indexUsage:264, logUsage:8240, numofEntries:8
+index:6, indexUsage:184, logUsage:3095, numofEntries:3
+index:7, indexUsage:304, logUsage:10298, numofEntries:10
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000334
+chuntable Add, user_key:key000334, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000335
+chuntable Add, user_key:key000335, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000337
+chuntable Add, user_key:key000337, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000338
+chuntable Add, user_key:key000338, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000340
+chuntable Add, user_key:key000340, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000341
+chuntable Add, user_key:key000341, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:304, logUsage:10298, numofEntries:10
+index:1, indexUsage:264, logUsage:8240, numofEntries:8
+index:2, indexUsage:232, logUsage:6182, numofEntries:6
+index:3, indexUsage:264, logUsage:8240, numofEntries:8
+index:4, indexUsage:264, logUsage:8240, numofEntries:8
+index:5, indexUsage:288, logUsage:9269, numofEntries:9
+index:6, indexUsage:200, logUsage:4124, numofEntries:4
+index:7, indexUsage:336, logUsage:12356, numofEntries:12
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000343
+chuntable Add, user_key:key000343, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000344
+chuntable Add, user_key:key000344, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000346
+chuntable Add, user_key:key000346, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000347
+chuntable Add, user_key:key000347, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000349
+chuntable Add, user_key:key000349, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000350
+chuntable Add, user_key:key000350, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:320, logUsage:11327, numofEntries:11
+index:1, indexUsage:264, logUsage:8240, numofEntries:8
+index:2, indexUsage:264, logUsage:8240, numofEntries:8
+index:3, indexUsage:264, logUsage:8240, numofEntries:8
+index:4, indexUsage:288, logUsage:9269, numofEntries:9
+index:5, indexUsage:288, logUsage:9269, numofEntries:9
+index:6, indexUsage:200, logUsage:4124, numofEntries:4
+index:7, indexUsage:368, logUsage:14414, numofEntries:14
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000352
+chuntable Add, user_key:key000352, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000353
+chuntable Add, user_key:key000353, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000355
+chuntable Add, user_key:key000355, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000356
+chuntable Add, user_key:key000356, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000358
+chuntable Add, user_key:key000358, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000359
+chuntable Add, user_key:key000359, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:320, logUsage:11327, numofEntries:11
+index:1, indexUsage:288, logUsage:9269, numofEntries:9
+index:2, indexUsage:288, logUsage:9269, numofEntries:9
+index:3, indexUsage:288, logUsage:9269, numofEntries:9
+index:4, indexUsage:304, logUsage:10298, numofEntries:10
+index:5, indexUsage:288, logUsage:9269, numofEntries:9
+index:6, indexUsage:216, logUsage:5153, numofEntries:5
+index:7, indexUsage:392, logUsage:15443, numofEntries:15
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000361
+chuntable Add, user_key:key000361, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000362
+chuntable Add, user_key:key000362, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000364
+chuntable Add, user_key:key000364, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000365
+chuntable Add, user_key:key000365, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000367
+chuntable Add, user_key:key000367, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000368
+chuntable Add, user_key:key000368, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:336, logUsage:12356, numofEntries:12
+index:1, indexUsage:288, logUsage:9269, numofEntries:9
+index:2, indexUsage:304, logUsage:10298, numofEntries:10
+index:3, indexUsage:304, logUsage:10298, numofEntries:10
+index:4, indexUsage:304, logUsage:10298, numofEntries:10
+index:5, indexUsage:304, logUsage:10298, numofEntries:10
+index:6, indexUsage:232, logUsage:6182, numofEntries:6
+index:7, indexUsage:408, logUsage:16472, numofEntries:16
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000370
+chuntable Add, user_key:key000370, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000371
+chuntable Add, user_key:key000371, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000373
+chuntable Add, user_key:key000373, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000374
+chuntable Add, user_key:key000374, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000376
+chuntable Add, user_key:key000376, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000377
+chuntable Add, user_key:key000377, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:336, logUsage:12356, numofEntries:12
+index:1, indexUsage:304, logUsage:10298, numofEntries:10
+index:2, indexUsage:320, logUsage:11327, numofEntries:11
+index:3, indexUsage:304, logUsage:10298, numofEntries:10
+index:4, indexUsage:320, logUsage:11327, numofEntries:11
+index:5, indexUsage:320, logUsage:11327, numofEntries:11
+index:6, indexUsage:248, logUsage:7211, numofEntries:7
+index:7, indexUsage:440, logUsage:17501, numofEntries:17
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000379
+chuntable Add, user_key:key000379, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000380
+chuntable Add, user_key:key000380, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000382
+chuntable Add, user_key:key000382, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000383
+chuntable Add, user_key:key000383, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000385
+chuntable Add, user_key:key000385, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000386
+chuntable Add, user_key:key000386, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:352, logUsage:13385, numofEntries:13
+index:1, indexUsage:320, logUsage:11327, numofEntries:11
+index:2, indexUsage:336, logUsage:12356, numofEntries:12
+index:3, indexUsage:304, logUsage:10298, numofEntries:10
+index:4, indexUsage:352, logUsage:13385, numofEntries:13
+index:5, indexUsage:336, logUsage:12356, numofEntries:12
+index:6, indexUsage:248, logUsage:7211, numofEntries:7
+index:7, indexUsage:440, logUsage:17501, numofEntries:17
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000388
+chuntable Add, user_key:key000388, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000389
+chuntable Add, user_key:key000389, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000391
+chuntable Add, user_key:key000391, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000392
+chuntable Add, user_key:key000392, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000394
+chuntable Add, user_key:key000394, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000395
+chuntable Add, user_key:key000395, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:368, logUsage:14414, numofEntries:14
+index:1, indexUsage:320, logUsage:11327, numofEntries:11
+index:2, indexUsage:336, logUsage:12356, numofEntries:12
+index:3, indexUsage:320, logUsage:11327, numofEntries:11
+index:4, indexUsage:352, logUsage:13385, numofEntries:13
+index:5, indexUsage:368, logUsage:14414, numofEntries:14
+index:6, indexUsage:264, logUsage:8240, numofEntries:8
+index:7, indexUsage:456, logUsage:18530, numofEntries:18
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000397
+chuntable Add, user_key:key000397, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000398
+chuntable Add, user_key:key000398, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000400
+chuntable Add, user_key:key000400, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000401
+chuntable Add, user_key:key000401, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000403
+chuntable Add, user_key:key000403, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000404
+chuntable Add, user_key:key000404, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:392, logUsage:15443, numofEntries:15
+index:1, indexUsage:352, logUsage:13385, numofEntries:13
+index:2, indexUsage:352, logUsage:13385, numofEntries:13
+index:3, indexUsage:336, logUsage:12356, numofEntries:12
+index:4, indexUsage:352, logUsage:13385, numofEntries:13
+index:5, indexUsage:368, logUsage:14414, numofEntries:14
+index:6, indexUsage:288, logUsage:9269, numofEntries:9
+index:7, indexUsage:456, logUsage:18530, numofEntries:18
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000406
+chuntable Add, user_key:key000406, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000407
+chuntable Add, user_key:key000407, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000409
+chuntable Add, user_key:key000409, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000410
+chuntable Add, user_key:key000410, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000412
+chuntable Add, user_key:key000412, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000413
+chuntable Add, user_key:key000413, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:408, logUsage:16472, numofEntries:16
+index:1, indexUsage:352, logUsage:13385, numofEntries:13
+index:2, indexUsage:368, logUsage:14414, numofEntries:14
+index:3, indexUsage:336, logUsage:12356, numofEntries:12
+index:4, indexUsage:368, logUsage:14414, numofEntries:14
+index:5, indexUsage:408, logUsage:16472, numofEntries:16
+index:6, indexUsage:304, logUsage:10298, numofEntries:10
+index:7, indexUsage:456, logUsage:18530, numofEntries:18
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000415
+chuntable Add, user_key:key000415, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000416
+chuntable Add, user_key:key000416, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000418
+chuntable Add, user_key:key000418, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000419
+chuntable Add, user_key:key000419, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000421
+chuntable Add, user_key:key000421, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000422
+chuntable Add, user_key:key000422, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:408, logUsage:16472, numofEntries:16
+index:1, indexUsage:392, logUsage:15443, numofEntries:15
+index:2, indexUsage:392, logUsage:15443, numofEntries:15
+index:3, indexUsage:352, logUsage:13385, numofEntries:13
+index:4, indexUsage:392, logUsage:15443, numofEntries:15
+index:5, indexUsage:408, logUsage:16472, numofEntries:16
+index:6, indexUsage:304, logUsage:10298, numofEntries:10
+index:7, indexUsage:472, logUsage:19559, numofEntries:19
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000424
+chuntable Add, user_key:key000424, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000425
+chuntable Add, user_key:key000425, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000427
+chuntable Add, user_key:key000427, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000428
+chuntable Add, user_key:key000428, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000430
+chuntable Add, user_key:key000430, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000431
+chuntable Add, user_key:key000431, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:456, logUsage:18530, numofEntries:18
+index:1, indexUsage:392, logUsage:15443, numofEntries:15
+index:2, indexUsage:408, logUsage:16472, numofEntries:16
+index:3, indexUsage:368, logUsage:14414, numofEntries:14
+index:4, indexUsage:392, logUsage:15443, numofEntries:15
+index:5, indexUsage:440, logUsage:17501, numofEntries:17
+index:6, indexUsage:320, logUsage:11327, numofEntries:11
+index:7, indexUsage:472, logUsage:19559, numofEntries:19
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000433
+chuntable Add, user_key:key000433, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000434
+chuntable Add, user_key:key000434, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000436
+chuntable Add, user_key:key000436, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000437
+chuntable Add, user_key:key000437, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000439
+chuntable Add, user_key:key000439, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000440
+chuntable Add, user_key:key000440, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:456, logUsage:18530, numofEntries:18
+index:1, indexUsage:408, logUsage:16472, numofEntries:16
+index:2, indexUsage:440, logUsage:17501, numofEntries:17
+index:3, indexUsage:392, logUsage:15443, numofEntries:15
+index:4, indexUsage:408, logUsage:16472, numofEntries:16
+index:5, indexUsage:456, logUsage:18530, numofEntries:18
+index:6, indexUsage:320, logUsage:11327, numofEntries:11
+index:7, indexUsage:488, logUsage:20588, numofEntries:20
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #172, 20759 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:94, chunkLogFilenumber:95
+logandapply, chunkindex_filenumber:126, chunkLogFilenumber:127
+logandapply, chunkindex_filenumber:103, chunkLogFilenumber:104
+logandapply, chunkindex_filenumber:121, chunkLogFilenumber:122
+logandapply, chunkindex_filenumber:115, chunkLogFilenumber:116
+logandapply, chunkindex_filenumber:110, chunkLogFilenumber:111
+logandapply, chunkindex_filenumber:135, chunkLogFilenumber:136
+logandapply, chunkindex_filenumber:170, chunkLogFilenumber:171
+after add to sstable
+add to nvmtable, user_key:key000442
+chuntable Add, user_key:key000442, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000443
+chuntable Add, user_key:key000443, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000445
+chuntable Add, user_key:key000445, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000446
+chuntable Add, user_key:key000446, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000448
+chuntable Add, user_key:key000448, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000449
+chuntable Add, user_key:key000449, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:472, logUsage:19559, numofEntries:19
+index:1, indexUsage:408, logUsage:16472, numofEntries:16
+index:2, indexUsage:456, logUsage:18530, numofEntries:18
+index:3, indexUsage:408, logUsage:16472, numofEntries:16
+index:4, indexUsage:440, logUsage:17501, numofEntries:17
+index:5, indexUsage:472, logUsage:19559, numofEntries:19
+index:6, indexUsage:320, logUsage:11327, numofEntries:11
+index:7, indexUsage:152, logUsage:1037, numofEntries:1
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000451
+chuntable Add, user_key:key000451, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000452
+chuntable Add, user_key:key000452, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000454
+chuntable Add, user_key:key000454, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000455
+chuntable Add, user_key:key000455, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000457
+chuntable Add, user_key:key000457, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000458
+chuntable Add, user_key:key000458, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:472, logUsage:19559, numofEntries:19
+index:1, indexUsage:440, logUsage:17501, numofEntries:17
+index:2, indexUsage:472, logUsage:19559, numofEntries:19
+index:3, indexUsage:440, logUsage:17501, numofEntries:17
+index:4, indexUsage:456, logUsage:18530, numofEntries:18
+index:5, indexUsage:472, logUsage:19559, numofEntries:19
+index:6, indexUsage:336, logUsage:12356, numofEntries:12
+index:7, indexUsage:168, logUsage:2066, numofEntries:2
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000460
+chuntable Add, user_key:key000460, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000461
+chuntable Add, user_key:key000461, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000463
+chuntable Add, user_key:key000463, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000464
+chuntable Add, user_key:key000464, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000466
+chuntable Add, user_key:key000466, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000467
+chuntable Add, user_key:key000467, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:504, logUsage:21617, numofEntries:21
+index:1, indexUsage:440, logUsage:17501, numofEntries:17
+index:2, indexUsage:488, logUsage:20588, numofEntries:20
+index:3, indexUsage:456, logUsage:18530, numofEntries:18
+index:4, indexUsage:456, logUsage:18530, numofEntries:18
+index:5, indexUsage:488, logUsage:20588, numofEntries:20
+index:6, indexUsage:352, logUsage:13385, numofEntries:13
+index:7, indexUsage:168, logUsage:2066, numofEntries:2
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:3
+have add job
+have add job
+have add job
+have add job
+before WriteNVMTableToLevel0
+have add job
+before WriteNVMTableToLevel0
+before wait
+have add job
+in WriteNVMTableToLevel0, user_key:key000259 is check hot
+before WriteNVMTableToLevel0
+chuntable Add, user_key:key000259, len:9
+259 has been added from nvmtable to new_nvmtable
+node_ is nullptr
+node_ is nullptr
+node_ is nullptr
+NVMTable compaction Generated table #182, 21832 bytes
+NVMTable compaction Generated table #188, 20761 bytes
+NVMTable compaction Generated table #185, 19736 bytes
+finish WriteNVMTableToLevel0
+finish WriteNVMTableToLevel0
+finish WriteNVMTableToLevel0
+after handle job
+after handle job
+after handle job
+to handle job
+to handle job
+to handle job
+after wait
+logandapply, chunkindex_filenumber:180, chunkLogFilenumber:181
+logandapply, chunkindex_filenumber:126, chunkLogFilenumber:127
+logandapply, chunkindex_filenumber:183, chunkLogFilenumber:184
+logandapply, chunkindex_filenumber:121, chunkLogFilenumber:122
+logandapply, chunkindex_filenumber:115, chunkLogFilenumber:116
+logandapply, chunkindex_filenumber:186, chunkLogFilenumber:187
+logandapply, chunkindex_filenumber:135, chunkLogFilenumber:136
+logandapply, chunkindex_filenumber:170, chunkLogFilenumber:171
+after add to sstable
+add to nvmtable, user_key:key000469
+chuntable Add, user_key:key000469, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000470
+chuntable Add, user_key:key000470, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000472
+chuntable Add, user_key:key000472, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000473
+chuntable Add, user_key:key000473, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000475
+chuntable Add, user_key:key000475, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000476
+chuntable Add, user_key:key000476, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:152, logUsage:1037, numofEntries:1
+index:1, indexUsage:456, logUsage:18530, numofEntries:18
+index:2, indexUsage:168, logUsage:2066, numofEntries:2
+index:3, indexUsage:472, logUsage:19559, numofEntries:19
+index:4, indexUsage:472, logUsage:19559, numofEntries:19
+index:5, indexUsage:124, logUsage:0, numofEntries:0
+index:6, indexUsage:352, logUsage:13385, numofEntries:13
+index:7, indexUsage:184, logUsage:3095, numofEntries:3
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+after add to sstable
+add to nvmtable, user_key:key000478
+chuntable Add, user_key:key000478, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000479
+chuntable Add, user_key:key000479, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000481
+chuntable Add, user_key:key000481, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000482
+chuntable Add, user_key:key000482, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000484
+chuntable Add, user_key:key000484, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000485
+chuntable Add, user_key:key000485, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:168, logUsage:2066, numofEntries:2
+index:1, indexUsage:472, logUsage:19559, numofEntries:19
+index:2, indexUsage:184, logUsage:3095, numofEntries:3
+index:3, indexUsage:472, logUsage:19559, numofEntries:19
+index:4, indexUsage:488, logUsage:20588, numofEntries:20
+index:5, indexUsage:124, logUsage:0, numofEntries:0
+index:6, indexUsage:392, logUsage:15443, numofEntries:15
+index:7, indexUsage:184, logUsage:3095, numofEntries:3
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+after logandapply
+finish CompactMemTable
+in MakeRoomForImmu, check
+after check
+before add job, sz:1
+have add job
+before wait
+have add job
+before WriteNVMTableToLevel0
+node_ is nullptr
+NVMTable compaction Generated table #195, 20760 bytes
+finish WriteNVMTableToLevel0
+after handle job
+to handle job
+after wait
+ending_num_tables:62
+ref, refs:2
+nvmtable get user_key:key000000, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000001, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000002, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000003, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000004, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000005, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000006, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000007, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000008, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000009, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000010, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000011, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000012, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000013, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000014, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000015, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000016, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000017, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000018, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+logandapply, chunkindex_filenumber:180, chunkLogFilenumber:181
+logandapply, chunkindex_filenumber:126, chunkLogFilenumber:127
+logandapply, chunkindex_filenumber:183, chunkLogFilenumber:184
+logandapply, chunkindex_filenumber:121, chunkLogFilenumber:122
+logandapply, chunkindex_filenumber:193, chunkLogFilenumber:194
+logandapply, chunkindex_filenumber:186, chunkLogFilenumber:187
+logandapply, chunkindex_filenumber:135, chunkLogFilenumber:136
+logandapply, chunkindex_filenumber:170, chunkLogFilenumber:171
+ref, refs:2
+nvmtable get user_key:key000019, index:0
+not in nvmtable
+after add to sstable
+to find in sstables
+add to nvmtable, user_key:key000487
+chuntable Add, user_key:key000487, len:9
+unref, refs:1
+after add to nvmtable
+ref, refs:2
+add to nvmtable, user_key:key000488
+nvmtable get user_key:key000020, index:7
+chuntable Add, user_key:key000488, len:9
+not in nvmtable
+to find in sstables
+after add to nvmtable
+unref, refs:1
+after add to sstable
+ref, refs:2
+add to nvmtable, user_key:key000490
+chuntable Add, user_key:key000490, len:9
+nvmtable get user_key:key000021, index:5
+not in nvmtable
+after add to nvmtable
+to find in sstables
+add to nvmtable, user_key:key000491
+chuntable Add, user_key:key000491, len:9
+unref, refs:1
+after add to nvmtable
+ref, refs:2
+after add to sstable
+nvmtable get user_key:key000022, index:3
+add to nvmtable, user_key:key000493
+not in nvmtable
+chuntable Add, user_key:key000493, len:9
+to find in sstables
+after add to nvmtable
+add to nvmtable, user_key:key000494
+chuntable Add, user_key:key000494, len:9
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000023, index:2
+after add to nvmtable
+not in nvmtable
+---------------PRINT_NVMTABLE-------------------
+to find in sstables
+index:0, indexUsage:168, logUsage:2066, numofEntries:2
+index:1, indexUsage:488, logUsage:20588, numofEntries:20
+index:2, indexUsage:184, logUsage:3095, numofEntries:3
+unref, refs:1
+index:3, indexUsage:504, logUsage:21617, numofEntries:21
+index:4, indexUsage:152, logUsage:1037, numofEntries:1
+ref, refs:2
+index:5, indexUsage:168, logUsage:2066, numofEntries:2
+nvmtable get user_key:key000024, index:0
+index:6, indexUsage:392, logUsage:15443, numofEntries:15
+not in nvmtable
+index:7, indexUsage:184, logUsage:3095, numofEntries:3
+to find in sstables
+-------------END PRINT_NVMTABLE-----------------
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000025, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000026, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000027, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000028, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000029, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000030, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000031, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000032, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000033, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000034, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000035, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000036, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000037, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000038, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000039, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000040, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000041, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000042, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000043, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000044, index:0
+not in nvmtable
+to find in sstables
+finish addfile
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000045, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000046, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000047, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000048, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000049, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000050, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000051, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000052, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000053, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000054, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000055, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000056, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000057, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000058, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000059, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000060, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000061, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000062, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000063, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000064, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000065, index:0
+not in nvmtable
+to find in sstables
+after logandapply
+finish CompactMemTable
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000066, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000067, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000068, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000069, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000070, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000071, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000072, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000073, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000074, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000075, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000076, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000077, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000078, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000079, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000080, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000081, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000082, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000083, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000084, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000085, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000086, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000087, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000088, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000089, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000090, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000091, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000092, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000093, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000094, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000095, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000096, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000097, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000098, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000099, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000100, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000101, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000102, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000103, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000104, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000105, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000106, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000107, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000108, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000109, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000110, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000111, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000112, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000113, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000114, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000115, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000116, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000117, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000118, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000119, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000120, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000121, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000122, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000123, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000124, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000125, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000126, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000127, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000128, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000129, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000130, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000131, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000132, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000133, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000134, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000135, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000136, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000137, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000138, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000139, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000140, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000141, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000142, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000143, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000144, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000145, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000146, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000147, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000148, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000149, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000150, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000151, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000152, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000153, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000154, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000155, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000156, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000157, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000158, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000159, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000160, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000161, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000162, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000163, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000164, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000165, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000166, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000167, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000168, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000169, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000170, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000171, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000172, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000173, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000174, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000175, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000176, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000177, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000178, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000179, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000180, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000181, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000182, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000183, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000184, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000185, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000186, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000187, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000188, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000189, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000190, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000191, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000192, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000193, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000194, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000195, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000196, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000197, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000198, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000199, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000200, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000201, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000202, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000203, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000204, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000205, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000206, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000207, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000208, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000209, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000210, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000211, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000212, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000213, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000214, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000215, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000216, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000217, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000218, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000219, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000220, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000221, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000222, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000223, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000224, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000225, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000226, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000227, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000228, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000229, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000230, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000231, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000232, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000233, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000234, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000235, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000236, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000237, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000238, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000239, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000240, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000241, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000242, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000243, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000244, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000245, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000246, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000247, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000248, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000249, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000250, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000251, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000252, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000253, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000254, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000255, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000256, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000257, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000258, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000259, index:2
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000260, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000261, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000262, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000263, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000264, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000265, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000266, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000267, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000268, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000269, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000270, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000271, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000272, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000273, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000274, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000275, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000276, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000277, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000278, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000279, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000280, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000281, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000282, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000283, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000284, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000285, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000286, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000287, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000288, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000289, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000290, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000291, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000292, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000293, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000294, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000295, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000296, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000297, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000298, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000299, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000300, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000301, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000302, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000303, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000304, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000305, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000306, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000307, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000308, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000309, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000310, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000311, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000312, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000313, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000314, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000315, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000316, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000317, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000318, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000319, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000320, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000321, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000322, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000323, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000324, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000325, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000326, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000327, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000328, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000329, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000330, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000331, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000332, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000333, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000334, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000335, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000336, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000337, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000338, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000339, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000340, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000341, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000342, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000343, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000344, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000345, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000346, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000347, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000348, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000349, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000350, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000351, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000352, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000353, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000354, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000355, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000356, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000357, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000358, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000359, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000360, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000361, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000362, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000363, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000364, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000365, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000366, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000367, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000368, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000369, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000370, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000371, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000372, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000373, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000374, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000375, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000376, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000377, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000378, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000379, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000380, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000381, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000382, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000383, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000384, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000385, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000386, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000387, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000388, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000389, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000390, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000391, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000392, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000393, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000394, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000395, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000396, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000397, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000398, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000399, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000400, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000401, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000402, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000403, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000404, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000405, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000406, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000407, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000408, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000409, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000410, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000411, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000412, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000413, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000414, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000415, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000416, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000417, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000418, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000419, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000420, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000421, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000422, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000423, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000424, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000425, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000426, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000427, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000428, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000429, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000430, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000431, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000432, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000433, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000434, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000435, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000436, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000437, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000438, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000439, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000440, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000441, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000442, index:7
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000443, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000444, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000445, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000446, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000447, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000448, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000449, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000450, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000451, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000452, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000453, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000454, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000455, index:7
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000456, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000457, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000458, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000459, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000460, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000461, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000462, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000463, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000464, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000465, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000466, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000467, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000468, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000469, index:0
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000470, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000471, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000472, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000473, index:7
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000474, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000475, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000476, index:2
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000477, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000478, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000479, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000480, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000481, index:0
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000482, index:6
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000483, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000484, index:2
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000485, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000486, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000487, index:5
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000488, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000489, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000490, index:3
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000491, index:1
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000492, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000493, index:5
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000494, index:4
+unref, refs:1
+ref, refs:2
+unref, refs:1
+ref, refs:2
+unref, refs:1
+ref, refs:2
+unref, refs:1
+ref, refs:2
+unref, refs:1
+ref, refs:2
+unref, refs:1
+before delete nvmtbl_
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:168, logUsage:2066, numofEntries:2
+index:1, indexUsage:488, logUsage:20588, numofEntries:20
+index:2, indexUsage:184, logUsage:3095, numofEntries:3
+index:3, indexUsage:504, logUsage:21617, numofEntries:21
+index:4, indexUsage:152, logUsage:1037, numofEntries:1
+index:5, indexUsage:168, logUsage:2066, numofEntries:2
+index:6, indexUsage:392, logUsage:15443, numofEntries:15
+index:7, indexUsage:184, logUsage:3095, numofEntries:3
+-------------END PRINT_NVMTABLE-----------------
+unref, refs:0
+after handle job
+after handle job
+after handle job
+after handle job
+write_buffer_size:10240, chunk_index_size:1024, chunk_log_size:20000
+ref, refs:1
+to handle job
+to handle job
+to handle job
+to handle job
+before version recover
+after recover from current MANIFEST, s.ok()
+after MarkFileNumberUsed, s.ok()
+after version recover
+before RecoverChunkFile
+after recovery
+---------printChunkFileNumbers--------
+chunk0: index number:180, log number:181
+chunk1: index number:126, log number:127
+chunk2: index number:183, log number:184
+chunk3: index number:121, log number:122
+chunk4: index number:193, log number:194
+chunk5: index number:186, log number:187
+chunk6: index number:135, log number:136
+chunk7: index number:170, log number:171
+---------printChunkFileNumbers--------
+after add to sstable
+add to nvmtable, user_key:key000496
+chuntable Add, user_key:key000496, len:9
+after add to nvmtable
+add to nvmtable, user_key:key000497
+chuntable Add, user_key:key000497, len:9
+after add to nvmtable
+after add to sstable
+add to nvmtable, user_key:key000499
+chuntable Add, user_key:key000499, len:9
+after add to nvmtable
+---------------PRINT_NVMTABLE-------------------
+index:0, indexUsage:704, logUsage:3095, numofEntries:1
+index:1, indexUsage:1000, logUsage:20588, numofEntries:0
+index:2, indexUsage:696, logUsage:3095, numofEntries:0
+index:3, indexUsage:1040, logUsage:22646, numofEntries:1
+index:4, indexUsage:664, logUsage:1037, numofEntries:0
+index:5, indexUsage:680, logUsage:2066, numofEntries:0
+index:6, indexUsage:928, logUsage:16472, numofEntries:1
+index:7, indexUsage:696, logUsage:3095, numofEntries:0
+-------------END PRINT_NVMTABLE-----------------
+finish addfile
+ref, refs:2
+nvmtable get user_key:key000000, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000001, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000002, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000003, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000004, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000005, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000006, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000007, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000008, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000009, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000010, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000011, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000012, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000013, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000014, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000015, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000016, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000017, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000018, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000019, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000020, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000021, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000022, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000023, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000024, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000025, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000026, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000027, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000028, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000029, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000030, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000031, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000032, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000033, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000034, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000035, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000036, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000037, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000038, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000039, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000040, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000041, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000042, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000043, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000044, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000045, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000046, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000047, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000048, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000049, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000050, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000051, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000052, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000053, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000054, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000055, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000056, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000057, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000058, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000059, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000060, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000061, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000062, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000063, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000064, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000065, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000066, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000067, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000068, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000069, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000070, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000071, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000072, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000073, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000074, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000075, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000076, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000077, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000078, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000079, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000080, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000081, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000082, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000083, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000084, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000085, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000086, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000087, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000088, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000089, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000090, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000091, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000092, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000093, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000094, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000095, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000096, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000097, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000098, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000099, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000100, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000101, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000102, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000103, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000104, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000105, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000106, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000107, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000108, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000109, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000110, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000111, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000112, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000113, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000114, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000115, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000116, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000117, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000118, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000119, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000120, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000121, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000122, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000123, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000124, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000125, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000126, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000127, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000128, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000129, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000130, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000131, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000132, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000133, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000134, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000135, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000136, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000137, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000138, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000139, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000140, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000141, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000142, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000143, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000144, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000145, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000146, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000147, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000148, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000149, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000150, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000151, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000152, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000153, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000154, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000155, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000156, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000157, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000158, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000159, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000160, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000161, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000162, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000163, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000164, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000165, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000166, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000167, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000168, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000169, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000170, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000171, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000172, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000173, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000174, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000175, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000176, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000177, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000178, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000179, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000180, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000181, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000182, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000183, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000184, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000185, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000186, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000187, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000188, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000189, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000190, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000191, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000192, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000193, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000194, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000195, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000196, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000197, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000198, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000199, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000200, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000201, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000202, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000203, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000204, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000205, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000206, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000207, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000208, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000209, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000210, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000211, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000212, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000213, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000214, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000215, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000216, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000217, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000218, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000219, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000220, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000221, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000222, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000223, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000224, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000225, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000226, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000227, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000228, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000229, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000230, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000231, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000232, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000233, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000234, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000235, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000236, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000237, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000238, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000239, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000240, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000241, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000242, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000243, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000244, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000245, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000246, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000247, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000248, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000249, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000250, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000251, index:0
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000252, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000253, index:5
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000254, index:3
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000255, index:1
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000256, index:7
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000257, index:6
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000258, index:4
+not in nvmtable
+to find in sstables
+unref, refs:1
+ref, refs:2
+nvmtable get user_key:key000259, index:2
+not in nvmtable
+to find in sstables
+unref, refs:1
+testdebug

@@ -247,6 +247,8 @@ private:
 
     template<typename Key, class Comparator>
     inline bool NVMSkipList<Key,Comparator>::Iterator::Valid() const {
+        if(node_ == nullptr)
+            DEBUG_T("node_ is nullptr\n");
         return node_ != NULL;
     }
 
@@ -492,6 +494,7 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
                     flush_cache((void *)prev[i], sizeof(Node));
                 }
                 *alloc_rem = arena_->getAllocRem();
+                flush_cache((void *)alloc_rem, CACHE_LINE_SIZE);
                 // Set max_height after insertion to ensure correctness.
                 // If NovelSM crashes before updating this, it would just
                 // lead to inefficient lookups (O(n) vs O(logn)).

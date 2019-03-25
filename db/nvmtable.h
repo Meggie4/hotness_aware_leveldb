@@ -41,6 +41,10 @@ class chunkTable{
         Iterator* NewIterator();
         size_t ApproximateLogNVMUsage() {return cklog_->NVMUsage(); };
         size_t ApproximateIndexNVMUsage() {return arena_->MemoryUsage(); };
+        void SetChunkindexNumber(uint64_t chunkindex_number){chunkindex_number_ = chunkindex_number;}
+        void SetChunklogNumber(uint64_t chunklog_number){chunklog_number_ = chunklog_number;}
+        uint64_t GetChunklogNumber(){return chunklog_number_;}
+        uint64_t GetChunkindexNumber(){return chunkindex_number_;}
         void Ref(){++refs_;}
         void Unref(){
             --refs_;
@@ -79,6 +83,9 @@ class chunkTable{
         int refs_;
         BitBloomFilter* bbf_;
 
+        uint64_t chunkindex_number_;
+        uint64_t chunklog_number_;
+
         chunkTable(const chunkTable&);
         void operator=(const chunkTable&);
 };
@@ -94,21 +101,26 @@ class NVMTable {
         bool Get(const Slice& key, std::string* value, Status* s, SequenceNumber sequence);
         bool Contains(const Slice& user_key, SequenceNumber sequence);
         bool MaybeContains(const Slice& user_key);
-        bool CheckAndAddToCompactionList(std::vector<chunkTable*>& toCompactionList,
-                std::vector<int>& need_updates,
+        bool CheckAndAddToCompactionList(std::map<int, chunkTable*>& toCompactionList,
                 size_t index_thresh,
                 size_t log_thresh);
-        void AddAllToCompactionList(std::vector<chunkTable*>& toCompactionList);
-        void AllocateForCompactionChunkTable(std::vector<int>& need_updates, 
-            std::map<int, std::pair<ArenaNVM*, chunkLog*>>& allocation);
+        void AddAllToCompactionList(std::map<int, chunkTable*>& toCompactionList);
         Iterator* NewIterator();
         Iterator* GetMergeIterator(std::vector<chunkTable*>& toCompactionList);
         Iterator* getchunkTableIterator(int index);
         const InternalKeyComparator* GetComparator(){return comparator_;}
+        chunkTable* GetNewChunkTable(ArenaNVM* arena, chunkLog* ckg, bool recovery){
+            return new chunkTable(*comparator_, arena, ckg, recovery);
+        }
+        void UpdateChunkTables(std::map<int, chunkTable*>& update_chunks);
         void PrintInfo(); 
-        void Ref(){++refs_;}
+        void Ref(){
+            ++refs_; 
+            DEBUG_T("ref, refs:%d\n", refs_);
+        }
         void Unref(){
             --refs_;
+            DEBUG_T("unref, refs:%d\n", refs_);
             assert(refs_ >= 0);
             if(refs_ <= 0){
                 delete this;

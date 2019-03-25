@@ -41,8 +41,11 @@ chunkLog::chunkLog(std::string* logfile,
     else{
         //log_bytes_ = 0;
         log_bytes_remaining_ = filesize;
+        *(size_t*)log_map_start_ = log_bytes_remaining_;
+        flush_cache((void*)log_map_start_, CACHE_LINE_SIZE);
         log_current_ptr_ =  (char*)log_map_start_;
         nvm_usage_.NoBarrier_Store(reinterpret_cast<void*>(0));
+        flush_cache(())
     }
 }
 
@@ -72,6 +75,9 @@ void* chunkLog::insert(const char* kvitem, size_t len){
         log_bytes_remaining_ -= len;
         nvm_usage_.NoBarrier_Store(reinterpret_cast<void*>(NVMUsage() + len));
     }
+    *(size_t*)log_map_start_ = log_bytes_remaining_;
+    flush_cache((void*)log_map_start_, CACHE_LINE_SIZE);
+    
     //DEBUG_T("insert， kvstart：%p\n", kvstart);
     const char* key_ptr = GetVarint32Ptr(reinterpret_cast<char*>(kvstart), 
             reinterpret_cast<char*>(kvstart)+5, &key_length);

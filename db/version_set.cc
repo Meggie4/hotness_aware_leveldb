@@ -902,6 +902,10 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu) {
                                 edit->chunkindex_files_.end()); 
        chunklog_files_.assign(edit->chunklog_files_.begin(), 
                                 edit->chunklog_files_.end()); 
+       for(int i = 0; i < chunkindex_files_.size(); i++){
+            DEBUG_T("logandapply, chunkindex_filenumber:%lu, chunkLogFilenumber:%lu\n",
+                chunkindex_files_[i], chunklog_files_[i]);
+       }
     }
     ///////////////meggie
   } else {
@@ -1028,7 +1032,7 @@ Status VersionSet::Recover(bool *save_manifest) {
   }
   delete file;
   file = nullptr;
-
+  
   if(!s.ok()){
     DEBUG_T("after recover from current MANIFEST, !s.ok()\n");
   }
@@ -1074,6 +1078,10 @@ Status VersionSet::Recover(bool *save_manifest) {
       *save_manifest = true;
     }
   }
+  //////////////meggie
+  //DEBUG_T("in versionset recover\n");
+  //PrintChunkFiles();
+  //////////////meggie
   return s;
 }
 
@@ -1247,12 +1255,18 @@ void VersionSet::AddLiveFiles(std::set<uint64_t>* live) {
     }
   }
 }
-
 ////////////////////meggie
 void VersionSet::AddChunkFiles(std::vector<uint64_t>* chunkindex_files, 
         std::vector<uint64_t>* chunklog_files){
     chunkindex_files->assign(chunkindex_files_.begin(), chunkindex_files_.end());
     chunklog_files->assign(chunklog_files_.begin(), chunklog_files_.end());
+}
+
+void VersionSet::PrintChunkFiles(){
+    for(int i = 0; i < chunkindex_files_.size(); i++){
+        DEBUG_T("versionset, PrintChunkFiles, chunkindex_filenumber:%lu, chunkLogFilenumber:%lu\n",
+            chunkindex_files_[i], chunklog_files_[i]);
+    }
 }
 ////////////////////meggie
 
