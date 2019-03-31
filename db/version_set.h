@@ -233,7 +233,8 @@ class VersionSet {
   }
 
   void AddChunkFiles(std::vector<uint64_t>* chunkindex_files, 
-        std::vector<uint64_t>* chunklog_files);
+        std::vector<uint64_t>* chunklog_files,
+        uint64_t* chunkmeta_file);
   
   void PrintChunkFiles();
   ///////////////////meggie
@@ -320,7 +321,8 @@ class VersionSet {
   uint64_t prev_log_number_;  // 0 or backing store for memtable being compacted
   ///////////meggie
   std::vector<uint64_t> chunkindex_files_; 
-  std::vector<uint64_t> chunklog_files_; 
+  std::vector<uint64_t> chunklog_files_;
+  uint64_t chunkmeta_file_; 
   ///////////meggie
 
   // Opened lazily

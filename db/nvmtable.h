@@ -45,6 +45,10 @@ class chunkTable{
         void SetChunklogNumber(uint64_t chunklog_number){chunklog_number_ = chunklog_number;}
         uint64_t GetChunklogNumber(){return chunklog_number_;}
         uint64_t GetChunkindexNumber(){return chunkindex_number_;}
+
+        void SaveBloomFilter(char* start);
+        void RecoverBloomFilter(char* start);
+
         void Ref(){++refs_;}
         void Unref(){
             --refs_;
@@ -75,6 +79,7 @@ class chunkTable{
         };
 
         friend class chunkTableIterator;
+        friend class NVMTable;
         KeyComparator comparator_;
         ArenaNVM* arena_;
         chunkLog* cklog_;
@@ -114,6 +119,11 @@ class NVMTable {
         }
         void UpdateChunkTables(std::map<int, chunkTable*>& update_chunks);
         void PrintInfo(); 
+        
+        void SaveMetadata(std::string metfile);
+        void RecoverMetadata(std::map<int, chunkTable*> update_chunks, 
+                std::string metafile);
+        
         void Ref(){
             ++refs_; 
             DEBUG_T("ref, refs:%d\n", refs_);

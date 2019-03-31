@@ -13,10 +13,10 @@ namespace leveldb{
     BitBloomFilter::BitBloomFilter(int hash_num, size_t bit_size)
     :hash_num_(hash_num){
         //byte align 
-        size_t bytes = (bit_size + 7) / 8;
-        bit_size_ = bytes * 8;
-        bits_ = new char[bytes];
-        for(int i = 0; i < bytes; i++)
+        bytes_ = (bit_size + 7) / 8;
+        bit_size_ = bytes_ * 8;
+        bits_ = new char[bytes_];
+        for(int i = 0; i < bytes_; i++)
             bits_[i] &= 0x00;
     }
     
@@ -96,11 +96,11 @@ namespace leveldb{
     } 
 
     void BitBloomFilter::DisplayFilter(){
-        //DEBUG_T("byte_num:%d\n", bit_size_ / 8);
+        DEBUG_T("byte_num:%d\n", bit_size_ / 8);
         for(int i = 0; i < (bit_size_ / 8); i++){
-            //DEBUG_T("byte%d:%d, ", i, bits_[i]);
+            DEBUG_T("byte%d:%d, ", i, bits_[i]);
         }
-        //DEBUG_T("\n");
+        DEBUG_T("\n");
     }
     
     MultiHotBloomFilter::MultiHotBloomFilter(int bf_num, double max_weight, 

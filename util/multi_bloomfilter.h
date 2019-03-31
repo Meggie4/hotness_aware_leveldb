@@ -13,6 +13,7 @@
 
 namespace leveldb{
 
+    class chunkTable;
     class BitBloomFilter{
         public:
             BitBloomFilter(int hash_num, size_t bit_size);
@@ -22,6 +23,7 @@ namespace leveldb{
             void Reset();
             void DisplayFilter();
         private:
+            friend class chunkTable;
             static uint32_t BitBloomHash(const Slice& key);
             static std::array<uint64_t, 2> BitMurHash(const Slice& key);
             inline uint64_t nthHash(uint8_t n, uint64_t hashA,
@@ -31,6 +33,7 @@ namespace leveldb{
             char* bits_;
             int hash_num_;
             size_t bit_size_;
+            size_t bytes_;
     };
     class MultiHotBloomFilter{
         public:

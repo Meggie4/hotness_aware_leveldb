@@ -1,3 +1,11 @@
+#include <sys/types.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <cstdlib>
 #include "db/nvmtable.h"
 #include "db/dbformat.h"
 #include "leveldb/comparator.h"
@@ -6,6 +14,7 @@
 #include "util/coding.h"
 #include "util/debug.h"
 #include "util/multi_bloomfilter.h"
+#include "port/cache_flush.h"
 
 #define BIT_BLOOM_SIZE (1 << 10) << 10
 #define BIT_BLOOM_HASH 4
@@ -171,6 +180,13 @@ namespace leveldb{
     }
 
     bool chunkTable::CheckPredictIndex(const Slice& user_key){
+        if(user_key.ToString() == "key000259"){
+            if(bbf_->Query(user_key)){
+                DEBUG_T("key000259 is in nvmtable\n");
+            }
+            else  
+                DEBUG_T("key000259 is not in nvmtable\n");
+        }
         return bbf_->Query(user_key);
     }
 
@@ -180,6 +196,15 @@ namespace leveldb{
         return table_.Contains(memkey.data());
     }
 
+    void chunkTable::SaveBloomFilter(char* start){
+        memset(start, 0, bbf_->bytes_);
+        memcpy_persist(start, bbf_->bits_, bbf_->bytes_); 
+    }
+
+    void chunkTable::RecoverBloomFilter(char* start){
+        memset(bbf_->bits_, 0, bbf_->bytes_);
+        memcpy(bbf_->bits_, start, bbf_->bytes_); 
+    }
 
     NVMTable::NVMTable(const InternalKeyComparator& comparator, 
             std::vector<ArenaNVM*>& arenas,
@@ -202,7 +227,7 @@ namespace leveldb{
         }
     } 
 
-    NVMTable::~NVMTable(){
+    NVMTable::~NVMTable(){ 
         for(int i = 0; i < kNumChunkTable; i++){
             if(cktables_[i])
                 delete cktables_[i];
@@ -307,5 +332,53 @@ namespace leveldb{
         }
         DEBUG_T("-------------END PRINT_NVMTABLE-----------------\n");
     }
+
+    void NVMTable::SaveMetadata(std::string metfile){
+        DEBUG_T("save metafile:%s\n", metfile.c_str());
+        int fd = open(metfile.c_str(), O_RDWR);
+        if(fd == -1){
+            fd = open(metfile.c_str(), O_RDWR | O_CREAT, 0644);
+            if(fd == -1)
+                perror("create_metfile_failed\n");
+        }
+        
+        size_t bytes = (BIT_BLOOM_SIZE + 7) / 8;
+        size_t metfile_size = (bytes + 1) * kNumChunkTable;  
+        
+        if(ftruncate(fd, metfile_size) != 0){
+            perror("ftruncate_failed\n");
+        }
+        char* meta_map_start = (char*)mmap(NULL, metfile_size, PROT_READ | PROT_WRITE, 
+                        MAP_SHARED, fd, 0);
+
+        for(int i = 0; i < kNumChunkTable; i++){
+            if(!cktables_[i])
+                continue;
+            char* start = meta_map_start + (bytes + 1) * i;
+            cktables_[i]->SaveBloomFilter(start);
+        }
+    }
     
+    void NVMTable::RecoverMetadata(std::map<int, chunkTable*> update_chunks, 
+            std::string metafile){
+        DEBUG_T("recover metafile:%s\n", metafile.c_str());
+        int fd = open(metafile.c_str(), O_RDWR);
+        if(fd == -1){
+            fd = open(metafile.c_str(), O_RDWR | O_CREAT, 0644);
+            if(fd == -1)
+                perror("create_metfile_failed\n");
+        }
+        size_t bytes = (BIT_BLOOM_SIZE + 7) / 8;
+        size_t metfile_size = (bytes + 1) * kNumChunkTable;  
+        if(ftruncate(fd, metfile_size) != 0){
+            perror("ftruncate_failed\n");
+        }
+        char* meta_map_start = (char*)mmap(NULL, metfile_size, PROT_READ | PROT_WRITE, 
+                        MAP_SHARED, fd, 0); 
+        for(auto iter = update_chunks.begin(); iter != update_chunks.end(); iter++){
+            DEBUG_T("iter->first:%d\n", iter->first);
+            char* start = meta_map_start + (bytes + 1) * (iter->first);
+            iter->second->RecoverBloomFilter(start);
+        }
+    }
 }

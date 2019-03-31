@@ -90,6 +90,10 @@ class VersionEdit {
           chunklog_files_[i] = newest_chunklog_files[i];
       }
   }
+  void SetMetaNumber(uint64_t num) {
+    has_meta_number_ = true;
+    chunkmeta_file_ = num;
+  }
   ///////////////////meggie
 
  private:
@@ -116,6 +120,8 @@ class VersionEdit {
   std::vector<uint64_t> chunkindex_files_; 
   std::vector<uint64_t> chunklog_files_;
   bool has_updated_chunk_;
+  uint64_t chunkmeta_file_;
+  bool has_meta_number_;
   //////////////////meggie
 };
 

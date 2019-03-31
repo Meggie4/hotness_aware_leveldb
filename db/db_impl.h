@@ -220,7 +220,8 @@ class DBImpl : public DB {
       EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   Status RecoverChunkFile(std::vector<uint64_t>& chunkindex_files, 
-                        std::vector<uint64_t>& chunklog_files)
+                        std::vector<uint64_t>& chunklog_files,
+                        uint64_t chunkmeta_file);
       EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   
   NVMTable* nvmtbl_;
@@ -234,6 +235,8 @@ class DBImpl : public DB {
  
   std::vector<uint64_t> chunk_index_files_;
   std::vector<uint64_t> chunk_log_files_;
+
+  uint64_t chunk_meta_file_;
 
   bool chunk_been_allocated_;
   

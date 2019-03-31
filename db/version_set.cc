@@ -793,7 +793,11 @@ VersionSet::VersionSet(const std::string& dbname,
       descriptor_file_(nullptr),
       descriptor_log_(nullptr),
       dummy_versions_(this),
-      current_(nullptr) {
+      current_(nullptr),
+      ////////meggie
+      chunkmeta_file_(0)
+      ///////meggie 
+    {
   AppendVersion(new Version(this));
   ///////////////meggie
   chunkindex_files_.resize(kNumChunkTable);
@@ -836,6 +840,11 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu) {
   if (!edit->has_prev_log_number_) {
     edit->SetPrevLogNumber(prev_log_number_);
   }
+
+  ///////////meggie
+  if(!edit->has_meta_number_)
+      edit->SetMetaNumber(chunkmeta_file_);
+  ///////////meggie
 
   edit->SetNextFile(next_file_number_);
   edit->SetLastSequence(last_sequence_);
@@ -907,6 +916,9 @@ Status VersionSet::LogAndApply(VersionEdit* edit, port::Mutex* mu) {
                 chunkindex_files_[i], chunklog_files_[i]);
        }
     }
+
+    if(edit->has_meta_number_)
+        chunkmeta_file_ = edit->chunkmeta_file_;
     ///////////////meggie
   } else {
     delete v;
@@ -959,7 +971,6 @@ Status VersionSet::Recover(bool *save_manifest) {
   bool have_next_file = false;
   bool have_last_sequence = false;
   /////////////meggie
-  bool have_updated_chunk = false;
   std::vector<uint64_t> chunkindex_files;
   std::vector<uint64_t> chunklog_files;
   /////////////meggie
@@ -1025,7 +1036,10 @@ Status VersionSet::Recover(bool *save_manifest) {
                   edit.chunkindex_files_.end());           
           chunklog_files.assign(edit.chunklog_files_.begin(), 
                   edit.chunklog_files_.end());           
-          have_updated_chunk = true;
+      }
+      
+      if(edit.has_meta_number_){
+         chunkmeta_file_ = edit.chunkmeta_file_;
       }
       /////////////meggie
     }
@@ -1033,11 +1047,7 @@ Status VersionSet::Recover(bool *save_manifest) {
   delete file;
   file = nullptr;
   
-  if(!s.ok()){
-    DEBUG_T("after recover from current MANIFEST, !s.ok()\n");
-  }
   if (s.ok()) {
-    DEBUG_T("after recover from current MANIFEST, s.ok()\n");
     if (!have_next_file) {
       s = Status::Corruption("no meta-nextfile entry in descriptor");
     } else if (!have_log_number) {
@@ -1078,10 +1088,6 @@ Status VersionSet::Recover(bool *save_manifest) {
       *save_manifest = true;
     }
   }
-  //////////////meggie
-  //DEBUG_T("in versionset recover\n");
-  //PrintChunkFiles();
-  //////////////meggie
   return s;
 }
 
@@ -1257,9 +1263,11 @@ void VersionSet::AddLiveFiles(std::set<uint64_t>* live) {
 }
 ////////////////////meggie
 void VersionSet::AddChunkFiles(std::vector<uint64_t>* chunkindex_files, 
-        std::vector<uint64_t>* chunklog_files){
+        std::vector<uint64_t>* chunklog_files,
+        uint64_t* chunkmeta_file){
     chunkindex_files->assign(chunkindex_files_.begin(), chunkindex_files_.end());
     chunklog_files->assign(chunklog_files_.begin(), chunklog_files_.end());
+    *chunkmeta_file = chunkmeta_file_;
 }
 
 void VersionSet::PrintChunkFiles(){

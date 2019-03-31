@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "util/debug.h"
 
 #ifdef _ENABLE_PMEMIO
 #include "pmdk/src/include/libpmem.h"
@@ -49,6 +50,7 @@ static inline void memcpy_persist
 #else
   unsigned int  i=0;
   uint64_t addr = (uint64_t)dest;
+    
   memcpy(dest, src, size);
 
   mfence();

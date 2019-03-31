@@ -25,7 +25,8 @@ enum Tag {
   // 8 was used for large value refs
   kPrevLogNumber        = 9,
   /////////////////meggie
-  kUpdatedChunkNumber    = 10
+  kUpdatedChunkNumber    = 10,
+  kMetaNumber    = 11
   /////////////////meggie
 };
 
@@ -41,6 +42,7 @@ void VersionEdit::Clear() {
       chunklog_files_[i] = 0;
   } 
   has_updated_chunk_ = false;
+  has_meta_number_ = false;
   //////////////////meggie
   last_sequence_ = 0;
   next_file_number_ = 0;
@@ -105,6 +107,11 @@ void VersionEdit::EncodeTo(std::string* dst) const {
         PutVarint64(dst, chunkindex_files_[i]);
         PutVarint64(dst, chunklog_files_[i]);
       }
+  }
+  if(has_meta_number_){
+    DEBUG_T("edit add metafile:%lu\n", chunkmeta_file_);
+    PutVarint32(dst, kMetaNumber);
+    PutVarint64(dst, chunkmeta_file_);
   }
   ///////////////////meggie
 }
@@ -233,11 +240,17 @@ Status VersionEdit::DecodeFrom(const Slice& src) {
             //DEBUG_T("versionset, chunkindex_filenumber:%lu, chunkLogFilenumber:%lu\n",
               //  chunkindex_files_[i], chunklog_files_[i]);
         }
-        if(!input.empty()){
-            DEBUG_T("after update chunk number, input is not empty\n");
-        }
         if(!count){
             msg = "update chunk entry";
+        }
+        break;
+      
+      case kMetaNumber:
+        if (GetVarint64(&input, &chunkmeta_file_)) {
+          DEBUG_T("edit recover metafile:%lu\n", chunkmeta_file_);
+          has_meta_number_ = true;
+        } else {
+          msg = "meta number";
         }
         break;
       ///////////////////////meggie

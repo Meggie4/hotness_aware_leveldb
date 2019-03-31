@@ -350,7 +350,6 @@ class DBTest {
     std::cout<<"before DB::Open"<<std::endl;
 
     return DB::Open(opts, dbname_, &db_, dbname_nvm_);
-    std::cout<<"after DB::Open"<<std::endl;
   }
 
   Status Put(const std::string& k, const std::string& v) {

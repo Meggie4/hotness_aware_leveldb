@@ -229,7 +229,7 @@ private:
             mem = arena_nvm->AllocateAlignedNVM(
                     sizeof(size_t) + sizeof (uint64_t) + sizeof(int) + sizeof(size_t) + sizeof(Node) + 
                     sizeof(port::AtomicPointer) * (height - 1));
-            DEBUG_T("aligned:%lu\n", mem);
+            //DEBUG_T("aligned:%lu\n", mem);
             char *offset_mem = mem + sizeof(size_t) + sizeof (uint64_t) + sizeof(int) + sizeof(size_t);
             return new (offset_mem) Node(key);
         }
@@ -250,7 +250,7 @@ private:
     template<typename Key, class Comparator>
     inline bool NVMSkipList<Key,Comparator>::Iterator::Valid() const {
         if(node_ == nullptr)
-            DEBUG_T("node_ is nullptr\n");
+            ;//DEBUG_T("node_ is nullptr\n");
         return node_ != NULL;
     }
 
@@ -319,14 +319,9 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
     template<typename Key, class Comparator>
     bool NVMSkipList<Key,Comparator>::KeyIsAfterNode(const Key& key, Node* n) const {
         // NULL n is considered infinite
-        DEBUG_T("start\n");
         if(n == NULL)
             return false;
-        DEBUG_T("cklog_ is not null\n");
-        DEBUG_T("key_offset:%p\n", n->key_offset);
-        DEBUG_T("key_offset_ is not null\n");
         Key lkey = reinterpret_cast<Key>(cklog_->getKV(n->key_offset));
-        DEBUG_T("get lkey\n");
         /*if(compare_.user_compare(lkey, key) ==0){
             DEBUG_T("KeyIsAfterNode, equal\n");
             if(compare_(lkey, key) < 0){
@@ -347,17 +342,12 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
             const Key& key, Node** prev)const {
         Node* x = head_;
         int level = GetMaxHeight() - 1;
-        DEBUG_T("level:%d\n", level);
         while (true) {
-            DEBUG_T("before next\n");
             Node* next = x->Next(level);
-            DEBUG_T("after next\n");
             if (KeyIsAfterNode(key, next)) {
                 // Keep searching in this list
-                DEBUG_T("KeyIsAfterNode\n");
                 x = next;
             } else {
-                DEBUG_T("KeyIs not AfterNode\n");
                 if (prev != NULL) prev[level] = x;
                 if (level == 0) {
                     return next;
@@ -428,7 +418,7 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
                 
                 void* head_offset = (reinterpret_cast<void*>(arena_nvm->CalculateOffset(
                                 static_cast<void*>(head_))));
-                DEBUG_T("recover, head_offset:%p\n", head_offset);
+                //DEBUG_T("recover, head_offset:%p\n", head_offset);
                 alloc_rem = (size_t *)arena_nvm->getMapStart();
                 sequence = (uint64_t *)((uint8_t*)arena_nvm->getMapStart() + sizeof(size_t));
                 m_height = (int *)((uint8_t*)arena_nvm->getMapStart() + sizeof(size_t) + sizeof(uint64_t));
@@ -441,15 +431,15 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
                 head_ = NewNode(0, kMaxHeight, true);
                 void* head_offset = (reinterpret_cast<void*>(arena_nvm->CalculateOffset(
                                 static_cast<void*>(head_))));
-                DEBUG_T("not recover, head_offset:%p\n", head_offset);
+                //DEBUG_T("not recover, head_offset:%p\n", head_offset);
            
                 Node* tmp_head = (Node*)((uint8_t*)arena_nvm->getMapStart() + sizeof(size_t) + 
                         sizeof(uint64_t) + sizeof(int) + sizeof(size_t));
-                DEBUG_T("getMapStart:%lu, tmp_head:%lu\n", arena_nvm->getMapStart(), tmp_head);
+                //DEBUG_T("getMapStart:%lu, tmp_head:%lu\n", arena_nvm->getMapStart(), tmp_head);
 
                 head_offset = (reinterpret_cast<void*>(arena_nvm->CalculateOffset(
                                 static_cast<void*>(tmp_head))));
-                DEBUG_T("guess, head_offset:%p\n", head_offset);
+                //DEBUG_T("guess, head_offset:%p\n", head_offset);
             }
 
             if (!recovery) {
@@ -516,12 +506,12 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
                 }
                 
                 ////////////////meggie
-                DEBUG_T("before new node\n");
+                //DEBUG_T("before new node\n");
                 x = NewNode(key_offset, height, false);
                 ///////meggie
-                DEBUG_T("before node num++\n");
+                //DEBUG_T("before node num++\n");
                 (*node_num_)++;
-                DEBUG_T("after node num++\n");
+                //DEBUG_T("after node num++\n");
                 ///////meggie
                 ///////////////meggie
                 for (int i = 0; i < height; i++) {
@@ -547,11 +537,11 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
                 Node* x;
                 Node* prev[kMaxHeight]; 
                 if(Contains(nvmkey, &x, prev)){
-                    DEBUG_T("it's update\n");
+                    //DEBUG_T("it's update\n");
                     x->key_offset = key_offset;
                 }
                 else{
-                    DEBUG_T("it's insert\n");
+                    //DEBUG_T("it's insert\n");
                     Insert(nvmkey, s, key_offset, x, prev); 
                 }
             }
@@ -566,16 +556,16 @@ inline void SkipList<Key,Comparator>::Iterator::SetHead(void *ptr) {
             }
             template<typename Key, class Comparator>
             bool NVMSkipList<Key,Comparator>::Contains(const Key& key, Node** node, Node** prev) const {
-                DEBUG_T("nodenum:%d\n", *node_num_);
+                //DEBUG_T("nodenum:%d\n", *node_num_);
                 Node* x = FindGreaterOrEqual(key, prev);
-                DEBUG_T("after FindGreaterOrEqual\n");
+                //DEBUG_T("after FindGreaterOrEqual\n");
                 if (x != NULL && Equal(key, reinterpret_cast<Key>(cklog_->getKV(x->key_offset)))) {
-                        DEBUG_T("contains\n");
+                        //DEBUG_T("contains\n");
                         *node = x;
-                        DEBUG_T("after contains\n");
+                        //DEBUG_T("after contains\n");
                         return true;
                 } else {
-                        DEBUG_T("not contains\n");
+                        //DEBUG_T("not contains\n");
                         /*if(x == NULL)
                             DEBUG_T("x==null\n");
                         else 
