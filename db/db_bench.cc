@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 #include "leveldb/cache.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
@@ -112,6 +113,10 @@ static bool FLAGS_reuse_logs = false;
 
 // Use the db with the following name.
 static const char* FLAGS_db = nullptr;
+
+/////////////meggie
+static const char* FLAGS_nvmdb = nullptr;
+/////////////meggie
 
 namespace leveldb {
 
@@ -419,6 +424,16 @@ class Benchmark {
         g_env->DeleteFile(std::string(FLAGS_db) + "/" + files[i]);
       }
     }
+
+    /////////////meggie
+    std::vector<std::string> nvmfiles;
+    g_env->GetChildren(FLAGS_nvmdb, &nvmfiles);
+    for (size_t i = 0; i < nvmfiles.size(); i++) {
+      if (Slice(nvmfiles[i]).starts_with("heap-")) {
+        g_env->DeleteFile(std::string(FLAGS_nvmdb) + "/" + nvmfiles[i]);
+      }
+    }
+    ///////////////meggie
     if (!FLAGS_use_existing_db) {
       DestroyDB(FLAGS_db, Options());
     }
@@ -714,7 +729,9 @@ class Benchmark {
     options.max_open_files = FLAGS_open_files;
     options.filter_policy = filter_policy_;
     options.reuse_logs = FLAGS_reuse_logs;
-    Status s = DB::Open(options, FLAGS_db, &db_);
+    
+    //std::cout<<"FLAGS_db:"<<FLAGS_db<<", FLAGS_nvmdb:"<<FLAGS_nvmdb<<std::endl;
+    Status s = DB::Open(options, FLAGS_db, &db_, FLAGS_nvmdb);
     if (!s.ok()) {
       fprintf(stderr, "open error: %s\n", s.ToString().c_str());
       exit(1);
@@ -954,7 +971,7 @@ int main(int argc, char** argv) {
   FLAGS_max_file_size = leveldb::Options().max_file_size;
   FLAGS_block_size = leveldb::Options().block_size;
   FLAGS_open_files = leveldb::Options().max_open_files;
-  std::string default_db_path;
+  std::string default_db_path, nvm_db_path;
 
   for (int i = 1; i < argc; i++) {
     double d;
@@ -1008,7 +1025,16 @@ int main(int argc, char** argv) {
       leveldb::g_env->GetTestDirectory(&default_db_path);
       default_db_path += "/dbbench";
       FLAGS_db = default_db_path.c_str();
+      //std::cout<<"FLAGS_db:"<<FLAGS_db<<std::endl;
   }
+
+  /////////////meggie
+  if (FLAGS_nvmdb == nullptr) {
+      leveldb::g_env->GetMEMDirectory(&nvm_db_path);
+      nvm_db_path += "/dbbench";
+      FLAGS_nvmdb = nvm_db_path.c_str();
+  }
+  /////////////meggie
 
   leveldb::Benchmark benchmark;
   benchmark.Run();

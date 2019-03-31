@@ -39,9 +39,6 @@
 #include "util/threadpool.h"
 #include "db/nvmtable.h"
 #include "util/debug.h"
-
-
-#define USE_NVM_CACHE
 //////////////////meggie
 
 namespace leveldb {
@@ -237,11 +234,9 @@ DBImpl::~DBImpl() {
 
   ///////////////meggie
   DEBUG_T("before delete nvmtbl_\n");
-#ifdef USE_NVM_CACHE
   nvmtbl_->PrintInfo();
   std::string metafilename = chunkMetaFileName(dbname_nvm_, chunk_meta_file_); 
   nvmtbl_->SaveMetadata(metafilename);
-#endif
   nvmtbl_->Unref();
   delete hot_bf_;
   delete thpool_;
@@ -380,6 +375,7 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
   env_->CreateDir(dbname_nvm_);
   /////////////////meggie
   assert(db_lock_ == nullptr);
+  DEBUG_T("dbname:%s,lock:%s\n", dbname_.c_str(), LockFileName(dbname_).c_str());
   Status s = env_->LockFile(LockFileName(dbname_), &db_lock_);
   if (!s.ok()) {
     return s;
@@ -427,7 +423,6 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
   std::set<uint64_t> expected;
   versions_->AddLiveFiles(&expected);
   /////////////////meggie
-#ifdef USE_NVM_CACHE 
   std::vector<uint64_t> chunkindex_files;
   std::vector<uint64_t> chunklog_files;
   uint64_t chunkmeta_file;
@@ -435,7 +430,6 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
   chunklog_files.resize(kNumChunkTable);
   versions_->AddChunkFiles(&chunkindex_files, &chunklog_files, 
           &chunkmeta_file);
-#endif 
   /////////////////meggie
   uint64_t number;
   FileType type;
@@ -456,12 +450,10 @@ Status DBImpl::Recover(VersionEdit* edit, bool *save_manifest) {
   }
 
   ///////////////////meggie
-#ifdef USE_NVM_CACHE 
   s = RecoverChunkFile(chunkindex_files, chunklog_files, chunkmeta_file);
   if(!s.ok()){
       return s;
   }
-#endif 
   ///////////////////meggie
   
   // Recover in the order in which the logs were generated
@@ -726,9 +718,7 @@ void DBImpl::CompactMemTable() {
   assert(imm_ != nullptr);
     
   ////////////////meggie
-#ifdef USE_NVM_CACHE
   MakeRoomForImmu(false);
-#endif
   ////////////////meggie
 
   //DEBUG_T("after MakeRoomForImmu\n");
@@ -1957,8 +1947,10 @@ Status DB::Open(const Options& options, const std::string& dbname,
     // Create new log and a corresponding memtable.
     uint64_t new_log_number = impl->versions_->NewFileNumber();
     WritableFile* lfile;
+    DEBUG_T("before env->NewWritableFile\n");
     s = options.env->NewWritableFile(LogFileName(dbname, new_log_number),
                                      &lfile);
+    DEBUG_T("after env->NewWritableFile\n");
     if (s.ok()) {
       edit.SetLogNumber(new_log_number);
       impl->logfile_ = lfile;
@@ -1968,9 +1960,12 @@ Status DB::Open(const Options& options, const std::string& dbname,
       impl->mem_->Ref();
     }
   }
+  else{
+      if(!s.ok())
+        DEBUG_T("after recover is not ok\n");
+  }
   
   ///////////////meggie
-#ifdef USE_NVM_CACHE
   if(!impl->chunk_been_allocated_){
       std::map<int, chunkTable*> update_chunks;
       for(int i = 0; i < kNumChunkTable; i++){
@@ -1988,7 +1983,6 @@ Status DB::Open(const Options& options, const std::string& dbname,
       if(!s.ok())
           return s;
   }
-#endif 
   //////////////meggie
  
   if (s.ok() && save_manifest) {

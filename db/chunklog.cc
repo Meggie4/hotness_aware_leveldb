@@ -85,11 +85,7 @@ void* chunkLog::insert(const char* kvitem, size_t len){
 }
 
 char* chunkLog::getKV(const void* kvpos_offset) const{
-    DEBUG_T("before getkv\n");
-    if(!kvpos_offset)
-        DEBUG_T("kvpos_offset is null");
     char* entry =  reinterpret_cast<char*>((intptr_t)log_map_start_ + (intptr_t)kvpos_offset);
-    DEBUG_T("getKey， keystart：%p\n", entry);
     return entry;
 }
 

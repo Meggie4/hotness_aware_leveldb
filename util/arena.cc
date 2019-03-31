@@ -75,7 +75,6 @@ void* Arena::getMapStart() {
 }
 
 void* ArenaNVM::CalculateOffset(void* ptr) {
-    DEBUG_T("ptr:%lu, map_start_%lu\n", ptr, map_start_);
     return reinterpret_cast<void*>(reinterpret_cast<intptr_t>(ptr) - reinterpret_cast<intptr_t>(map_start_));
 }
 
@@ -211,7 +210,6 @@ char* ArenaNVM::AllocateNVMBlock(size_t block_bytes) {
 
     if(ftruncate(fd, MEM_THRESH * block_bytes) != 0){
         perror("ftruncate failed \n");
-        DEBUG_T("ftruncate failed \n");
         return NULL;
     }
 
