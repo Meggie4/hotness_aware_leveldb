@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+///////////meggie
+#include <fstream>
+///////////meggie
 #include "leveldb/cache.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
@@ -84,6 +87,11 @@ static bool FLAGS_histogram = false;
 // (initialized to default value by "main")
 static int FLAGS_write_buffer_size = 0;
 
+////////////meggie
+static int FLAGS_nvm_index_size = 0;
+static int FLAGS_nvm_log_size = 0;
+////////////meggie
+
 // Number of bytes written to each file.
 // (initialized to default value by "main")
 static int FLAGS_max_file_size = 0;
@@ -154,6 +162,50 @@ class RandomGenerator {
     return Slice(data_.data() + pos_ - len, len);
   }
 };
+
+////////////////////meggie 
+class WorkloadGenerator{
+ private:
+  std::ifstream fin;
+ public:
+  WorkloadGenerator(std::string fname):
+      fin(fname){}
+  bool isValid(std::string type){
+    char mytype = type[0];
+    if(mytype == 'i' ||
+        mytype == 'd' ||
+        mytype == 'r' ||
+        mytype == 's')
+      return true;
+    else 
+      return false;
+  }
+  Status getRequest(char* type, std::string& key, 
+      std::string& value){
+    std::string wtype;
+    if(getline(fin, wtype) && isValid(wtype)){
+      *type = wtype[0];
+      switch(*type){
+        case 'i':
+          getline(fin, key);
+          getline(fin, value);
+          break;
+        case 'd':
+        case 'r':
+        case 's':
+          getline(fin, key);
+          break;
+        default:
+          return Status::IOError("Already finished obtain request....");
+      }
+      return Status::OK();
+    }
+    else 
+      return Status::IOError("Already finished obtain request....");
+  }
+};
+
+////////////////////meggie 
 
 #if defined(__linux)
 static Slice TrimSpace(Slice s) {
@@ -449,7 +501,7 @@ class Benchmark {
     PrintHeader();
     Open();
 
-    const char* benchmarks = FLAGS_benchmarks;
+    const char* benchmarks = FLAGS_benchmarks;//如果没有设置，那默认测试全部的性能
     while (benchmarks != nullptr) {
       const char* sep = strchr(benchmarks, ',');
       Slice name;
@@ -537,7 +589,100 @@ class Benchmark {
         PrintStats("leveldb.stats");
       } else if (name == Slice("sstables")) {
         PrintStats("leveldb.sstables");
-      } else {
+      ///////////////meggie 
+      } else if(name == Slice("customedworkloadzip099_load")) {
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip099Load;
+      } else if(name == Slice("customedworkloadzip080_load")) {
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip080Load;
+      } else if(name == Slice("customedworkloaduniform_load")) {
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadUniformLoad;
+      } else if(name == Slice("customedworkloadzip099_4kload")) {
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip099_4KLoad;
+      } else if(name == Slice("customedworkloadzip080_4kload")) {
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip080_4kLoad;
+      } else if(name == Slice("customedworkloaduniform_4kload")) {
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadUniform_4kLoad;
+      } else if(name == Slice("customedworkloadzip099_run")) {
+        fresh_db = false;
+        method = &Benchmark::CustomedWorkloadZip099Run;
+      } else if(name == Slice("customedworkloadzip080_run")) {
+        fresh_db = false;
+        method = &Benchmark::CustomedWorkloadZip080Run;
+      } else if(name == Slice("customedworkloaduniform_run")) {
+        fresh_db = false;
+        method = &Benchmark::CustomedWorkloadUniformRun;
+      } else if(name == Slice("customedworkloadzip099_4krun")) {
+        fresh_db = false;
+        method = &Benchmark::CustomedWorkloadZip099_4kRun;
+      } else if(name == Slice("customedworkloadzip080_4krun")) {
+        fresh_db = false;
+        method = &Benchmark::CustomedWorkloadZip080_4kRun;
+      } else if(name == Slice("customedworkloaduniform_4krun")) {
+        fresh_db = false;
+        method = &Benchmark::CustomedWorkloadUniform_4kRun;
+      ///////for 100K entries
+      //////only write for 1KB value
+      } else if(name == Slice("customedworkloadzip099write")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip099Write;
+      } else if(name == Slice("customedworkloadzip080write")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip080Write;
+      } else if(name == Slice("customedworkloaduniformwrite")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadUniformWrite;
+      ////only write for 4KB value
+      } else if(name == Slice("customedworkloadzip099_4kwrite")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip099_4KWrite;
+      } else if(name == Slice("customedworkloadzip080_4kwrite")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip080_4KWrite;
+      } else if(name == Slice("customedworkloaduniform_4kwrite")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadUniform_4KWrite;
+      /////////for 1000K entries
+      //////only write for 1KB value
+      } else if(name == Slice("customedworkloadzip099writemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip099WriteMid;
+      } else if(name == Slice("customedworkloadzip080writemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip080WriteMid;
+      } else if(name == Slice("customedworkloaduniformwritemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadUniformWriteMid;
+      ////only write for 4KB value
+      } else if(name == Slice("customedworkloadzip099_4kwritemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip099_4KWriteMid;
+      } else if(name == Slice("customedworkloadzip080_4kwritemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip080_4KWriteMid;
+      } else if(name == Slice("customedworkloaduniform_4kwritemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadUniform_4KWriteMid;
+      /////////for 1000K entries
+      //////////////meggie 
+      }else {
         if (name != Slice()) {  // No error message for empty name
           fprintf(stderr, "unknown benchmark '%s'\n", name.ToString().c_str());
         }
@@ -724,6 +869,10 @@ class Benchmark {
     options.create_if_missing = !FLAGS_use_existing_db;
     options.block_cache = cache_;
     options.write_buffer_size = FLAGS_write_buffer_size;
+    /////////////////meggie
+    options.chunk_index_size = FLAGS_nvm_index_size;
+    options.chunk_log_size = FLAGS_nvm_log_size;
+    /////////////////meggie
     options.max_file_size = FLAGS_max_file_size;
     options.block_size = FLAGS_block_size;
     options.max_open_files = FLAGS_open_files;
@@ -930,6 +1079,206 @@ class Benchmark {
     }
   }
 
+  ////////////meggie
+  ////1KB value
+  void CustomedWorkloadZip099Load(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099/load.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadZip099Run(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099/run.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadZip080Load(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080/load.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadZip080Run(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080/run.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadUniformLoad(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform/load.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadUniformRun(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform/run.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+  
+  /////////4kB value 
+  void CustomedWorkloadZip099_4KLoad(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099_4k/load.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadZip099_4kRun(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099_4k/run.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadZip080_4kLoad(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080_4k/load.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadZip080_4kRun(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080_4k/run.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadUniform_4kLoad(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform_4k/load.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+
+  void CustomedWorkloadUniform_4kRun(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform_4k/run.txt"; 
+      CustomedWorkload(thread, fname);
+  }
+  
+  ////////for 100K entries 
+  /////only write
+  //for 1k
+  void CustomedWorkloadZip099Write(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099/run_write.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+  void CustomedWorkloadZip080Write(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080/run_write.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+  void CustomedWorkloadUniformWrite(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform/run_write.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+ 
+  ///for 4k
+  void CustomedWorkloadZip099_4KWrite(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099_4k/run_write.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  void CustomedWorkloadZip080_4KWrite(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080_4k/run_write.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  void CustomedWorkloadUniform_4KWrite(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform_4k/run_write.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  ////////for 1000K entries 
+  /////only write
+  //for 1k
+  void CustomedWorkloadZip099WriteMid(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099/run_writeMid.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+  void CustomedWorkloadZip080WriteMid(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080/run_writeMid.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+  void CustomedWorkloadUniformWriteMid(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform/run_writeMid.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+ 
+  //for 4k
+  void CustomedWorkloadZip099_4KWriteMid(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099_4k/run_writeMid.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  void CustomedWorkloadZip080_4KWriteMid(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080_4k/run_writeMid.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  void CustomedWorkloadUniform_4KWriteMid(ThreadState* thread){
+      std::string fname = "/home/meggie/Documents/workloads/workload_uniform_4k/run_writeMid.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  void CustomedWorkload(ThreadState* thread, std::string fname) {
+      leveldb::WorkloadGenerator wlgnerator(fname);
+      char type;
+      std::string key;
+      std::string value;
+      int found = 0;
+      ReadOptions options;
+      std::string read_value;
+      while(wlgnerator.getRequest(&type, key, value).ok()){
+          switch(type){
+              case 'i':
+                {
+                    Status s = db_->Put(write_options_, key, value);
+                    if(!s.ok()){
+                        fprintf(stderr, "put error: %s\n", s.ToString().c_str());
+                        exit(1);
+                    }
+                    thread->stats.FinishedSingleOp();
+                    break;
+                }
+              case 'd':
+                break;
+              case 'r':
+                {
+                    if(db_->Get(options, key, &read_value).ok()) {
+                        found++;
+                    }
+                    thread->stats.FinishedSingleOp();
+                    break;
+                }
+              case 's':  
+                break;
+              default:
+                fprintf(stderr, "unknown request type...\n");
+                break;
+          }
+      }
+      char msg[100];
+      snprintf(msg, sizeof(msg), "(%d found)", found);
+      thread->stats.AddMessage(msg);
+  } 
+  
+  void CustomedWorkloadWrite(ThreadState* thread, std::string fname) {
+    WriteBatch batch;
+    Status s;
+    int64_t bytes = 0;
+    leveldb::WorkloadGenerator wlgnerator(fname);
+    char type;
+    std::string key;
+    std::string value;
+    int batch_num = 0;
+    while(wlgnerator.getRequest(&type, key, value).ok()){
+        if(batch_num < entries_per_batch_){
+            batch.Put(key, value);
+            batch_num++;
+        }
+        else{
+            s = db_->Write(write_options_, &batch);
+            if (!s.ok()) {
+                fprintf(stderr, "put error: %s\n", s.ToString().c_str());
+                exit(1);
+            }
+            batch.Clear();
+            batch.Put(key, value);
+            batch_num = 1;
+        }
+        bytes += value.size() + key.size();
+        thread->stats.FinishedSingleOp();
+    }
+    thread->stats.AddBytes(bytes);
+  }
+  ////////////meggie
+
   void Compact(ThreadState* thread) {
     db_->CompactRange(nullptr, nullptr);
   }
@@ -968,6 +1317,10 @@ class Benchmark {
 
 int main(int argc, char** argv) {
   FLAGS_write_buffer_size = leveldb::Options().write_buffer_size;
+  ////////////meggie
+  FLAGS_nvm_index_size = leveldb::Options().chunk_index_size;
+  FLAGS_nvm_log_size = leveldb::Options().chunk_log_size;
+  ////////////meggie
   FLAGS_max_file_size = leveldb::Options().max_file_size;
   FLAGS_block_size = leveldb::Options().block_size;
   FLAGS_open_files = leveldb::Options().max_open_files;
@@ -1000,6 +1353,12 @@ int main(int argc, char** argv) {
       FLAGS_value_size = n;
     } else if (sscanf(argv[i], "--write_buffer_size=%d%c", &n, &junk) == 1) {
       FLAGS_write_buffer_size = n;
+    /////////////////meggie
+    } else if (sscanf(argv[i], "--nvm_index_size=%d%c", &n, &junk) == 1){
+      FLAGS_nvm_index_size = n;
+    } else if (sscanf(argv[i], "--nvm_log_size=%d%c", &n, &junk) == 1){
+      FLAGS_nvm_log_size = n;
+    /////////////////meggie
     } else if (sscanf(argv[i], "--max_file_size=%d%c", &n, &junk) == 1) {
       FLAGS_max_file_size = n;
     } else if (sscanf(argv[i], "--block_size=%d%c", &n, &junk) == 1) {
@@ -1040,3 +1399,32 @@ int main(int argc, char** argv) {
   benchmark.Run();
   return 0;
 }
+
+/*
+int main(){
+    std::string fname = "/home/meggie/Documents/workload_zipfian099/load.txt";
+    leveldb::WorkloadGenerator wlgnerator(fname);
+    char type;
+    std::string key;
+    std::string value;
+    while(wlgnerator.getRequest(&type, key, value).ok()){
+        std::string mytype;
+        mytype.push_back(type);
+        switch(type){
+            case 'i':
+                std::cout<<"type:  "<<mytype<<", key:  "<<
+                    key<<std::endl;
+                break;
+            case 'd':
+            case 'r':
+            case 's':
+                std::cout<<"type:  "<<mytype<<", key:  "<<key<<std::endl;
+                break;
+            default:
+                std::cout<<"none known type"<<std::endl;
+                break;
+        }
+    }
+    return 0;
+}
+*/
