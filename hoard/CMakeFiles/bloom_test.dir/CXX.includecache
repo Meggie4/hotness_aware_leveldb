@@ -138,21 +138,21 @@ leveldb/export.h
 leveldb/slice.h
 ../include/leveldb/leveldb/slice.h
 
-/home/meggie/Documents/mydb/util/bloom_test.cc
+/home/meggie/文档/hotness_aware_leveldb/util/bloom_test.cc
 leveldb/filter_policy.h
-/home/meggie/Documents/mydb/util/leveldb/filter_policy.h
+/home/meggie/文档/hotness_aware_leveldb/util/leveldb/filter_policy.h
 util/coding.h
-/home/meggie/Documents/mydb/util/util/coding.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/coding.h
 util/logging.h
-/home/meggie/Documents/mydb/util/util/logging.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/logging.h
 util/testharness.h
-/home/meggie/Documents/mydb/util/util/testharness.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/testharness.h
 util/testutil.h
-/home/meggie/Documents/mydb/util/util/testutil.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/testutil.h
 
-/home/meggie/Documents/mydb/util/testharness.cc
+/home/meggie/文档/hotness_aware_leveldb/util/testharness.cc
 util/testharness.h
-/home/meggie/Documents/mydb/util/util/testharness.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/testharness.h
 stdlib.h
 -
 sys/stat.h
@@ -164,13 +164,13 @@ string
 vector
 -
 leveldb/env.h
-/home/meggie/Documents/mydb/util/leveldb/env.h
+/home/meggie/文档/hotness_aware_leveldb/util/leveldb/env.h
 
-/home/meggie/Documents/mydb/util/testutil.cc
+/home/meggie/文档/hotness_aware_leveldb/util/testutil.cc
 util/testutil.h
-/home/meggie/Documents/mydb/util/util/testutil.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/testutil.h
 util/random.h
-/home/meggie/Documents/mydb/util/util/random.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/random.h
 
 include/port/port_config.h
 

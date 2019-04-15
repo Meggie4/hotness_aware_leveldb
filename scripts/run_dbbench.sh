@@ -8,6 +8,10 @@ customedworkloadzip080_4kwrite,customedworkloaduniform_4kwrite,\
 customedworkloadzip099writemid,customedworkloadzip080writemid,\
 customedworkloaduniformwritemid,customedworkloadzip099_4kwritemid,\
 customedworkloadzip080_4kwritemid,customedworkloaduniform_4kwritemid"
+
+#BENCHMARKS="customedworkloaduniformwrite,customedworkloaduniform_4kwrite,\
+#customedworkloaduniformwritemid,customedworkloaduniform_4kwritemid"
+
 #NoveLSM specific parameters
 #NoveLSM uses memtable levels, always set to num_levels 2
 #write_buffer_size DRAM memtable size in MBs

@@ -3,15 +3,15 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_FLAGS =   -std=c11
+C_FLAGS =   -std=c++11 -std=c11
 
 C_DEFINES = -DLEVELDB_PLATFORM_POSIX=1
 
-C_INCLUDES = -I/home/meggie/Documents/mydb/hoard/include -I/home/meggie/Documents/mydb -I/home/meggie/Documents/mydb/include 
+C_INCLUDES = -I/home/meggie/文档/hotness_aware_leveldb/hoard/include -I/home/meggie/文档/hotness_aware_leveldb -I/home/meggie/文档/hotness_aware_leveldb/include 
 
-CXX_FLAGS =   -std=c++11
+CXX_FLAGS =   -std=c++11 -std=c++11
 
 CXX_DEFINES = -DLEVELDB_PLATFORM_POSIX=1
 
-CXX_INCLUDES = -I/home/meggie/Documents/mydb/hoard/include -I/home/meggie/Documents/mydb -I/home/meggie/Documents/mydb/include 
+CXX_INCLUDES = -I/home/meggie/文档/hotness_aware_leveldb/hoard/include -I/home/meggie/文档/hotness_aware_leveldb -I/home/meggie/文档/hotness_aware_leveldb/include 
 

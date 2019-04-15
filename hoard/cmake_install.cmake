@@ -1,4 +1,4 @@
-# Install script for directory: /home/meggie/Documents/mydb
+# Install script for directory: /home/meggie/文档/hotness_aware_leveldb
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,26 +33,27 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/meggie/Documents/mydb/hoard/libleveldb.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/meggie/文档/hotness_aware_leveldb/hoard/libleveldb.a")
 endif()
 
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/leveldb" TYPE FILE FILES
-    "/home/meggie/Documents/mydb/include/leveldb/c.h"
-    "/home/meggie/Documents/mydb/include/leveldb/cache.h"
-    "/home/meggie/Documents/mydb/include/leveldb/comparator.h"
-    "/home/meggie/Documents/mydb/include/leveldb/db.h"
-    "/home/meggie/Documents/mydb/include/leveldb/dumpfile.h"
-    "/home/meggie/Documents/mydb/include/leveldb/env.h"
-    "/home/meggie/Documents/mydb/include/leveldb/export.h"
-    "/home/meggie/Documents/mydb/include/leveldb/filter_policy.h"
-    "/home/meggie/Documents/mydb/include/leveldb/iterator.h"
-    "/home/meggie/Documents/mydb/include/leveldb/options.h"
-    "/home/meggie/Documents/mydb/include/leveldb/slice.h"
-    "/home/meggie/Documents/mydb/include/leveldb/status.h"
-    "/home/meggie/Documents/mydb/include/leveldb/table_builder.h"
-    "/home/meggie/Documents/mydb/include/leveldb/table.h"
-    "/home/meggie/Documents/mydb/include/leveldb/write_batch.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/c.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/cache.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/comparator.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/db.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/dumpfile.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/env.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/export.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/filter_policy.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/iterator.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/options.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/slice.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/status.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/table_builder.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/table.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/write_batch.h"
+    "/home/meggie/文档/hotness_aware_leveldb/include/leveldb/nvmwrite_batch.h"
     )
 endif()
 
@@ -60,7 +61,7 @@ if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMP
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb/leveldbTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb/leveldbTargets.cmake"
-         "/home/meggie/Documents/mydb/hoard/CMakeFiles/Export/lib/cmake/leveldb/leveldbTargets.cmake")
+         "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/Export/lib/cmake/leveldb/leveldbTargets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb/leveldbTargets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -69,16 +70,16 @@ if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMP
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb" TYPE FILE FILES "/home/meggie/Documents/mydb/hoard/CMakeFiles/Export/lib/cmake/leveldb/leveldbTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb" TYPE FILE FILES "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/Export/lib/cmake/leveldb/leveldbTargets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb" TYPE FILE FILES "/home/meggie/Documents/mydb/hoard/CMakeFiles/Export/lib/cmake/leveldb/leveldbTargets-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb" TYPE FILE FILES "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/Export/lib/cmake/leveldb/leveldbTargets-noconfig.cmake")
   endif()
 endif()
 
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/leveldb" TYPE FILE FILES
-    "/home/meggie/Documents/mydb/cmake/leveldbConfig.cmake"
-    "/home/meggie/Documents/mydb/hoard/leveldbConfigVersion.cmake"
+    "/home/meggie/文档/hotness_aware_leveldb/cmake/leveldbConfig.cmake"
+    "/home/meggie/文档/hotness_aware_leveldb/hoard/leveldbConfigVersion.cmake"
     )
 endif()
 
@@ -90,5 +91,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/meggie/Documents/mydb/hoard/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/meggie/文档/hotness_aware_leveldb/hoard/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

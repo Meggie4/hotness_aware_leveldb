@@ -15,6 +15,7 @@ CMakeFiles/db_test.dir/db/db_test.cc.o: ../port/port.h
 CMakeFiles/db_test.dir/db/db_test.cc.o: ../port/port_stdcxx.h
 CMakeFiles/db_test.dir/db/db_test.cc.o: ../port/thread_annotations.h
 CMakeFiles/db_test.dir/db/db_test.cc.o: ../util/coding.h
+CMakeFiles/db_test.dir/db/db_test.cc.o: ../util/debug.h
 CMakeFiles/db_test.dir/db/db_test.cc.o: ../util/hash.h
 CMakeFiles/db_test.dir/db/db_test.cc.o: ../util/logging.h
 CMakeFiles/db_test.dir/db/db_test.cc.o: ../util/mutexlock.h

@@ -653,7 +653,7 @@ class Benchmark {
         entries_per_batch_ = 1000;
         fresh_db = true;
         method = &Benchmark::CustomedWorkloadUniform_4KWrite;
-      /////////for 1000K entries
+      /////////for 500K entries
       //////only write for 1KB value
       } else if(name == Slice("customedworkloadzip099writemid")) {
         entries_per_batch_ = 1000;
@@ -1146,63 +1146,63 @@ class Benchmark {
   /////only write
   //for 1k
   void CustomedWorkloadZip099Write(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099/run_write.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload099/runwrite1k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
   void CustomedWorkloadZip080Write(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080/run_write.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload080/runwrite1k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
   void CustomedWorkloadUniformWrite(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_uniform/run_write.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workloaduniform/runwrite1k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
  
   ///for 4k
   void CustomedWorkloadZip099_4KWrite(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099_4k/run_write.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload099/runwrite4k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadZip080_4KWrite(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080_4k/run_write.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload080/runwrite4k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadUniform_4KWrite(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_uniform_4k/run_write.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workloaduniform/runwrite4k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
-  ////////for 1000K entries 
+  ////////for 500K entries 
   /////only write
   //for 1k
   void CustomedWorkloadZip099WriteMid(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099/run_writeMid.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload099/runwrite1k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
   void CustomedWorkloadZip080WriteMid(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080/run_writeMid.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload080/runwrite1k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
   void CustomedWorkloadUniformWriteMid(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_uniform/run_writeMid.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workloaduniform/runwrite1k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
  
   //for 4k
   void CustomedWorkloadZip099_4KWriteMid(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian099_4k/run_writeMid.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload099/runwrite4k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadZip080_4KWriteMid(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_zipfian080_4k/run_writeMid.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workload080/runwrite4k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadUniform_4KWriteMid(ThreadState* thread){
-      std::string fname = "/home/meggie/Documents/workloads/workload_uniform_4k/run_writeMid.txt"; 
+      std::string fname = "/home/meggie/文档/workloads/workloaduniform/runwrite4k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
@@ -1275,6 +1275,7 @@ class Benchmark {
         bytes += value.size() + key.size();
         thread->stats.FinishedSingleOp();
     }
+    //fprintf(stderr, "add bytes:%lu\n", bytes);
     thread->stats.AddBytes(bytes);
   }
   ////////////meggie
@@ -1352,12 +1353,12 @@ int main(int argc, char** argv) {
     } else if (sscanf(argv[i], "--value_size=%d%c", &n, &junk) == 1) {
       FLAGS_value_size = n;
     } else if (sscanf(argv[i], "--write_buffer_size=%d%c", &n, &junk) == 1) {
-      FLAGS_write_buffer_size = n;
+      FLAGS_write_buffer_size = n * 1024L * 1024L;
     /////////////////meggie
     } else if (sscanf(argv[i], "--nvm_index_size=%d%c", &n, &junk) == 1){
-      FLAGS_nvm_index_size = n;
+      FLAGS_nvm_index_size = n * 1024L * 1024L;
     } else if (sscanf(argv[i], "--nvm_log_size=%d%c", &n, &junk) == 1){
-      FLAGS_nvm_log_size = n;
+      FLAGS_nvm_log_size = n * 1024L * 1024L;
     /////////////////meggie
     } else if (sscanf(argv[i], "--max_file_size=%d%c", &n, &junk) == 1) {
       FLAGS_max_file_size = n;

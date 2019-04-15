@@ -100,7 +100,7 @@ leveldb/export.h
 leveldb/status.h
 ../include/leveldb/leveldb/status.h
 
-/home/meggie/Documents/mydb/issues/issue178_test.cc
+/home/meggie/文档/hotness_aware_leveldb/issues/issue178_test.cc
 iostream
 -
 sstream
@@ -108,15 +108,15 @@ sstream
 cstdlib
 -
 leveldb/db.h
-/home/meggie/Documents/mydb/issues/leveldb/db.h
+/home/meggie/文档/hotness_aware_leveldb/issues/leveldb/db.h
 leveldb/write_batch.h
-/home/meggie/Documents/mydb/issues/leveldb/write_batch.h
+/home/meggie/文档/hotness_aware_leveldb/issues/leveldb/write_batch.h
 util/testharness.h
-/home/meggie/Documents/mydb/issues/util/testharness.h
+/home/meggie/文档/hotness_aware_leveldb/issues/util/testharness.h
 
-/home/meggie/Documents/mydb/util/testharness.cc
+/home/meggie/文档/hotness_aware_leveldb/util/testharness.cc
 util/testharness.h
-/home/meggie/Documents/mydb/util/util/testharness.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/testharness.h
 stdlib.h
 -
 sys/stat.h
@@ -128,11 +128,11 @@ string
 vector
 -
 leveldb/env.h
-/home/meggie/Documents/mydb/util/leveldb/env.h
+/home/meggie/文档/hotness_aware_leveldb/util/leveldb/env.h
 
-/home/meggie/Documents/mydb/util/testutil.cc
+/home/meggie/文档/hotness_aware_leveldb/util/testutil.cc
 util/testutil.h
-/home/meggie/Documents/mydb/util/util/testutil.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/testutil.h
 util/random.h
-/home/meggie/Documents/mydb/util/util/random.h
+/home/meggie/文档/hotness_aware_leveldb/util/util/random.h
 

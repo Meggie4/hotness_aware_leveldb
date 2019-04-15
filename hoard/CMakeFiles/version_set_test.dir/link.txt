@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/version_set_test.dir/util/testharness.cc.o CMakeFiles/version_set_test.dir/util/testutil.cc.o CMakeFiles/version_set_test.dir/db/version_set_test.cc.o  -o version_set_test  -L/home/meggie/Documents/mydb/hoard -Wl,-rpath,/home/meggie/Documents/mydb/hoard libleveldb.a -lpthread -lhoard 
+/usr/bin/c++     CMakeFiles/version_set_test.dir/util/testharness.cc.o CMakeFiles/version_set_test.dir/util/testutil.cc.o CMakeFiles/version_set_test.dir/db/version_set_test.cc.o  -o version_set_test libleveldb.a -lhoard -lnuma -lpthread 

@@ -43,10 +43,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/meggie/Documents/mydb
+CMAKE_SOURCE_DIR = /home/meggie/文档/hotness_aware_leveldb
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/meggie/Documents/mydb/hoard
+CMAKE_BINARY_DIR = /home/meggie/文档/hotness_aware_leveldb/hoard
 
 # Include any dependencies generated for this target.
 include CMakeFiles/status_test.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/status_test.dir/flags.make
 
 CMakeFiles/status_test.dir/util/testharness.cc.o: CMakeFiles/status_test.dir/flags.make
 CMakeFiles/status_test.dir/util/testharness.cc.o: ../util/testharness.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/status_test.dir/util/testharness.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/status_test.dir/util/testharness.cc.o -c /home/meggie/Documents/mydb/util/testharness.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/status_test.dir/util/testharness.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/status_test.dir/util/testharness.cc.o -c /home/meggie/文档/hotness_aware_leveldb/util/testharness.cc
 
 CMakeFiles/status_test.dir/util/testharness.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/status_test.dir/util/testharness.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/Documents/mydb/util/testharness.cc > CMakeFiles/status_test.dir/util/testharness.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/文档/hotness_aware_leveldb/util/testharness.cc > CMakeFiles/status_test.dir/util/testharness.cc.i
 
 CMakeFiles/status_test.dir/util/testharness.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/status_test.dir/util/testharness.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/Documents/mydb/util/testharness.cc -o CMakeFiles/status_test.dir/util/testharness.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/文档/hotness_aware_leveldb/util/testharness.cc -o CMakeFiles/status_test.dir/util/testharness.cc.s
 
 CMakeFiles/status_test.dir/util/testharness.cc.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/status_test.dir/util/testharness.cc.o.provides.build: CMakeFiles/stat
 
 CMakeFiles/status_test.dir/util/testutil.cc.o: CMakeFiles/status_test.dir/flags.make
 CMakeFiles/status_test.dir/util/testutil.cc.o: ../util/testutil.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/status_test.dir/util/testutil.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/status_test.dir/util/testutil.cc.o -c /home/meggie/Documents/mydb/util/testutil.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/status_test.dir/util/testutil.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/status_test.dir/util/testutil.cc.o -c /home/meggie/文档/hotness_aware_leveldb/util/testutil.cc
 
 CMakeFiles/status_test.dir/util/testutil.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/status_test.dir/util/testutil.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/Documents/mydb/util/testutil.cc > CMakeFiles/status_test.dir/util/testutil.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/文档/hotness_aware_leveldb/util/testutil.cc > CMakeFiles/status_test.dir/util/testutil.cc.i
 
 CMakeFiles/status_test.dir/util/testutil.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/status_test.dir/util/testutil.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/Documents/mydb/util/testutil.cc -o CMakeFiles/status_test.dir/util/testutil.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/文档/hotness_aware_leveldb/util/testutil.cc -o CMakeFiles/status_test.dir/util/testutil.cc.s
 
 CMakeFiles/status_test.dir/util/testutil.cc.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/status_test.dir/util/testutil.cc.o.provides.build: CMakeFiles/status_
 
 CMakeFiles/status_test.dir/util/status_test.cc.o: CMakeFiles/status_test.dir/flags.make
 CMakeFiles/status_test.dir/util/status_test.cc.o: ../util/status_test.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/status_test.dir/util/status_test.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/status_test.dir/util/status_test.cc.o -c /home/meggie/Documents/mydb/util/status_test.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/status_test.dir/util/status_test.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/status_test.dir/util/status_test.cc.o -c /home/meggie/文档/hotness_aware_leveldb/util/status_test.cc
 
 CMakeFiles/status_test.dir/util/status_test.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/status_test.dir/util/status_test.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/Documents/mydb/util/status_test.cc > CMakeFiles/status_test.dir/util/status_test.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/文档/hotness_aware_leveldb/util/status_test.cc > CMakeFiles/status_test.dir/util/status_test.cc.i
 
 CMakeFiles/status_test.dir/util/status_test.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/status_test.dir/util/status_test.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/Documents/mydb/util/status_test.cc -o CMakeFiles/status_test.dir/util/status_test.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/文档/hotness_aware_leveldb/util/status_test.cc -o CMakeFiles/status_test.dir/util/status_test.cc.s
 
 CMakeFiles/status_test.dir/util/status_test.cc.o.requires:
 
@@ -144,7 +144,7 @@ status_test: CMakeFiles/status_test.dir/util/status_test.cc.o
 status_test: CMakeFiles/status_test.dir/build.make
 status_test: libleveldb.a
 status_test: CMakeFiles/status_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable status_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable status_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/status_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -163,6 +163,6 @@ CMakeFiles/status_test.dir/clean:
 .PHONY : CMakeFiles/status_test.dir/clean
 
 CMakeFiles/status_test.dir/depend:
-	cd /home/meggie/Documents/mydb/hoard && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/meggie/Documents/mydb /home/meggie/Documents/mydb /home/meggie/Documents/mydb/hoard /home/meggie/Documents/mydb/hoard /home/meggie/Documents/mydb/hoard/CMakeFiles/status_test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/meggie/文档/hotness_aware_leveldb/hoard && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/meggie/文档/hotness_aware_leveldb /home/meggie/文档/hotness_aware_leveldb /home/meggie/文档/hotness_aware_leveldb/hoard /home/meggie/文档/hotness_aware_leveldb/hoard /home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/status_test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/status_test.dir/depend
 

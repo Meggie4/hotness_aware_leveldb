@@ -43,10 +43,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/meggie/Documents/mydb
+CMAKE_SOURCE_DIR = /home/meggie/文档/hotness_aware_leveldb
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/meggie/Documents/mydb/hoard
+CMAKE_BINARY_DIR = /home/meggie/文档/hotness_aware_leveldb/hoard
 
 # Include any dependencies generated for this target.
 include CMakeFiles/write_batch_test.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/write_batch_test.dir/flags.make
 
 CMakeFiles/write_batch_test.dir/util/testharness.cc.o: CMakeFiles/write_batch_test.dir/flags.make
 CMakeFiles/write_batch_test.dir/util/testharness.cc.o: ../util/testharness.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/write_batch_test.dir/util/testharness.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/write_batch_test.dir/util/testharness.cc.o -c /home/meggie/Documents/mydb/util/testharness.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/write_batch_test.dir/util/testharness.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/write_batch_test.dir/util/testharness.cc.o -c /home/meggie/文档/hotness_aware_leveldb/util/testharness.cc
 
 CMakeFiles/write_batch_test.dir/util/testharness.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/write_batch_test.dir/util/testharness.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/Documents/mydb/util/testharness.cc > CMakeFiles/write_batch_test.dir/util/testharness.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/文档/hotness_aware_leveldb/util/testharness.cc > CMakeFiles/write_batch_test.dir/util/testharness.cc.i
 
 CMakeFiles/write_batch_test.dir/util/testharness.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/write_batch_test.dir/util/testharness.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/Documents/mydb/util/testharness.cc -o CMakeFiles/write_batch_test.dir/util/testharness.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/文档/hotness_aware_leveldb/util/testharness.cc -o CMakeFiles/write_batch_test.dir/util/testharness.cc.s
 
 CMakeFiles/write_batch_test.dir/util/testharness.cc.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/write_batch_test.dir/util/testharness.cc.o.provides.build: CMakeFiles
 
 CMakeFiles/write_batch_test.dir/util/testutil.cc.o: CMakeFiles/write_batch_test.dir/flags.make
 CMakeFiles/write_batch_test.dir/util/testutil.cc.o: ../util/testutil.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/write_batch_test.dir/util/testutil.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/write_batch_test.dir/util/testutil.cc.o -c /home/meggie/Documents/mydb/util/testutil.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/write_batch_test.dir/util/testutil.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/write_batch_test.dir/util/testutil.cc.o -c /home/meggie/文档/hotness_aware_leveldb/util/testutil.cc
 
 CMakeFiles/write_batch_test.dir/util/testutil.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/write_batch_test.dir/util/testutil.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/Documents/mydb/util/testutil.cc > CMakeFiles/write_batch_test.dir/util/testutil.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/文档/hotness_aware_leveldb/util/testutil.cc > CMakeFiles/write_batch_test.dir/util/testutil.cc.i
 
 CMakeFiles/write_batch_test.dir/util/testutil.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/write_batch_test.dir/util/testutil.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/Documents/mydb/util/testutil.cc -o CMakeFiles/write_batch_test.dir/util/testutil.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/文档/hotness_aware_leveldb/util/testutil.cc -o CMakeFiles/write_batch_test.dir/util/testutil.cc.s
 
 CMakeFiles/write_batch_test.dir/util/testutil.cc.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/write_batch_test.dir/util/testutil.cc.o.provides.build: CMakeFiles/wr
 
 CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o: CMakeFiles/write_batch_test.dir/flags.make
 CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o: ../db/write_batch_test.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o -c /home/meggie/Documents/mydb/db/write_batch_test.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o -c /home/meggie/文档/hotness_aware_leveldb/db/write_batch_test.cc
 
 CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/Documents/mydb/db/write_batch_test.cc > CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/meggie/文档/hotness_aware_leveldb/db/write_batch_test.cc > CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.i
 
 CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/Documents/mydb/db/write_batch_test.cc -o CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/meggie/文档/hotness_aware_leveldb/db/write_batch_test.cc -o CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.s
 
 CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o.requires:
 
@@ -144,7 +144,7 @@ write_batch_test: CMakeFiles/write_batch_test.dir/db/write_batch_test.cc.o
 write_batch_test: CMakeFiles/write_batch_test.dir/build.make
 write_batch_test: libleveldb.a
 write_batch_test: CMakeFiles/write_batch_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/meggie/Documents/mydb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable write_batch_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable write_batch_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/write_batch_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -163,6 +163,6 @@ CMakeFiles/write_batch_test.dir/clean:
 .PHONY : CMakeFiles/write_batch_test.dir/clean
 
 CMakeFiles/write_batch_test.dir/depend:
-	cd /home/meggie/Documents/mydb/hoard && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/meggie/Documents/mydb /home/meggie/Documents/mydb /home/meggie/Documents/mydb/hoard /home/meggie/Documents/mydb/hoard /home/meggie/Documents/mydb/hoard/CMakeFiles/write_batch_test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/meggie/文档/hotness_aware_leveldb/hoard && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/meggie/文档/hotness_aware_leveldb /home/meggie/文档/hotness_aware_leveldb /home/meggie/文档/hotness_aware_leveldb/hoard /home/meggie/文档/hotness_aware_leveldb/hoard /home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/write_batch_test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/write_batch_test.dir/depend
 

@@ -5,7 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/meggie/Documents/mydb/db/c_test.c" "/home/meggie/Documents/mydb/hoard/CMakeFiles/c_test.dir/db/c_test.c.o"
+  "/home/meggie/文档/hotness_aware_leveldb/db/c_test.c" "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/c_test.dir/db/c_test.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -21,8 +21,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/meggie/Documents/mydb/util/testharness.cc" "/home/meggie/Documents/mydb/hoard/CMakeFiles/c_test.dir/util/testharness.cc.o"
-  "/home/meggie/Documents/mydb/util/testutil.cc" "/home/meggie/Documents/mydb/hoard/CMakeFiles/c_test.dir/util/testutil.cc.o"
+  "/home/meggie/文档/hotness_aware_leveldb/util/testharness.cc" "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/c_test.dir/util/testharness.cc.o"
+  "/home/meggie/文档/hotness_aware_leveldb/util/testutil.cc" "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/c_test.dir/util/testutil.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -40,7 +40,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/meggie/Documents/mydb/hoard/CMakeFiles/leveldb.dir/DependInfo.cmake"
+  "/home/meggie/文档/hotness_aware_leveldb/hoard/CMakeFiles/leveldb.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
