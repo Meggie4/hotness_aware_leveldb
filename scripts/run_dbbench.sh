@@ -2,14 +2,14 @@
 #set -x
 
 NUMTHREAD=1
-BENCHMARKS="customedworkloadzip099write,customedworkloadzip080write,\
-customedworkloaduniformwrite,customedworkloadzip099_4kwrite,\
-customedworkloadzip080_4kwrite,customedworkloaduniform_4kwrite,\
-customedworkloadzip099writemid,customedworkloadzip080writemid,\
-customedworkloaduniformwritemid,customedworkloadzip099_4kwritemid,\
-customedworkloadzip080_4kwritemid,customedworkloaduniform_4kwritemid"
+#BENCHMARKS="customedworkloadzip099write,customedworkloadzip080write,\
+#customedworkloaduniformwrite,customedworkloadzip099_4kwrite,\
+#customedworkloadzip080_4kwrite,customedworkloaduniform_4kwrite,\
+#customedworkloadzip099writemid,customedworkloadzip080writemid,\
+#customedworkloaduniformwritemid,customedworkloadzip099_4kwritemid,\
+#customedworkloadzip080_4kwritemid,customedworkloaduniform_4kwritemid"
 
-#BENCHMARKS="customedworkloadzip099write"
+BENCHMARKS="customedworkloadzip099write"
 #BENCHMARKS="customedworkloadzip080write"
 #BENCHMARKS="customedworkloaduniformwrite"
 #BENCHMARKS="customedworkloadzip099_4kwrite"
@@ -31,6 +31,6 @@ OTHERPARAMS="--write_buffer_size=$DRAMBUFFSZ --nvm_index_size=$NVMINDEXSZ --nvm_
 $DBBENCH/db_bench --threads=$NUMTHREAD --benchmarks=$BENCHMARKS $OTHERPARAMS
 
 #Run all benchmarks
-#$APP_PREFIX $DBBENCH/db_bench --threads=$NUMTHREAD --num=$NUMKEYS --value_size=$VALUSESZ \
+#$APP_PRE#FIX $DBBENCH/db_bench --threads=$NUMTHREAD --num=$NUMKEYS --value_size=$VALUSESZ \
 #$OTHERPARAMS --num_read_threads=$NUMREADTHREADS
 

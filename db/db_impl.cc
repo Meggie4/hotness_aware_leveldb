@@ -41,6 +41,16 @@
 #include "util/debug.h"
 //////////////////meggie
 
+////////////meggie
+#ifdef TIMER_LOG
+	#define start_timer(s) timer->StartTimer(s)
+	#define record_timer(s) timer->Record(s)
+#else
+	#define start_timer(s)
+	#define record_timer(s)
+#endif
+////////////meggie
+
 namespace leveldb {
 
 const int kNumNonTableCacheFiles = 10;
@@ -209,6 +219,7 @@ DBImpl::DBImpl(const Options& raw_options, const std::string& dbname, const std:
   thpool_ = new ThreadPool(4);
   chunk_index_files_.resize(kNumChunkTable);
   chunk_log_files_.resize(kNumChunkTable);
+  timer = new Timer();
   //////////////////meggie
 }
 
@@ -240,6 +251,7 @@ DBImpl::~DBImpl() {
   nvmtbl_->Unref();
   delete hot_bf_;
   delete thpool_;
+  delete timer;
   ///////////////meggie
 
   if (owns_info_log_) {
@@ -671,10 +683,14 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
   {
     mutex_.Unlock();
     /////////////meggie
+    start_timer(BUILD_LEVEL0_TABLES);
     s = BuildTable(dbname_, env_, options_, table_cache_, 
             iter, &meta, nvmtbl_, hot_bf_);
+    record_timer(BUILD_LEVEL0_TABLES);
+    start_timer(GET_LOCK_AFTER_BUILD_LEVEL0_TABLES);
     /////////////meggie
     mutex_.Lock();
+    record_timer(GET_LOCK_AFTER_BUILD_LEVEL0_TABLES);
   }
 
   Log(options_.info_log, "Level-0 table #%llu: %lld bytes %s",
@@ -695,6 +711,7 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
   } 
   //////////////meggie
 
+  start_timer(ADD_LEVEL0_FILES_TO_EDIT);
   if (s.ok() && meta.file_size > 0) {
     const Slice min_user_key = meta.smallest.user_key();
     const Slice max_user_key = meta.largest.user_key();
@@ -704,6 +721,7 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
     edit->AddFile(level, meta.number, meta.file_size,
                   meta.smallest, meta.largest);
   }
+  record_timer(ADD_LEVEL0_FILES_TO_EDIT);
 
   DEBUG_T("finish addfile\n");
   CompactionStats stats;
@@ -716,9 +734,12 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
 void DBImpl::CompactMemTable() {
   mutex_.AssertHeld();
   assert(imm_ != nullptr);
-    
+  
+  start_timer(TOTAL_MEMTABLE_COMPACTION);
   ////////////////meggie
+  start_timer(MAKE_ROOM_FOR_IMMUTABLE);
   MakeRoomForImmu(false);
+  record_timer(MAKE_ROOM_FOR_IMMUTABLE);
   ////////////////meggie
 
   //DEBUG_T("after MakeRoomForImmu\n");
@@ -726,7 +747,9 @@ void DBImpl::CompactMemTable() {
   VersionEdit edit;
   Version* base = versions_->current();
   base->Ref();
+  start_timer(WRITE_LEVEL0_TABLE);
   Status s = WriteLevel0Table(imm_, &edit, base);
+  record_timer(WRITE_LEVEL0_TABLE);
   base->Unref();
   //DEBUG_T("after base->unref\n");
 
@@ -738,19 +761,24 @@ void DBImpl::CompactMemTable() {
   if (s.ok()) {
     edit.SetPrevLogNumber(0);
     edit.SetLogNumber(logfile_number_);  // Earlier logs no longer needed
+    start_timer(COMPACT_MEMTABLE_LOGANDAPPLY);
     s = versions_->LogAndApply(&edit, &mutex_);
+    record_timer(COMPACT_MEMTABLE_LOGANDAPPLY);
   }
 
   DEBUG_T("after logandapply\n");
   if (s.ok()) {
     // Commit to the new state
+    start_timer(COMPACT_MEMTABLE_DELETE_OBSOLETE_FILES);
     imm_->Unref();
     imm_ = nullptr;
     has_imm_.Release_Store(nullptr);
     DeleteObsoleteFiles();
+    record_timer(COMPACT_MEMTABLE_DELETE_OBSOLETE_FILES);
   } else {
     RecordBackgroundError(s);
   }
+  record_timer(TOTAL_MEMTABLE_COMPACTION);
   DEBUG_T("finish CompactMemTable\n");
 }
 
@@ -1400,6 +1428,15 @@ Status DBImpl::Delete(const WriteOptions& options, const Slice& key) {
   return DB::Delete(options, key);
 }
 
+//////////////////meggie
+void DBImpl::PrintTimerAudit(){
+    printf("--------timer information--------\n");
+    timer->DebugString();
+    //printf("%s\n", timer->DebugString().c_str());
+    printf("-----end timer information-------\n");
+}
+//////////////////meggie
+
 Status DBImpl::Write(const WriteOptions& options, WriteBatch* my_batch) {
   Writer w(&mutex_);
   w.batch = my_batch;
@@ -1765,10 +1802,12 @@ Status DBImpl::MakeRoomForImmu(bool force){
    Status s;
    bool exceedThresh;
    DEBUG_T("in MakeRoomForImmu, check\n");
+   start_timer(CHECK_ADD_COMPACTION_LIST);
    exceedThresh = nvmtbl_->CheckAndAddToCompactionList(
                         to_compaction_list_,
                         options_.chunk_index_size, 
                         options_.chunk_log_size);
+   record_timer(CHECK_ADD_COMPACTION_LIST);
    DEBUG_T("after check\n");
    while(true){
        if(!bg_error_.ok()){
@@ -1780,10 +1819,15 @@ Status DBImpl::MakeRoomForImmu(bool force){
             if(!exceedThresh){
                 nvmtbl_->AddAllToCompactionList(to_compaction_list_);
             } 
+            start_timer(TOTAL_NVMTABLE_COMPACTION);
             int sz = to_compaction_list_.size();
             nvmcompact_struct nvmcompact[sz];
+            start_timer(INIT_NVM_COMPACT);
             InitNVMCompact(to_compaction_list_, nvmcompact);
+            record_timer(INIT_NVM_COMPACT);
+            
             DEBUG_T("before add job, sz:%d\n", sz);
+            start_timer(THPOOL_HANDLE_JOB);
             for(int i = 0; i < sz; i++){
                 DEBUG_T("have add job\n");
                 thpool_->AddJob(CompactNVMTable, &nvmcompact[i]);
@@ -1791,12 +1835,16 @@ Status DBImpl::MakeRoomForImmu(bool force){
             DEBUG_T("before wait\n");
             thpool_->WaitAll();
             DEBUG_T("after wait\n");
+            record_timer(THPOOL_HANDLE_JOB);
            
+            start_timer(FINISH_NVMTABLE_COMPACTION);
             Version* base = versions_->current();
             base->Ref();
             FinishNVMTableCompaction(nvmcompact, sz, base);
             base->Unref();
+            record_timer(FINISH_NVMTABLE_COMPACTION);
             
+            record_timer(TOTAL_NVMTABLE_COMPACTION);
             exceedThresh = nvmtbl_->CheckAndAddToCompactionList(
                                 to_compaction_list_,
                                 options_.chunk_index_size, 
@@ -1819,6 +1867,7 @@ Status DBImpl::WriteNVMTableToLevel0(chunkTable* cktbl,
     WritableFile* file;
     int sst_num = 0;
 
+    start_timer(TOTAL_WRITE_NVMTABLE_TO_LEVEL0);
     Iterator* iter = cktbl->NewIterator();
     iter->SeekToFirst();
     //DEBUG_T("test valid\n");
@@ -1888,6 +1937,7 @@ Status DBImpl::WriteNVMTableToLevel0(chunkTable* cktbl,
         s = Status::IOError("Deleting DB during Compactnvmtable.....\n");
     }
     delete iter;
+    record_timer(TOTAL_WRITE_NVMTABLE_TO_LEVEL0);
     
     return s;
 }

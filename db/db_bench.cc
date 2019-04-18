@@ -784,6 +784,9 @@ class Benchmark {
       if (method != nullptr) {
         RunBenchmark(num_threads, name, method);
       }
+      ////////////meggie
+      db_->PrintTimerAudit();
+      ////////////meggie
     }
   }
 

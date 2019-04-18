@@ -17,6 +17,7 @@
 #include "port/thread_annotations.h"
 //////////////////meggie
 #include <map>
+#include "util/timer.h"
 //////////////////meggie
 
 namespace leveldb {
@@ -146,6 +147,7 @@ class DBImpl : public DB {
   //////////////////meggie
   const std::string dbname_;
   const std::string dbname_nvm_;
+  Timer* timer;
   //////////////////meggie
   
 
@@ -256,6 +258,7 @@ class DBImpl : public DB {
 
   static void CompactNVMTable(void* args);
   void printChunkFileNumbers();
+  virtual void PrintTimerAudit();
   ////////////////////////meggie
 
   // No copying allowed
