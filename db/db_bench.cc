@@ -8,6 +8,13 @@
 #include <iostream>
 ///////////meggie
 #include <fstream>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <cstdlib>
+#include <iostream>
 ///////////meggie
 #include "leveldb/cache.h"
 #include "leveldb/db.h"
@@ -167,9 +174,35 @@ class RandomGenerator {
 class WorkloadGenerator{
  private:
   std::ifstream fin;
+  char* pos;
+  char* mapstart;
+  char* mapend;
+  size_t mapsize;
+  int fd;
  public:
   WorkloadGenerator(std::string fname):
-      fin(fname){}
+      fin(fname){
+    FILE* file = fopen(fname.c_str(), "rb");
+    if(file == nullptr){
+        fprintf(stderr, "file create failed\n");
+        exit(1);
+    }
+    fseek(file, 0, SEEK_END);
+    mapsize = ftell(file);
+    fclose(file);
+
+    fd = open(fname.c_str(), O_RDWR, 0664);
+    mapstart = (char *)mmap(NULL,  mapsize, PROT_READ|PROT_WRITE, 
+            MAP_SHARED, fd, 0);
+    mapend = mapstart + mapsize;
+    pos = mapstart;
+  }
+
+  ~WorkloadGenerator(){
+      munmap(mapstart, mapsize);
+      close(fd);
+  }
+
   bool isValid(std::string type){
     char mytype = type[0];
     if(mytype == 'i' ||
@@ -180,7 +213,56 @@ class WorkloadGenerator{
     else 
       return false;
   }
+  
+  bool isValid(char mytype){
+    if(mytype == 'i' ||
+        mytype == 'd' ||
+        mytype == 'r' ||
+        mytype == 's')
+      return true;
+    else 
+      return false;
+  }
+
+  std::string getData(){
+      char* start = pos;
+      while(*pos != '\r'){
+          pos++;
+      }
+      size_t length = pos - start;
+      char data[length + 1];
+      memcpy(data, start, length);
+      
+      data[length] = '\0';
+      while(*pos == '\r'||
+            *pos == '\n'){
+          pos++;
+      }
+      std::string result;
+      result = data;
+      return result;
+  }
+
   Status getRequest(char* type, std::string& key, 
+          std::string& value){
+    if(pos >= mapend)
+        return Status::IOError("it's the end\n");
+    *type = *(pos++);
+    while(*pos == '\r' ||
+          *pos == '\n'){
+        pos++;
+    }
+    
+    if(isValid(*type)){
+        key = getData();
+        value = getData();
+        return Status::OK();
+    }
+    else 
+        return Status::IOError("type is unvalid\n");
+  }
+
+  Status getRequest1(char* type, std::string& key, 
       std::string& value){
     std::string wtype;
     if(getline(fin, wtype) && isValid(wtype)){
@@ -204,9 +286,7 @@ class WorkloadGenerator{
       return Status::IOError("Already finished obtain request....");
   }
 };
-
 ////////////////////meggie 
-
 #if defined(__linux)
 static Slice TrimSpace(Slice s) {
   size_t start = 0;
