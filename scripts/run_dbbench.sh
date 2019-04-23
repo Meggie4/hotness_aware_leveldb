@@ -1,5 +1,6 @@
 #!/bin/bash
 #set -x
+cat /dev/null > $NOVELSMSRC/mylog.txt
 
 NUMTHREAD=1
 #BENCHMARKS="customedworkloadzip099write,customedworkloadzip080write,\
@@ -9,7 +10,7 @@ NUMTHREAD=1
 #customedworkloaduniformwritemid,customedworkloadzip099_4kwritemid,\
 #customedworkloadzip080_4kwritemid,customedworkloaduniform_4kwritemid"
 
-BENCHMARKS="customedworkloadzip099write"
+#BENCHMARKS="customedworkloadzip099write"
 #BENCHMARKS="customedworkloadzip080write"
 #BENCHMARKS="customedworkloaduniformwrite"
 #BENCHMARKS="customedworkloadzip099_4kwrite"
@@ -18,7 +19,7 @@ BENCHMARKS="customedworkloadzip099write"
 #BENCHMARKS="customedworkloadzip099writemid"
 #BENCHMARKS="customedworkloadzip080writemid"
 #BENCHMARKS="customedworkloaduniformwritemid"
-#BENCHMARKS="customedworkloadzip099_4kwritemid"
+BENCHMARKS="customedworkloadzip099_4kwritemid"
 #BENCHMARKS="customedworkloadzip080_4kwritemid"
 #BENCHMARKS="customedworkloaduniform_4kwritemid"
 

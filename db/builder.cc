@@ -43,6 +43,8 @@ Status BuildTable(const std::string& dbname,
   bool has_current_user_key = false;
   std::string current_user_key;
   SequenceNumber last_sequence_for_key = kMaxSequenceNumber;
+  int count = 0;
+  int drop_count = 0;
   ///////////////meggie
   std::string fname = TableFileName(dbname, meta->number);
   if (iter->Valid()) {
@@ -56,22 +58,24 @@ Status BuildTable(const std::string& dbname,
     for (; iter->Valid(); iter->Next()) {
       Slice key = iter->key();
       //////////meggie
+      count++;
       bool drop = false;
       if(hot_bf && nvmtbl){
           i++;
           Slice user_key(key.data(), key.size() - 8);
-          /*if(!has_current_user_key ||
+          if(!has_current_user_key ||
                   nvmtbl->GetComparator()->user_comparator()->Compare(user_key, 
                       Slice(current_user_key)) != 0){
               current_user_key.assign(user_key.data(), user_key.size());
               has_current_user_key = true;
               last_sequence_for_key = kMaxSequenceNumber;
           }
-          if(last_sequence_for_key < kMaxSequenceNumber)
+          if(last_sequence_for_key < kMaxSequenceNumber){
               drop = true;
+              drop_count++;
+          }
           
-          last_sequence_for_key =  DecodeFixed64(key.data() + key.size() - 8) >> 8;*/
-
+          last_sequence_for_key =  DecodeFixed64(key.data() + key.size() - 8) >> 8;
           if(!drop){ 
               if(hot_bf->CheckHot(user_key)){
                  //DEBUG_T("user_key:%s is hot\n", user_key.ToString().c_str());
@@ -84,28 +88,20 @@ Status BuildTable(const std::string& dbname,
                  ;//DEBUG_T("user_key:%s is in nvmtable\n", user_key.ToString().c_str());
               }
               //DEBUG_T("user_key:%s\n", user_key.ToString().c_str());
-              char* number = const_cast<char*>(user_key.ToString().c_str()) + 3;
-              //DEBUG_T("user_key number:%s\n", number);
-              //if(!hot_bf->CheckHot(user_key) && 
-                //    !nvmtbl->MaybeContains(user_key)){
-              if(atoi(number) % 3 == 0){  
+              if(!hot_bf->CheckHot(user_key) && 
+                   !nvmtbl->MaybeContains(user_key)){
                 if(first_entry){
                     meta->smallest.DecodeFrom(iter->key());
                     first_entry = false;
                 }
                 meta->largest.DecodeFrom(key);
                 builder->Add(key, iter->value());
-                DEBUG_T("after add to sstable\n");
-                if(atoi(number) == 259)
-                    DEBUG_T("259 has been added from memtable to sstable\n");
+                //DEBUG_T("after add to sstable\n");
                 sst_num++;
               }
               else{
                 DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
                 nvmtbl->Add(iter->GetNodeKey(), user_key);
-                DEBUG_T("after add to nvmtable\n");
-                if(atoi(number) == 259)
-                    DEBUG_T("259 has been added from memtable to nvmtable\n");
                 nvm_num++;
               }
           }
@@ -125,14 +121,10 @@ Status BuildTable(const std::string& dbname,
     }
 
     /////////////////meggie
-    //if(sst_num == 0){
-        nvmtbl->PrintInfo();
-        //DEBUG_T("i:%d, not_in_num:%d, hot_num:%d\n", i, not_in_num, hot_num);
-        /*DEBUG_T("after buildtable, req_num_of_bf:%lu,nvm_num:%d, sst_num:%d\n", 
-            hot_bf->GetReqNum(), nvm_num, sst_num);*/
-    //}
-    /////////////////meggie
-    
+    nvmtbl->PrintInfo();
+    //DEBUG_T("i:%d, not_in_num:%d, hot_num:%d\n", i, not_in_num, hot_num);
+    DEBUG_T("after buildtable, req_num_of_bf:%lu, count:%d, drop_count:%d, nvm_num:%d, sst_num:%d\n", hot_bf->GetReqNum(), count, drop_count, nvm_num, sst_num);
+    /////////////////meggie 
     
     // Finish and check for builder errors
     
@@ -171,7 +163,6 @@ Status BuildTable(const std::string& dbname,
       s = it->status();
       delete it;
     }
-    //DEBUG_T("finish build table\n");
   }
 
   // Check for input iterator errors

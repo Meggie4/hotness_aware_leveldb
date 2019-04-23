@@ -785,7 +785,7 @@ class Benchmark {
         RunBenchmark(num_threads, name, method);
       }
       ////////////meggie
-      db_->PrintTimerAudit();
+      //db_->PrintTimerAudit();
       ////////////meggie
     }
   }

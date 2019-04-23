@@ -1432,7 +1432,7 @@ Status DBImpl::Delete(const WriteOptions& options, const Slice& key) {
 void DBImpl::PrintTimerAudit(){
     printf("--------timer information--------\n");
     timer->DebugString();
-    //printf("%s\n", timer->DebugString().c_str());
+    printf("%s\n", timer->DebugString().c_str());
     printf("-----end timer information-------\n");
 }
 //////////////////meggie

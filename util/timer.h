@@ -105,23 +105,23 @@ public:
 	std::string DebugString() {
 		std::string result;
         /////打印出所有步骤总共消耗的时间，总共经历的次数，以及额外数据
-        printf("begin:%d, end:%d\n", BEGIN, END);
+        //printf("begin:%d, end:%d\n", BEGIN, END);
 		for (int i = BEGIN; i < END; i++) {
-            printf("\nmessage:%d, ", i);
+            //printf("\nmessage:%d, ", i);
 			if (timer_count[i] > 0) {
-                printf("print timer_micros, ");
+                //printf("print timer_micros, ");
 				result.append(message[i])
 						.append(": timer_micros: ");
 				AppendNumberTo(&result, timer_micros[i]);
-                printf("print timer_count, ");
+                //printf("print timer_count, ");
 				result.append(" timer_count: ");
 				AppendNumberTo(&result, timer_count[i]);
-                printf("print timer_count_additional");
+                //printf("print timer_count_additional");
 				result.append(" timer_count_additional: ");
 				AppendNumberTo(&result, timer_count_additional[i]);
 				result.append("\n");
 			}
-            printf(",end");
+            //printf(",end");
 		}
         //返回相应的步骤信息
 		return result;
