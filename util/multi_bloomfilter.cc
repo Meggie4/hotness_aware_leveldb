@@ -178,6 +178,8 @@ namespace leveldb{
     }
 
     bool MultiHotBloomFilter::CheckHot(const Slice& user_key){
+        //DEBUG_T("user_key:%s,CountWeight:%f\n", user_key.ToString().c_str(),
+          //      CountWeight(user_key));
         if(CountWeight(user_key) >= hot_thresh_)
              return true;
         else 

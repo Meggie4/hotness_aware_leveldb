@@ -756,6 +756,10 @@ class Benchmark {
         entries_per_batch_ = 1000;
         fresh_db = true;
         method = &Benchmark::CustomedWorkloadZip080_4KWriteMid;
+      } else if(name == Slice("customedworkloadzip050_4kwritemid")) {
+        entries_per_batch_ = 1000;
+        fresh_db = true;
+        method = &Benchmark::CustomedWorkloadZip050_4KWriteMid;
       } else if(name == Slice("customedworkloaduniform_4kwritemid")) {
         entries_per_batch_ = 1000;
         fresh_db = true;
@@ -1281,6 +1285,11 @@ class Benchmark {
 
   void CustomedWorkloadZip080_4KWriteMid(ThreadState* thread){
       std::string fname = "/home/meggie/文档/workloads/workload080/runwrite4k_500k.txt"; 
+      CustomedWorkloadWrite(thread, fname);
+  }
+
+  void CustomedWorkloadZip050_4KWriteMid(ThreadState* thread){
+      std::string fname = "/mnt/workloads/workload050/runwrite4k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 

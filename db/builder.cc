@@ -17,8 +17,7 @@
 #include "leveldb/iterator.h"
 
 namespace leveldb {
-
-
+    
 Status BuildTable(const std::string& dbname,
                   Env* env,
                   const Options& options,
@@ -26,6 +25,7 @@ Status BuildTable(const std::string& dbname,
                   Iterator* iter,
                   FileMetaData* meta, 
                   ////////////meggie
+                  std::map<std::string, uint32_t>& hotkeys,
                   NVMTable* nvmtbl,
                   MultiHotBloomFilter* hot_bf
                   ////////////meggie
@@ -45,6 +45,7 @@ Status BuildTable(const std::string& dbname,
   SequenceNumber last_sequence_for_key = kMaxSequenceNumber;
   int count = 0;
   int drop_count = 0;
+  DEBUG_T("hotkeys.size:%lu\n", hotkeys.size());
   ///////////////meggie
   std::string fname = TableFileName(dbname, meta->number);
   if (iter->Valid()) {
@@ -77,19 +78,14 @@ Status BuildTable(const std::string& dbname,
           
           last_sequence_for_key =  DecodeFixed64(key.data() + key.size() - 8) >> 8;
           if(!drop){ 
-              if(hot_bf->CheckHot(user_key)){
-                 //DEBUG_T("user_key:%s is hot\n", user_key.ToString().c_str());
-                 hot_num++;
+              //if(hot_bf->CheckHot(user_key)){ 
+              if(hotkeys.find(user_key.ToString()) != hotkeys.end()){
+                DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
+                nvmtbl->Add(iter->GetNodeKey(), user_key);
+                hotkeys.erase(user_key.ToString());
+                nvm_num++;
               }
-              if(!nvmtbl->MaybeContains(user_key)){
-                  not_in_num++;
-              }
-              else{
-                 ;//DEBUG_T("user_key:%s is in nvmtable\n", user_key.ToString().c_str());
-              }
-              //DEBUG_T("user_key:%s\n", user_key.ToString().c_str());
-              if(hot_bf->CheckHot(user_key) || 
-                   nvmtbl->MaybeContains(user_key)){
+              else if(nvmtbl->MaybeContains(user_key)){
                 DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
                 nvmtbl->Add(iter->GetNodeKey(), user_key);
                 nvm_num++;
@@ -121,8 +117,8 @@ Status BuildTable(const std::string& dbname,
     }
 
     /////////////////meggie
+    //assert(hotkeys.empty());
     nvmtbl->PrintInfo();
-    //DEBUG_T("i:%d, not_in_num:%d, hot_num:%d\n", i, not_in_num, hot_num);
     DEBUG_T("after buildtable, req_num_of_bf:%lu, count:%d, drop_count:%d, nvm_num:%d, sst_num:%d\n", hot_bf->GetReqNum(), count, drop_count, nvm_num, sst_num);
     /////////////////meggie 
     

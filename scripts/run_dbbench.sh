@@ -26,8 +26,9 @@ NUMTHREAD=1
 #BENCHMARKS="customedworkloadzip099writemid"
 #BENCHMARKS="customedworkloadzip080writemid"
 #BENCHMARKS="customedworkloaduniformwritemid"
-BENCHMARKS="customedworkloadzip099_4kwritemid"
+#BENCHMARKS="customedworkloadzip099_4kwritemid"
 #BENCHMARKS="customedworkloadzip080_4kwritemid"
+BENCHMARKS="customedworkloadzip050_4kwritemid"
 #BENCHMARKS="customedworkloaduniform_4kwritemid"
 
 #NoveLSM specific parameters

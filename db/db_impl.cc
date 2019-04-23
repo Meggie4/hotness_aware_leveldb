@@ -684,8 +684,9 @@ Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
     mutex_.Unlock();
     /////////////meggie
     start_timer(BUILD_LEVEL0_TABLES);
+    std::map<std::string, uint32_t> hotkeys = mem->SelectHotKeysWithMean();
     s = BuildTable(dbname_, env_, options_, table_cache_, 
-            iter, &meta, nvmtbl_, hot_bf_);
+            iter, &meta, hotkeys, nvmtbl_, hot_bf_);
     record_timer(BUILD_LEVEL0_TABLES);
     start_timer(GET_LOCK_AFTER_BUILD_LEVEL0_TABLES);
     /////////////meggie

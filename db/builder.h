@@ -6,6 +6,10 @@
 #define STORAGE_LEVELDB_DB_BUILDER_H_
 
 #include "leveldb/status.h"
+////////////meggie
+#include <string>
+#include <map>
+////////////meggie
 
 namespace leveldb {
 
@@ -34,6 +38,7 @@ Status BuildTable(const std::string& dbname,
                   Iterator* iter,
                   FileMetaData* meta,
                   ///////////////meggie
+                  std::map<std::string, uint32_t>& hotkeys,
                   NVMTable* nvmtbl = NULL,
                   MultiHotBloomFilter* hot_bf = NULL
                   ///////////////meggie

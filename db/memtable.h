@@ -10,6 +10,10 @@
 #include "db/dbformat.h"
 #include "db/skiplist.h"
 #include "util/arena.h"
+/////////////meggie
+#include <string>
+#include <map>
+/////////////meggie
 
 namespace leveldb {
 
@@ -58,6 +62,11 @@ class MemTable {
   // in *status and return true.
   // Else, return false.
   bool Get(const LookupKey& key, std::string* value, Status* s);
+ 
+  /////////////////meggie 
+  std::map<std::string, uint32_t> SelectHotKeysWithMean();
+  uint64_t NumEntries(){return num_entries;}
+  /////////////////meggie
 
  private:
   ~MemTable();  // Private since only Unref() should be used to delete it
@@ -76,6 +85,11 @@ class MemTable {
   int refs_;
   Arena arena_;
   Table table_;
+
+  //////////////meggie
+  std::map<std::string, uint32_t> KeyFrequencies;
+  uint64_t num_entries;
+  //////////////meggie
 
   // No copying allowed
   MemTable(const MemTable&);

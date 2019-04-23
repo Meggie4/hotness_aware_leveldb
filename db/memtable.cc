@@ -8,6 +8,9 @@
 #include "leveldb/env.h"
 #include "leveldb/iterator.h"
 #include "util/coding.h"
+///////////meggie
+#include "util/debug.h"
+///////////meggie
 
 namespace leveldb {
 
@@ -21,6 +24,9 @@ static Slice GetLengthPrefixedSlice(const char* data) {
 MemTable::MemTable(const InternalKeyComparator& cmp)
     : comparator_(cmp),
       refs_(0),
+      ///////////meggie
+      num_entries(0),
+      ///////////meggie
       table_(comparator_, &arena_) {
 }
 
@@ -106,6 +112,10 @@ void MemTable::Add(SequenceNumber s, ValueType type,
   memcpy(p, value.data(), val_size);
   assert(p + val_size == buf + encoded_len);
   table_.Insert(buf);
+  ///////////meggie
+  KeyFrequencies[key.ToString()]++;
+  num_entries++;
+  ///////////meggie
 }
 
 bool MemTable::Get(const LookupKey& key, std::string* value, Status* s) {
@@ -144,5 +154,30 @@ bool MemTable::Get(const LookupKey& key, std::string* value, Status* s) {
   }
   return false;
 }
+/////////////meggie
+std::map<std::string, uint32_t> MemTable::SelectHotKeysWithMean(){
+  std::map<std::string, uint32_t> res;
+  uint64_t mean_update_frequency = 0;
+  uint64_t sum_update_frequency = 0; 
+  uint64_t hot_entries_count = 0;
+  uint64_t hot_keys_thresh = NumEntries() * 10 / 100;
+  for(std::map<std::string, uint32_t>::const_iterator it = KeyFrequencies.begin(); it != KeyFrequencies.end(); ++it){
+    sum_update_frequency += it->second;
+  }
+  mean_update_frequency = sum_update_frequency / KeyFrequencies.size();
+  //DEBUG_T("mean_update_frequency:%lu\n", mean_update_frequency);
+  for(std::map<std::string, uint32_t>::const_iterator it = KeyFrequencies.begin(); it != KeyFrequencies.end(); ++it){
+    if (hot_entries_count == hot_keys_thresh){
+      break;
+    }
+    if(it->second >= mean_update_frequency){
+      res[it->first] = it->second;
+      hot_entries_count++;
+    }
+  }
+  //DEBUG_T("hot_keys_nums:%d\n", res.size());
+  return res;
+}
+/////////////meggie
 
 }  // namespace leveldb
