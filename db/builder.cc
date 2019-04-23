@@ -88,8 +88,13 @@ Status BuildTable(const std::string& dbname,
                  ;//DEBUG_T("user_key:%s is in nvmtable\n", user_key.ToString().c_str());
               }
               //DEBUG_T("user_key:%s\n", user_key.ToString().c_str());
-              if(!hot_bf->CheckHot(user_key) && 
-                   !nvmtbl->MaybeContains(user_key)){
+              if(hot_bf->CheckHot(user_key) || 
+                   nvmtbl->MaybeContains(user_key)){
+                DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
+                nvmtbl->Add(iter->GetNodeKey(), user_key);
+                nvm_num++;
+              }
+              else{
                 if(first_entry){
                     meta->smallest.DecodeFrom(iter->key());
                     first_entry = false;
@@ -98,11 +103,6 @@ Status BuildTable(const std::string& dbname,
                 builder->Add(key, iter->value());
                 //DEBUG_T("after add to sstable\n");
                 sst_num++;
-              }
-              else{
-                DEBUG_T("add to nvmtable, user_key:%s\n", user_key.ToString().c_str());
-                nvmtbl->Add(iter->GetNodeKey(), user_key);
-                nvm_num++;
               }
           }
           else 

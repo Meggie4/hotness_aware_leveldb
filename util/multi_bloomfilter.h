@@ -38,8 +38,8 @@ namespace leveldb{
     class MultiHotBloomFilter{
         public:
             MultiHotBloomFilter(int bf_num = 4, double max_weight = 2, 
-                    double hot_thresh = 4, int decay_window = 512, 
-                    int hash_num = 2, int bit_size_per_bf = 2048);
+                    double hot_thresh = 4, int decay_window = 9216, 
+                    int hash_num = 2, int bit_size_per_bf = 36864);
             ~MultiHotBloomFilter();
             void AddKey(const Slice& user_key);
             bool CheckHot(const Slice& user_key);

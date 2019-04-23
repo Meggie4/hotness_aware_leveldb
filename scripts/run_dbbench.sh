@@ -3,12 +3,19 @@
 cat /dev/null > $NOVELSMSRC/mylog.txt
 
 NUMTHREAD=1
-#BENCHMARKS="customedworkloadzip099write,customedworkloadzip080write,\
-#customedworkloaduniformwrite,customedworkloadzip099_4kwrite,\
-#customedworkloadzip080_4kwrite,customedworkloaduniform_4kwrite,\
-#customedworkloadzip099writemid,customedworkloadzip080writemid,\
-#customedworkloaduniformwritemid,customedworkloadzip099_4kwritemid,\
-#customedworkloadzip080_4kwritemid,customedworkloaduniform_4kwritemid"
+#BENCHMARKS="
+#customedworkloadzip099write,\
+#customedworkloadzip080write,\
+#customedworkloaduniformwrite,\
+#customedworkloadzip099_4kwrite,\
+#customedworkloadzip080_4kwrite,
+#customedworkloaduniform_4kwrite,\
+#customedworkloadzip099writemid,\
+#customedworkloadzip080writemid,\
+#customedworkloaduniformwritemid,\
+#customedworkloadzip099_4kwritemid,\
+#customedworkloadzip080_4kwritemid,\
+#customedworkloaduniform_4kwritemid"
 
 #BENCHMARKS="customedworkloadzip099write"
 #BENCHMARKS="customedworkloadzip080write"
