@@ -57,6 +57,7 @@ class chunkTable{
                 delete this;
             }
         }
+        /*
         void* operator new(std::size_t sz){
             return malloc(sz);
         }
@@ -65,7 +66,7 @@ class chunkTable{
         }
         void* operator new[](std::size_t sz){
             return malloc(sz);
-        }
+        }*/
         ////(TODO)move to private, to debug
         //chunkLog* cklog_;
         //typedef NVMSkipList<const char*, KeyComparator> Table;

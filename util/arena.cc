@@ -191,7 +191,7 @@ void ArenaNVM::operator delete(void* ptr)
 #ifdef _USE_ARENA2_ALLOC
     xxfree(ptr);
 #else
-    delete[] (char*)ptr;
+    free(ptr);
 #endif
     ptr = NULL;
 }

@@ -1,0 +1,211 @@
+==32676== Memcheck, a memory error detector
+==32676== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==32676== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==32676== Command: /home/meggie/文档/hotness_aware_leveldb/build/db_bench --threads=1 --benchmarks=customed99hot1k_500k --write_buffer_size=32 --nvm_index_size=14 --nvm_log_size=56
+==32676== Parent PID: 24569
+==32676== 
+--32676-- 
+--32676-- Valgrind options:
+--32676--    --verbose
+--32676--    --log-file=valgrind
+--32676--    --leak-check=full
+--32676--    --show-leak-kinds=all
+--32676-- Contents of /proc/version:
+--32676--   Linux version 4.17.19 (root@meggie-All-Series) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4)) #1 SMP Fri Apr 12 16:50:45 CST 2019
+--32676-- 
+--32676-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--32676-- Page sizes: currently 4096, max supported 4096
+--32676-- Valgrind library directory: /usr/lib/valgrind
+--32676-- Reading syms from /home/meggie/文档/hotness_aware_leveldb/build/db_bench
+--32676-- Reading syms from /lib/x86_64-linux-gnu/ld-2.23.so
+--32676--   Considering /lib/x86_64-linux-gnu/ld-2.23.so ..
+--32676--   .. CRC mismatch (computed aa979a42 wanted 9019bbb7)
+--32676--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so ..
+--32676--   .. CRC is valid
+--32676-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--32676--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--32676--   .. CRC mismatch (computed eea41ea9 wanted 2009db78)
+--32676--    object doesn't have a symbol table
+--32676--    object doesn't have a dynamic symbol table
+--32676-- Scheduler: using generic scheduler lock implementation.
+--32676-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==32676== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-32676-by-root-on-???
+==32676== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-32676-by-root-on-???
+==32676== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-32676-by-root-on-???
+==32676== 
+==32676== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==32676== don't want to do, unless you know exactly what you're doing,
+==32676== or are doing some strange experiment):
+==32676==   /usr/lib/valgrind/../../bin/vgdb --pid=32676 ...command...
+==32676== 
+==32676== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==32676==   /path/to/gdb /home/meggie/文档/hotness_aware_leveldb/build/db_bench
+==32676== and then give GDB the following command
+==32676==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=32676
+==32676== --pid is optional if only one valgrind process is running
+==32676== 
+--32676-- REDIR: 0x401cfd0 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809e181 (???)
+--32676-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--32676--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--32676--   .. CRC mismatch (computed 2567ccf6 wanted 49420590)
+--32676--    object doesn't have a symbol table
+--32676-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--32676--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--32676--   .. CRC mismatch (computed 0e27c9a8 wanted ac585421)
+--32676--    object doesn't have a symbol table
+==32676== WARNING: new redirection conflicts with existing -- ignoring it
+--32676--     old: 0x0401cfd0 (strlen              ) R-> (0000.0) 0x3809e181 ???
+--32676--     new: 0x0401cfd0 (strlen              ) R-> (2007.0) 0x04c31020 strlen
+--32676-- REDIR: 0x401b920 (ld-linux-x86-64.so.2:index) redirected to 0x4c30bc0 (index)
+--32676-- REDIR: 0x401bb40 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c320d0 (strcmp)
+--32676-- REDIR: 0x401dd30 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35270 (mempcpy)
+--32676-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.23.so
+--32676--   Considering /usr/lib/debug/.build-id/ce/17e023542265fc11d9bc8f534bb4f070493d30.debug ..
+--32676--   .. build-id is valid
+--32676-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21
+--32676--   Considering /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21 ..
+--32676--   .. CRC mismatch (computed b2e7dc97 wanted c9833bdf)
+--32676--    object doesn't have a symbol table
+--32676-- Reading syms from /lib/x86_64-linux-gnu/libm-2.23.so
+--32676--   Considering /lib/x86_64-linux-gnu/libm-2.23.so ..
+--32676--   .. CRC mismatch (computed e8c3647b wanted c3efddac)
+--32676--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.23.so ..
+--32676--   .. CRC is valid
+--32676-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1
+--32676--   Considering /lib/x86_64-linux-gnu/libgcc_s.so.1 ..
+--32676--   .. CRC mismatch (computed b9a68419 wanted 29d51b00)
+--32676--    object doesn't have a symbol table
+--32676-- Reading syms from /lib/x86_64-linux-gnu/libc-2.23.so
+--32676--   Considering /lib/x86_64-linux-gnu/libc-2.23.so ..
+--32676--   .. CRC mismatch (computed 7a8ee3e4 wanted a5190ac4)
+--32676--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.23.so ..
+--32676--   .. CRC is valid
+--32676-- REDIR: 0x5987a00 (libc.so.6:strcasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5983280 (libc.so.6:strcspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5989cf0 (libc.so.6:strncasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x59856f0 (libc.so.6:strpbrk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5985a80 (libc.so.6:strspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x598714b (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5985400 (libc.so.6:rindex) redirected to 0x4c308a0 (rindex)
+--32676-- REDIR: 0x597c130 (libc.so.6:malloc) redirected to 0x4c2db20 (malloc)
+--32676-- REDIR: 0x5983720 (libc.so.6:strlen) redirected to 0x4c30f60 (strlen)
+--32676-- REDIR: 0x5986bf0 (libc.so.6:__GI_memcmp) redirected to 0x4c33b90 (__GI_memcmp)
+--32676-- REDIR: 0x5981cd0 (libc.so.6:strcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5997570 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x4c31f90 (strcmp)
+--32676-- REDIR: 0x50e4e60 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4c2e080 (operator new(unsigned long))
+--32676-- REDIR: 0x50e2f10 (libstdc++.so.6:operator delete(void*)) redirected to 0x4c2f1e0 (operator delete(void*))
+--32676-- REDIR: 0x598e550 (libc.so.6:rawmemchr) redirected to 0x4c34dd0 (rawmemchr)
+--32676-- REDIR: 0x5986bb0 (libc.so.6:bcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5a66430 (libc.so.6:__memcmp_sse4_1) redirected to 0x4c33cd0 (__memcmp_sse4_1)
+--32676-- REDIR: 0x5983b70 (libc.so.6:__GI_strncmp) redirected to 0x4c31710 (__GI_strncmp)
+--32676-- REDIR: 0x598c3f0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5a45ea0 (libc.so.6:__memcpy_avx_unaligned) redirected to 0x4c324a0 (memcpy@@GLIBC_2.14)
+--32676-- REDIR: 0x598c470 (libc.so.6:__GI_memcpy) redirected to 0x4c32b00 (__GI_memcpy)
+--32676-- REDIR: 0x5987890 (libc.so.6:__GI_stpcpy) redirected to 0x4c33f80 (__GI_stpcpy)
+--32676-- REDIR: 0x59873b0 (libc.so.6:__GI_mempcpy) redirected to 0x4c34fa0 (__GI_mempcpy)
+--32676-- REDIR: 0x50e4f10 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x4c2e7a0 (operator new[](unsigned long))
+--32676-- REDIR: 0x50e2f40 (libstdc++.so.6:operator delete[](void*)) redirected to 0x4c2f6e0 (operator delete[](void*))
+--32676-- REDIR: 0x5986ff0 (libc.so.6:__GI_memmove) redirected to 0x4c347e0 (__GI_memmove)
+--32676-- REDIR: 0x597c4f0 (libc.so.6:free) redirected to 0x4c2ed80 (free)
+--32676-- REDIR: 0x59871b0 (libc.so.6:memset) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5a6a970 (libc.so.6:__memset_avx2) redirected to 0x4c344c0 (memset)
+--32676-- REDIR: 0x598e760 (libc.so.6:strchrnul) redirected to 0x4c34da0 (strchrnul)
+--32676-- REDIR: 0x5986060 (libc.so.6:__GI_strstr) redirected to 0x4c354d0 (__strstr_sse2)
+--32676-- REDIR: 0x59838c0 (libc.so.6:strnlen) redirected to 0x4c30ee0 (strnlen)
+--32676-- REDIR: 0x5986860 (libc.so.6:memchr) redirected to 0x4c32170 (memchr)
+--32676-- REDIR: 0x5981a80 (libc.so.6:index) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--32676-- REDIR: 0x5981ab0 (libc.so.6:__GI_strchr) redirected to 0x4c30a00 (__GI_strchr)
+--32676-- REDIR: 0x597cd10 (libc.so.6:calloc) redirected to 0x4c2faa0 (calloc)
+--32676-- REDIR: 0x5a459b0 (libc.so.6:__memmove_avx_unaligned) redirected to 0x4c32230 (memcpy@GLIBC_2.2.5)
+==32676== Warning: set address range perms: large range [0x709d9000, 0x8f4ef000) (defined)
+==32676== Warning: set address range perms: large range [0x709d9000, 0x8f4ef000) (noaccess)
+==32676== 
+==32676== HEAP SUMMARY:
+==32676==     in use at exit: 73,624 bytes in 5 blocks
+==32676==   total heap usage: 3,332,371 allocs, 3,332,366 frees, 3,097,056,389 bytes allocated
+==32676== 
+==32676== Searching for pointers to 5 not-freed blocks
+==32676== Checked 1,686,239,144 bytes
+==32676== 
+==32676== 56 bytes in 1 blocks are still reachable in loss record 1 of 5
+==32676==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32676==    by 0x45E669: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45E41C: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45E16F: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, (__gnu_cxx::_Lock_policy)2> >&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45DF1E: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >(std::_Sp_make_shared_tag, std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >*, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > const&, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)>&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45DD5D: std::__shared_ptr<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >(std::_Sp_make_shared_tag, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > const&, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)>&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45D8C5: std::shared_ptr<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >::shared_ptr<std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >(std::_Sp_make_shared_tag, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > const&, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)>&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45D573: std::shared_ptr<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > std::allocate_shared<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > >, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >(std::allocator<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > const&, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)>&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45CF2F: std::shared_ptr<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > std::make_shared<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >, std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >(std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)>&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45C752: std::shared_ptr<std::thread::_Impl<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> > > std::thread::_M_make_routine<std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)> >(std::_Bind_simple<void (*(leveldb::(anonymous namespace)::PosixEnv*))(leveldb::(anonymous namespace)::PosixEnv*)>&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45C0F6: std::thread::thread<void (&)(leveldb::(anonymous namespace)::PosixEnv*), leveldb::(anonymous namespace)::PosixEnv*>(void (&)(leveldb::(anonymous namespace)::PosixEnv*), leveldb::(anonymous namespace)::PosixEnv*&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BC99: leveldb::(anonymous namespace)::PosixEnv::Schedule(void (*)(void*), void*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676== 
+==32676== 64 bytes in 1 blocks are still reachable in loss record 2 of 5
+==32676==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32676==    by 0x45DB9D: __gnu_cxx::new_allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem*>::allocate(unsigned long, void const*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45D77E: std::allocator_traits<std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem*> >::allocate(std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem*>&, unsigned long) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45D337: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_M_allocate_map(unsigned long) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45CBF9: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_M_initialize_map(unsigned long) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45C46D: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_Deque_base() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BFE3: std::deque<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::deque() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BB6C: leveldb::(anonymous namespace)::PosixEnv::PosixEnv() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45C293: leveldb::(anonymous namespace)::SingletonEnv<leveldb::(anonymous namespace)::PosixEnv>::SingletonEnv() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BF03: leveldb::Env::Default() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45752F: leveldb::Options::Options() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x40AF14: main (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676== 
+==32676== 288 bytes in 1 blocks are possibly lost in loss record 3 of 5
+==32676==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32676==    by 0x40138A4: allocate_dtv (dl-tls.c:322)
+==32676==    by 0x40138A4: _dl_allocate_tls (dl-tls.c:539)
+==32676==    by 0x4E4226E: allocate_stack (allocatestack.c:588)
+==32676==    by 0x4E4226E: pthread_create@@GLIBC_2.2.5 (pthread_create.c:539)
+==32676==    by 0x510FDC2: std::thread::_M_start_thread(std::shared_ptr<std::thread::_Impl_base>, void (*)()) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==32676==    by 0x45C121: std::thread::thread<void (&)(leveldb::(anonymous namespace)::PosixEnv*), leveldb::(anonymous namespace)::PosixEnv*>(void (&)(leveldb::(anonymous namespace)::PosixEnv*), leveldb::(anonymous namespace)::PosixEnv*&&) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BC99: leveldb::(anonymous namespace)::PosixEnv::Schedule(void (*)(void*), void*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x41380E: leveldb::DBImpl::MaybeScheduleCompaction() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x4170AC: leveldb::DBImpl::MakeRoomForWrite(bool) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x4165CA: leveldb::DBImpl::Write(leveldb::WriteOptions const&, leveldb::WriteBatch*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x40AC36: leveldb::Benchmark::CustomedWorkloadWrite(leveldb::(anonymous namespace)::ThreadState*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x40A538: leveldb::Benchmark::Customed99hot1k_500k(leveldb::(anonymous namespace)::ThreadState*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x40E3AC: leveldb::Benchmark::ThreadBody(void*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676== 
+==32676== 512 bytes in 1 blocks are still reachable in loss record 4 of 5
+==32676==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32676==    by 0x45DE8B: __gnu_cxx::new_allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem>::allocate(unsigned long, void const*) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45DB1C: std::allocator_traits<std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::allocate(std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem>&, unsigned long) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45D687: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_M_allocate_node() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45D3B4: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_M_create_nodes(leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem**, leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem**) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45CC52: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_M_initialize_map(unsigned long) (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45C46D: std::_Deque_base<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::_Deque_base() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BFE3: std::deque<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem, std::allocator<leveldb::(anonymous namespace)::PosixEnv::BackgroundWorkItem> >::deque() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BB6C: leveldb::(anonymous namespace)::PosixEnv::PosixEnv() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45C293: leveldb::(anonymous namespace)::SingletonEnv<leveldb::(anonymous namespace)::PosixEnv>::SingletonEnv() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45BF03: leveldb::Env::Default() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676==    by 0x45752F: leveldb::Options::Options() (in /home/meggie/文档/hotness_aware_leveldb/build/db_bench)
+==32676== 
+==32676== 72,704 bytes in 1 blocks are still reachable in loss record 5 of 5
+==32676==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32676==    by 0x50E0EFF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==32676==    by 0x40106B9: call_init.part.0 (dl-init.c:72)
+==32676==    by 0x40107CA: call_init (dl-init.c:30)
+==32676==    by 0x40107CA: _dl_init (dl-init.c:120)
+==32676==    by 0x4000C69: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+==32676==    by 0x5: ???
+==32676==    by 0xFFF0005E6: ???
+==32676==    by 0xFFF00061F: ???
+==32676==    by 0xFFF00062B: ???
+==32676==    by 0xFFF00064D: ???
+==32676==    by 0xFFF000664: ???
+==32676==    by 0xFFF000678: ???
+==32676== 
+==32676== LEAK SUMMARY:
+==32676==    definitely lost: 0 bytes in 0 blocks
+==32676==    indirectly lost: 0 bytes in 0 blocks
+==32676==      possibly lost: 288 bytes in 1 blocks
+==32676==    still reachable: 73,336 bytes in 4 blocks
+==32676==         suppressed: 0 bytes in 0 blocks
+==32676== 
+==32676== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==32676== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
