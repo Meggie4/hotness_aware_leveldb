@@ -1138,12 +1138,12 @@ class Benchmark {
   }
  
   void Customed80hot1k_100k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/hot20_80/runwrite1k_100K.txt"; 
+      std::string fname = "/mnt/workloads/hot20_80/runwrite1k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadUniform1k_100k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/workloaduniform/runwrite1k_100K.txt"; 
+      std::string fname = "/mnt/workloads/workloaduniform/runwrite1k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
@@ -1154,12 +1154,12 @@ class Benchmark {
   }
  
   void Customed80hot4k_100k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/hot20_80/runwrite4k_100K.txt"; 
+      std::string fname = "/mnt/workloads/hot20_80/runwrite4k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadUniform4k_100k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/workloaduniform/runwrite4k_100K.txt"; 
+      std::string fname = "/mnt/workloads/workloaduniform/runwrite4k_100k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
@@ -1172,12 +1172,12 @@ class Benchmark {
   }
  
   void Customed80hot1k_500k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/hot20_80/runwrite1k_500K.txt"; 
+      std::string fname = "/mnt/workloads/hot20_80/runwrite1k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadUniform1k_500k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/workloaduniform/runwrite1k_500K.txt"; 
+      std::string fname = "/mnt/workloads/workloaduniform/runwrite1k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
@@ -1188,12 +1188,12 @@ class Benchmark {
   }
  
   void Customed80hot4k_500k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/hot20_80/runwrite4k_500K.txt"; 
+      std::string fname = "/mnt/workloads/hot20_80/runwrite4k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
 
   void CustomedWorkloadUniform4k_500k(ThreadState* thread){
-      std::string fname = "/mnt/workloads/workloaduniform/runwrite4k_500K.txt"; 
+      std::string fname = "/mnt/workloads/workloaduniform/runwrite4k_500k.txt"; 
       CustomedWorkloadWrite(thread, fname);
   }
  
